@@ -163,18 +163,18 @@
     <dimen name="grid_columns">4</dimen>
 
     <!-- ===== HERO SECTION ===== -->
-    <dimen name="hero_height">520dp</dimen>
-    <dimen name="hero_height_compact">400dp</dimen>
-    <dimen name="hero_title_max_width">900dp</dimen>
+    <dimen name="hero_height">180dp</dimen>
+    <dimen name="hero_height_compact">150dp</dimen>
+    <dimen name="hero_title_max_width">720dp</dimen>
     <dimen name="hero_padding_start">@dimen/space_8</dimen>
     <dimen name="hero_padding_end">@dimen/space_8</dimen>
-    <dimen name="hero_padding_bottom">@dimen/space_10</dimen>
+    <dimen name="hero_padding_bottom">@dimen/space_6</dimen>
 
     <!-- ===== CONTENT CARDS ===== -->
-    <dimen name="content_card_width">200dp</dimen>
-    <dimen name="content_card_height">300dp</dimen>
-    <dimen name="content_card_width_landscape">320dp</dimen>
-    <dimen name="content_card_height_landscape">180dp</dimen>
+    <dimen name="content_card_width">180dp</dimen>
+    <dimen name="content_card_height">110dp</dimen>
+    <dimen name="content_card_width_landscape">200dp</dimen>
+    <dimen name="content_card_height_landscape">120dp</dimen>
     <dimen name="content_card_focus_scale">1.12</dimen>
     <dimen name="content_card_focus_lift">8dp</dimen>
     <dimen name="content_row_spacing">@dimen/space_4</dimen>

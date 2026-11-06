@@ -1,38 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Sample content data for cinematic content rows -->
 <resources>
-    <!-- Featured Movies -->
-    <string-array name="featured_movie_titles">
+    <!-- 1. Continue Watching -->
+    <string-array name="continue_watching_titles">
         <item>Dune: Part Two</item>
+        <item>Stranger Things</item>
+        <item>The Crown</item>
+        <item>Andor</item>
+        <item>Wednesday</item>
+    </string-array>
+
+    <string-array name="continue_watching_subtitles">
+        <item>Resume • 1h 14m left</item>
+        <item>S4:E7 • 28m left</item>
+        <item>S5:E3 • 42m left</item>
+        <item>S1:E8 • 15m left</item>
+        <item>S1:E5 • 31m left</item>
+    </string-array>
+
+    <array name="continue_watching_artwork">
+        <item>@drawable/saver_01</item>
+        <item>@drawable/saver_04</item>
+        <item>@drawable/saver_07</item>
+        <item>@drawable/saver_10</item>
+        <item>@drawable/saver_02</item>
+    </array>
+
+    <!-- 2. Recommended Movies -->
+    <string-array name="featured_movie_titles">
         <item>Oppenheimer</item>
         <item>The Batman</item>
         <item>Top Gun: Maverick</item>
         <item>Spider-Man: Across the Spider-Verse</item>
         <item>Mission: Impossible - Dead Reckoning</item>
+        <item>Interstellar</item>
     </string-array>
 
     <string-array name="featured_movie_subtitles">
-        <item>2024 • Sci-Fi • 2h 46m</item>
         <item>2023 • Biography • 3h 0m</item>
         <item>2022 • Action • 2h 56m</item>
         <item>2022 • Action • 2h 10m</item>
         <item>2023 • Animation • 2h 20m</item>
         <item>2023 • Action • 2h 43m</item>
+        <item>2014 • Sci-Fi • 2h 49m</item>
     </string-array>
 
     <array name="featured_movie_artwork">
-        <item>@drawable/saver_01</item>
         <item>@drawable/saver_02</item>
         <item>@drawable/saver_03</item>
-        <item>@drawable/saver_04</item>
         <item>@drawable/saver_05</item>
         <item>@drawable/saver_06</item>
+        <item>@drawable/saver_08</item>
+        <item>@drawable/saver_09</item>
     </array>
 
-    <!-- Featured TV Shows -->
+    <!-- 3. Popular TV Shows -->
     <string-array name="featured_tv_titles">
-        <item>The Last of Us</item>
         <item>Shogun</item>
+        <item>The Last of Us</item>
         <item>Fallout</item>
         <item>House of the Dragon</item>
         <item>Severance</item>
@@ -40,47 +65,76 @@
     </string-array>
 
     <string-array name="featured_tv_subtitles">
-        <item>2023 • Drama • 1 Season</item>
-        <item>2024 • Historical • 1 Season</item>
-        <item>2024 • Sci-Fi • 1 Season</item>
-        <item>2022 • Fantasy • 2 Seasons</item>
-        <item>2022 • Thriller • 2 Seasons</item>
-        <item>2022 • Comedy • 2 Seasons</item>
+        <item>2024 • Historical Drama • 1 Season</item>
+        <item>2023 • Post-Apocalyptic • 1 Season</item>
+        <item>2024 • Sci-Fi Adventure • 1 Season</item>
+        <item>2024 • Fantasy Drama • 2 Seasons</item>
+        <item>2022 • Sci-Fi Thriller • 1 Season</item>
+        <item>2023 • Comedy Drama • 2 Seasons</item>
     </string-array>
 
     <array name="featured_tv_artwork">
         <item>@drawable/saver_07</item>
         <item>@drawable/saver_08</item>
         <item>@drawable/saver_09</item>
-        <item>@drawable/saver_10</item>
         <item>@drawable/saver_11</item>
         <item>@drawable/saver_12</item>
+        <item>@drawable/saver_01</item>
     </array>
 
-    <!-- Continue Watching (sample) -->
-    <string-array name="continue_watching_titles">
-        <item>The Crown</item>
-        <item>Stranger Things</item>
-        <item>Wednesday</item>
-        <item>Andor</item>
+    <!-- 4. Action & Thriller -->
+    <string-array name="action_thriller_titles">
+        <item>John Wick: Chapter 4</item>
+        <item>Mad Max: Fury Road</item>
+        <item>Blade Runner 2049</item>
+        <item>The Dark Knight</item>
+        <item>Sicario</item>
     </string-array>
 
-    <string-array name="continue_watching_subtitles">
-        <item>Season 5 • Episode 3</item>
-        <item>Season 4 • Episode 7</item>
-        <item>Season 1 • Episode 5</item>
-        <item>Season 1 • Episode 8</item>
+    <string-array name="action_thriller_subtitles">
+        <item>2023 • Action • 2h 49m</item>
+        <item>2015 • Action • 2h 0m</item>
+        <item>2017 • Sci-Fi • 2h 44m</item>
+        <item>2008 • Action • 2h 32m</item>
+        <item>2015 • Crime Thriller • 2h 1m</item>
     </string-array>
 
-    <array name="continue_watching_artwork">
-        <item>@drawable/saver_01</item>
-        <item>@drawable/saver_02</item>
+    <array name="action_thriller_artwork">
         <item>@drawable/saver_03</item>
+        <item>@drawable/saver_06</item>
         <item>@drawable/saver_04</item>
+        <item>@drawable/saver_02</item>
+        <item>@drawable/saver_05</item>
+    </array>
+
+    <!-- 5. Recently Added -->
+    <string-array name="recently_added_titles">
+        <item>Poor Things</item>
+        <item>Civil War</item>
+        <item>The Zone of Interest</item>
+        <item>Anatomy of a Fall</item>
+        <item>Past Lives</item>
+    </string-array>
+
+    <string-array name="recently_added_subtitles">
+        <item>2023 • Comedy/Sci-Fi • 2h 21m</item>
+        <item>2024 • Action/Drama • 1h 49m</item>
+        <item>2023 • Historical Drama • 1h 45m</item>
+        <item>2023 • Mystery/Thriller • 2h 31m</item>
+        <item>2023 • Romance/Drama • 1h 45m</item>
+    </string-array>
+
+    <array name="recently_added_artwork">
+        <item>@drawable/saver_11</item>
+        <item>@drawable/saver_12</item>
+        <item>@drawable/saver_09</item>
+        <item>@drawable/saver_10</item>
+        <item>@drawable/saver_07</item>
     </array>
 
     <!-- Categories for app library -->
     <string-array name="app_categories">
+        <item>All</item>
         <item>Streaming</item>
         <item>Entertainment</item>
         <item>Music</item>
@@ -90,6 +144,7 @@
     </string-array>
 
     <array name="app_category_icons">
+        <item>@drawable/ic_system</item>
         <item>@drawable/ic_streaming</item>
         <item>@drawable/ic_entertainment</item>
         <item>@drawable/ic_music</item>
@@ -100,6 +155,6 @@
 
     <!-- Hero featured content -->
     <string name="hero_featured_title">Dune: Part Two</string>
-    <string name="hero_featured_subtitle">2024 • Sci-Fi/Adventure • 2h 46m</string>
+    <string name="hero_featured_subtitle">2024 • Sci-Fi / Adventure • 2h 46m</string>
     <string name="hero_featured_category">FEATURED</string>
 </resources>

@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true">
 
     <!-- ===== BACKGROUND LAYER ===== -->
-    <!-- Full-screen hero background artwork -->
+    <!-- Full-screen cinematic hero backdrop -->
     <ImageView
         android:id="@+id/heroBackground"
         android:layout_width="match_parent"
@@ -17,7 +17,15 @@
         android:importantForAccessibility="no"
         android:contentDescription="@null" />
 
-    <!-- Cinematic scrim gradient for text readability -->
+    <!-- Left side vignette for title & text legibility -->
+    <View
+        android:id="@+id/heroSideScrim"
+        android:layout_width="720dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/bg_hero_side_vignette" />
+
+    <!-- Vertical cinematic scrim for top bar and bottom content rows -->
     <View
         android:id="@+id/heroScrim"
         android:layout_width="match_parent"
@@ -31,20 +39,151 @@
         android:layout_height="match_parent"
         android:alpha="0" />
 
-    <!-- ===== MAIN CONTENT SCROLL VIEW ===== -->
+    <!-- ===== MAIN CONTENT SCROLL VIEW (Hero Info, Dock, Content Rows) ===== -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainContentRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none"
+        android:paddingTop="76dp"
+        android:paddingBottom="48dp"
         android:clipToPadding="false"
         android:clipChildren="false"
-        android:paddingBottom="@dimen/space_8"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         android:descendantFocusability="afterDescendants" />
 
+    <!-- ===== TOP NAVIGATION BAR (Fixed top overlay for guaranteed visibility) ===== -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_screen_edge_lg"
+        android:paddingEnd="@dimen/padding_screen_edge_lg"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:elevation="12dp">
+
+        <!-- Left block: Greeting + Live Clock + Date -->
+        <LinearLayout
+            android:id="@+id/leftBlock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Greeting -->
+            <TextView
+                android:id="@+id/greeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.TvHome.Caption"
+                android:textColor="@color/text_tertiary"
+                android:letterSpacing="0.08" />
+
+            <!-- Clock & Date Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="true"
+                android:layout_marginTop="2dp">
+
+                <!-- Main clock -->
+                <TextClock
+                    android:id="@+id/clock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:format12Hour="h:mm"
+                    android:format24Hour="HH:mm"
+                    android:textAppearance="@style/TextAppearance.TvHome.Clock"
+                    android:includeFontPadding="false" />
+
+                <!-- AM/PM -->
+                <TextClock
+                    android:id="@+id/ampm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="2dp"
+                    android:format12Hour="a"
+                    android:format24Hour=""
+                    android:textAppearance="@style/TextAppearance.TvHome.Clock.AmPm"
+                    android:includeFontPadding="false" />
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/border_subtle" />
+
+                <!-- Date -->
+                <TextClock
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="2dp"
+                    android:format12Hour="EEEE, MMMM d"
+                    android:format24Hour="EEEE, MMMM d"
+                    android:textAppearance="@style/TextAppearance.TvHome.Body"
+                    android:textColor="@color/text_secondary"
+                    android:includeFontPadding="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Right block: Top Utility Buttons (Inputs, Wi-Fi, Settings) -->
+        <LinearLayout
+            android:id="@+id/topButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Inputs button -->
+            <TextView
+                android:id="@+id/btnInputs"
+                style="@style/TvHomeWidgetTopIconButton"
+                android:contentDescription="@string/inputs"
+                android:drawableStart="@drawable/ic_input"
+                android:focusable="true"
+                android:clickable="true"
+                android:nextFocusDown="@+id/mainContentRecyclerView" />
+
+            <!-- Wi-Fi button -->
+            <TextView
+                android:id="@+id/btnWifi"
+                style="@style/TvHomeWidgetTopPillButton"
+                android:layout_marginStart="10dp"
+                android:text="@string/wifi"
+                android:drawableStart="@drawable/ic_wifi"
+                android:focusable="true"
+                android:clickable="true"
+                android:nextFocusDown="@+id/mainContentRecyclerView" />
+
+            <!-- Settings button -->
+            <TextView
+                android:id="@+id/btnSettings"
+                style="@style/TvHomeWidgetTopIconButton"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/settings"
+                android:drawableStart="@drawable/ic_settings"
+                android:focusable="true"
+                android:clickable="true"
+                android:nextFocusDown="@+id/mainContentRecyclerView" />
+        </LinearLayout>
+    </LinearLayout>
+
     <!-- ===== FLOATING GLASS HIGHLIGHT ===== -->
-    <!-- Single glass panel that springs between focused grid items -->
     <com.gathin.tvhome.GlassView
         android:id="@+id/glass"
         android:layout_width="10dp"
@@ -52,7 +191,7 @@
         android:alpha="0"
         android:importantForAccessibility="no" />
 
-    <!-- ===== APP LIBRARY GRID (hidden initially, revealed from Apps row) ===== -->
+    <!-- ===== APP LIBRARY GRID (hidden initially) ===== -->
     <FrameLayout
         android:id="@+id/gridContainer"
         android:layout_width="match_parent"

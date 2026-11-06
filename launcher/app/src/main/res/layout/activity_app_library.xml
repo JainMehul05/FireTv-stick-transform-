@@ -62,20 +62,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/btnLibraryBack"
-                    style="@style/TvHomeWidgetTopIconButton"
-                    android:contentDescription="@string/back"
-                    android:drawableStart="@drawable/ic_left"
-                    android:layout_marginEnd="@dimen/space_2" />
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="260dp"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:background="@drawable/bg_search_input"
+                    android:hint="@string/search"
+                    android:textColorHint="@color/text_tertiary"
+                    android:textColor="@color/text_primary"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/btnLibrarySearch"
                     style="@style/TvHomeWidgetTopIconButton"
                     android:contentDescription="@string/search"
-                    android:drawableStart="@drawable/ic_search" />
+                    android:drawableStart="@drawable/ic_search"
+                    android:layout_marginEnd="@dimen/space_2" />
+
+                <TextView
+                    android:id="@+id/btnLibraryBack"
+                    style="@style/TvHomeWidgetTopIconButton"
+                    android:contentDescription="@string/back"
+                    android:drawableStart="@drawable/ic_left" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

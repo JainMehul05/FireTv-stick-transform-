@@ -1,17 +1,16 @@
 package com.gathin.tvhome;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,7 @@ import java.util.List;
 
 /**
  * Adapter for horizontal content rows (movies, TV shows, continue watching).
- * Each row is a horizontal RecyclerView with focusable content cards.
+ * Each row is a horizontal RecyclerView with focusable cinematic cards.
  */
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> {
 
@@ -37,17 +36,23 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         final String subtitle;
         final Drawable artwork;
         final int position;
+        final int progress;
 
         ContentItem(String title, String subtitle, Drawable artwork, int position) {
+            this(title, subtitle, artwork, position, -1);
+        }
+
+        ContentItem(String title, String subtitle, Drawable artwork, int position, int progress) {
             this.title = title;
             this.subtitle = subtitle;
             this.artwork = artwork;
             this.position = position;
+            this.progress = progress;
         }
     }
 
-    static final float FOCUS_SCALE = 1.12f;
-    static final float CORNER_RATIO = 0.18f;
+    static final float FOCUS_SCALE = 1.08f;
+    static final float CORNER_RATIO = 0.12f;
 
     private final Context ctx;
     private ContentListener listener;
@@ -87,6 +92,16 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         h.title.setText(item.title);
         h.subtitle.setText(item.subtitle);
         h.artwork.setImageDrawable(item.artwork);
+
+        if (h.progressBar != null) {
+            if (item.progress >= 0) {
+                h.progressBar.setVisibility(View.VISIBLE);
+                h.progressBar.setProgress(item.progress);
+            } else {
+                h.progressBar.setVisibility(View.GONE);
+            }
+        }
+
         h.card.setOnClickListener(v -> {
             if (listener != null) listener.onContentClick(position, v);
         });
@@ -97,12 +112,20 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         return items.size();
     }
 
+    public ContentItem getItemAt(int position) {
+        if (position >= 0 && position < items.size()) {
+            return items.get(position);
+        }
+        return null;
+    }
+
     static final class Holder extends RecyclerView.ViewHolder {
         final View card;
         final ImageView artwork;
         final TextView title;
         final TextView subtitle;
         final ImageView focusBadge;
+        final ProgressBar progressBar;
 
         Holder(View v, ContentListener listener, ContentAdapter owner) {
             super(v);
@@ -111,6 +134,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
             title = v.findViewById(R.id.title);
             subtitle = v.findViewById(R.id.subtitle);
             focusBadge = v.findViewById(R.id.focusBadge);
+            progressBar = v.findViewById(R.id.cardProgress);
 
             final float density = v.getResources().getDisplayMetrics().density;
             card.setOutlineProvider(new ViewOutlineProvider() {
@@ -126,18 +150,23 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
                 int pos = getBindingAdapterPosition();
                 if (listener == null || pos == RecyclerView.NO_POSITION) return false;
-                if (keyCode != KeyEvent.KEYCODE_DPAD_LEFT && keyCode != KeyEvent.KEYCODE_DPAD_RIGHT) return false;
-                return listener.onContentKey(pos, keyCode);
+                // Allow custom vertical navigation to pass through to row holder
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    return listener.onContentKey(pos, keyCode);
+                }
+                return false; // Horizontal D-pad is handled naturally by the RecyclerView
             });
 
             card.setOnFocusChangeListener((view, focused) -> {
                 float s = focused ? FOCUS_SCALE : 1.0f;
-                float lift = focused ? 8f * density : 0f;
+                float lift = focused ? 6f * density : 0f;
                 view.animate().scaleX(s).scaleY(s).translationY(-lift)
-                        .setDuration(focused ? 280 : 200)
-                        .setInterpolator(new OvershootInterpolator(focused ? 1.5f : 0f))
+                        .setDuration(focused ? 200 : 150)
+                        .setInterpolator(new OvershootInterpolator(focused ? 1.2f : 0f))
                         .start();
-                focusBadge.setVisibility(focused ? View.VISIBLE : View.GONE);
+                if (focusBadge != null) {
+                    focusBadge.setVisibility(focused ? View.VISIBLE : View.GONE);
+                }
                 int pos = getBindingAdapterPosition();
                 if (focused && listener != null && pos != RecyclerView.NO_POSITION) {
                     listener.onContentFocused(pos, view);

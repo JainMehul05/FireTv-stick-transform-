@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Premium Content Card Layout (Movies/TV Shows) -->
+<!-- Premium Content Card Layout (Movies/TV Shows/Continue Watching) -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:clickable="true"
         android:clipToOutline="true">
 
-        <!-- Artwork (poster) -->
+        <!-- Artwork (cinematic 16:9 banner) -->
         <ImageView
             android:id="@+id/artwork"
             android:layout_width="match_parent"
@@ -39,7 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:orientation="vertical"
-            android:padding="@dimen/space_3">
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="8dp">
 
             <!-- Title -->
             <TextView
@@ -47,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.TvHome.Title.Small"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:ellipsize="end" />
 
             <!-- Subtitle/Metadata -->
@@ -55,20 +58,32 @@
                 android:id="@+id/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_1"
+                android:layout_marginTop="2dp"
                 android:textAppearance="@style/TextAppearance.TvHome.Caption"
                 android:textColor="@color/text_tertiary"
                 android:maxLines="1"
                 android:ellipsize="end" />
         </LinearLayout>
 
+        <!-- Progress bar for continue watching -->
+        <ProgressBar
+            android:id="@+id/cardProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_gravity="bottom"
+            android:progressTint="@color/accent_electric_blue"
+            android:progressBackgroundTint="#40FFFFFF"
+            android:visibility="gone"
+            android:max="100" />
+
         <!-- Focus indicator badge (top-right) -->
         <ImageView
             android:id="@+id/focusBadge"
-            android:layout_width="@dimen/icon_xs"
-            android:layout_height="@dimen/icon_xs"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_gravity="top|end"
-            android:layout_margin="@dimen/space_2"
+            android:layout_margin="8dp"
             android:src="@drawable/ic_focus_badge"
             android:visibility="gone"
             android:importantForAccessibility="no" />

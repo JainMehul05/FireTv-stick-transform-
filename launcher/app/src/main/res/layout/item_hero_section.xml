@@ -1,315 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Hero Section Item Layout - Cinematic Premium Design -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Hero Section Foreground Item Layout - Cinematic Title & Metadata -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/heroContentContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/space_8"
-    android:paddingBottom="@dimen/space_4"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/padding_screen_edge_lg"
+    android:paddingEnd="@dimen/padding_screen_edge_lg"
+    android:paddingTop="8dp"
+    android:paddingBottom="16dp"
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <!-- ===== TOP BAR (Greeting, Clock, Date, Buttons) ===== -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
+    <!-- Category badge -->
+    <TextView
+        android:id="@+id/heroCategory"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="@dimen/padding_screen_edge_lg"
-        android:paddingEnd="@dimen/padding_screen_edge_lg"
-        android:paddingTop="@dimen/margin_top_bar">
+        android:text="@string/featured"
+        android:textAppearance="@style/TextAppearance.TvHome.Overline"
+        android:textColor="@color/accent_electric_blue"
+        android:letterSpacing="0.14"
+        android:layout_marginBottom="4dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+    <!-- Hero title -->
+    <TextView
+        android:id="@+id/heroTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hero_featured_title"
+        android:textAppearance="@style/TextAppearance.TvHome.Display.Small"
+        android:textColor="@color/text_primary"
+        android:maxWidth="720dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginBottom="6dp" />
+
+    <!-- Hero metadata row -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="12dp">
+
+        <!-- Year -->
+        <TextView
+            android:id="@+id/heroYear"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_4"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:descendantFocusability="afterDescendants">
+            android:text="2024"
+            android:textAppearance="@style/TextAppearance.TvHome.Body"
+            android:textColor="@color/text_secondary" />
 
-            <!-- Left block: Greeting + Clock + Date -->
-            <LinearLayout
-                android:id="@+id/leftBlock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:paddingStart="@dimen/space_3"
-                android:paddingTop="@dimen/space_2"
-                android:paddingBottom="@dimen/space_2">
+        <!-- Dot separator -->
+        <View
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/dot_separator" />
 
-                <!-- Greeting -->
-                <TextView
-                    android:id="@+id/greeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.TvHome.Caption"
-                    android:textColor="@color/text_tertiary" />
+        <!-- Genre -->
+        <TextView
+            android:id="@+id/heroGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sci-Fi / Adventure"
+            android:textAppearance="@style/TextAppearance.TvHome.Body"
+            android:textColor="@color/text_secondary" />
 
-                <!-- Clock row -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="true"
-                    android:layout_marginTop="@dimen/space_1">
+        <!-- Dot separator -->
+        <View
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/dot_separator" />
 
-                    <!-- Main clock -->
-                    <TextClock
-                        android:id="@+id/clock"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:format12Hour="h:mm"
-                        android:format24Hour="HH:mm"
-                        android:textAppearance="@style/TextAppearance.TvHome.Clock"
-                        android:includeFontPadding="false" />
+        <!-- Duration -->
+        <TextView
+            android:id="@+id/heroDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2h 46m"
+            android:textAppearance="@style/TextAppearance.TvHome.Body"
+            android:textColor="@color/text_secondary" />
 
-                    <!-- AM/PM -->
-                    <TextClock
-                        android:id="@+id/ampm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_2"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="@dimen/space_2"
-                        android:format12Hour="a"
-                        android:format24Hour=""
-                        android:textAppearance="@style/TextAppearance.TvHome.Clock.AmPm"
-                        android:includeFontPadding="false" />
-
-                    <!-- Divider -->
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="@dimen/icon_lg"
-                        android:layout_gravity="bottom"
-                        android:layout_marginStart="@dimen/space_4"
-                        android:layout_marginEnd="@dimen/space_4"
-                        android:layout_marginBottom="@dimen/space_2"
-                        android:background="@color/border_subtle" />
-
-                    <!-- Date -->
-                    <TextClock
-                        android:id="@+id/date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="@dimen/space_2"
-                        android:format12Hour="EEEE, MMMM d"
-                        android:format24Hour="EEEE, MMMM d"
-                        android:textAppearance="@style/TextAppearance.TvHome.Body"
-                        android:textColor="@color/text_secondary"
-                        android:includeFontPadding="false" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Right block: Top bar buttons (focusable, in tab order) -->
-            <LinearLayout
-                android:id="@+id/topButtons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:descendantFocusability="afterDescendants"
-                android:paddingEnd="@dimen/space_3"
-                android:paddingTop="@dimen/space_2"
-                android:paddingBottom="@dimen/space_2">
-
-                <!-- Inputs button -->
-                <TextView
-                    android:id="@+id/btnInputs"
-                    style="@style/TvHomeWidgetTopIconButton"
-                    android:contentDescription="@string/inputs"
-                    android:drawableStart="@drawable/ic_input"
-                    android:focusable="true"
-                    android:clickable="true" />
-
-                <!-- WiFi button -->
-                <TextView
-                    android:id="@+id/btnWifi"
-                    style="@style/TvHomeWidgetTopPillButton"
-                    android:text="@string/wifi"
-                    android:drawableStart="@drawable/ic_wifi"
-                    android:focusable="true"
-                    android:clickable="true" />
-
-                <!-- Settings button -->
-                <TextView
-                    android:id="@+id/btnSettings"
-                    style="@style/TvHomeWidgetTopIconButton"
-                    android:contentDescription="@string/settings"
-                    android:drawableStart="@drawable/ic_settings"
-                    android:focusable="true"
-                    android:clickable="true" />
-            </LinearLayout>
-        </RelativeLayout>
+        <!-- 4K HDR badge -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_badge_4k"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:text="4K HDR"
+            android:textAppearance="@style/TextAppearance.TvHome.Caption"
+            android:textColor="@color/text_tertiary" />
     </LinearLayout>
 
-    <!-- ===== CINEMATIC HERO AREA ===== -->
-    <FrameLayout
-        android:id="@+id/heroContentArea"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/hero_height"
-        android:layout_marginTop="@dimen/space_6"
-        android:clipChildren="false"
-        android:clipToPadding="false">
+    <!-- Action buttons -->
+    <LinearLayout
+        android:id="@+id/heroActions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:descendantFocusability="afterDescendants">
 
-        <!-- Hero artwork (full-width cinematic banner) -->
-        <ImageView
-            android:id="@+id/heroArtwork"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:contentDescription="@null"
-            android:clipToOutline="true"
-            android:background="@color/bg_midnight" />
+        <!-- Play/Watch button -->
+        <TextView
+            android:id="@+id/heroPlayButton"
+            style="@style/TvHomeWidgetGlassButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:drawableStart="@drawable/ic_play"
+            android:drawablePadding="8dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:gravity="center"
+            android:text="@string/play"
+            android:focusable="true"
+            android:clickable="true" />
 
-        <!-- Gradient overlay for text readability (bottom fade + side fade) -->
-        <View
-            android:id="@+id/heroGradientOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_hero_cinematic_overlay"
-            android:clipToOutline="true" />
-
-        <!-- Left-side vignette for title readability -->
-        <View
-            android:id="@+id/heroSideVignette"
-            android:layout_width="500dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@drawable/bg_hero_side_vignette"
-            android:clipToOutline="true" />
-
-        <!-- Hero content (title, metadata, actions) -->
-        <LinearLayout
-            android:id="@+id/heroContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/hero_padding_start"
-            android:paddingEnd="@dimen/hero_padding_end"
-            android:paddingBottom="@dimen/hero_padding_bottom">
-
-            <!-- Category badge -->
-            <TextView
-                android:id="@+id/heroCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/featured"
-                android:textAppearance="@style/TextAppearance.TvHome.Overline"
-                android:textColor="@color/accent_electric_blue"
-                android:layout_marginBottom="@dimen/space_2" />
-
-            <!-- Hero title -->
-            <TextView
-                android:id="@+id/heroTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hero_featured_title"
-                android:textAppearance="@style/TextAppearance.TvHome.Display.Medium"
-                android:maxWidth="@dimen/hero_title_max_width"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:layout_marginBottom="@dimen/space_2" />
-
-            <!-- Hero metadata row -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="@dimen/space_4">
-
-                <!-- Year -->
-                <TextView
-                    android:id="@+id/heroYear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2024"
-                    android:textAppearance="@style/TextAppearance.TvHome.Body"
-                    android:textColor="@color/text_secondary" />
-
-                <!-- Dot separator -->
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="4dp"
-                    android:layout_marginStart="@dimen/space_3"
-                    android:layout_marginEnd="@dimen/space_3"
-                    android:background="@color/text_tertiary" />
-
-                <!-- Genre -->
-                <TextView
-                    android:id="@+id/heroGenre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sci-Fi/Adventure"
-                    android:textAppearance="@style/TextAppearance.TvHome.Body"
-                    android:textColor="@color/text_secondary" />
-
-                <!-- Dot separator -->
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="4dp"
-                    android:layout_marginStart="@dimen/space_3"
-                    android:layout_marginEnd="@dimen/space_3"
-                    android:background="@color/text_tertiary" />
-
-                <!-- Duration -->
-                <TextView
-                    android:id="@+id/heroDuration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2h 46m"
-                    android:textAppearance="@style/TextAppearance.TvHome.Body"
-                    android:textColor="@color/text_secondary" />
-            </LinearLayout>
-
-            <!-- Action buttons -->
-            <LinearLayout
-                android:id="@+id/heroActions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:descendantFocusability="afterDescendants">
-
-                <!-- Play/Open button -->
-                <TextView
-                    android:id="@+id/heroPlayButton"
-                    style="@style/TvHomeWidgetGlassButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/popup_item_height"
-                    android:layout_marginEnd="@dimen/space_3"
-                    android:drawableStart="@drawable/ic_play"
-                    android:drawablePadding="@dimen/space_2"
-                    android:paddingStart="@dimen/space_5"
-                    android:paddingEnd="@dimen/space_5"
-                    android:text="@string/play"
-                    android:focusable="true"
-                    android:clickable="true" />
-
-                <!-- More Info button -->
-                <TextView
-                    android:id="@+id/heroInfoButton"
-                    style="@style/TvHomeWidgetGlassButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/popup_item_height"
-                    android:drawableStart="@drawable/ic_info"
-                    android:drawablePadding="@dimen/space_2"
-                    android:paddingStart="@dimen/space_5"
-                    android:paddingEnd="@dimen/space_5"
-                    android:text="@string/more_info"
-                    android:focusable="true"
-                    android:clickable="true" />
-            </LinearLayout>
-        </LinearLayout>
-    </FrameLayout>
-</FrameLayout>
+        <!-- More Info button -->
+        <TextView
+            android:id="@+id/heroInfoButton"
+            style="@style/TvHomeWidgetGlassButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:drawableStart="@drawable/ic_info"
+            android:drawablePadding="8dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:gravity="center"
+            android:text="@string/more_info"
+            android:focusable="true"
+            android:clickable="true" />
+    </LinearLayout>
+</LinearLayout>

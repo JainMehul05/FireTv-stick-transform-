@@ -84,53 +84,56 @@ public class SettingsActivity extends Activity {
 
         List<SettingItem> items = new ArrayList<>();
 
-        // Launcher preferences section
-        items.add(new SettingItem("Launcher", "Wallpaper", "Choose background image",
+        // Personalization section
+        items.add(new SettingItem("Personalization", "Wallpaper", "Choose cinematic background image",
                 R.drawable.ic_wallpaper, () -> startActivity(new Intent(this, WallpaperPickerActivity.class))));
-        items.add(new SettingItem("Launcher", "Screensaver", "Configure screensaver settings",
-                R.drawable.ic_music, () -> openScreensaverSettings()));
-        items.add(new SettingItem("Launcher", "Home screen redirect", "Make this the default home screen",
-                R.drawable.ic_settings, () -> toggleHomeRedirect()));
+        items.add(new SettingItem("Personalization", "Screensaver", "Preview Manhattan cinematic screensaver",
+                R.drawable.ic_music, this::openScreensaverSettings));
+        items.add(new SettingItem("Personalization", "Home screen redirect", "Make this the default home screen",
+                R.drawable.ic_settings, this::toggleHomeRedirect));
 
         // System shortcuts section
-        items.add(new SettingItem("System", "Wi-Fi", "Network settings",
+        items.add(new SettingItem("System", "Wi-Fi & Network", "Manage wireless and ethernet connections",
                 R.drawable.ic_wifi, () -> openSettings(Settings.ACTION_WIFI_SETTINGS)));
-        items.add(new SettingItem("System", "Display", "Display settings",
+        items.add(new SettingItem("System", "Display & Sound", "Resolution, audio output, match dynamic range",
                 R.drawable.ic_music, () -> openSettings(Settings.ACTION_DISPLAY_SETTINGS)));
-        items.add(new SettingItem("System", "Bluetooth", "Bluetooth settings",
+        items.add(new SettingItem("System", "Bluetooth & Remotes", "Pair remotes, gamepads, and headphones",
                 R.drawable.ic_av, () -> openSettings(Settings.ACTION_BLUETOOTH_SETTINGS)));
-        items.add(new SettingItem("System", "Applications", "Manage installed apps",
+        items.add(new SettingItem("System", "Applications", "Manage installed apps and clear cache",
                 R.drawable.ic_system, () -> openSettings(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)));
-        items.add(new SettingItem("System", "Storage", "Storage settings",
+        items.add(new SettingItem("System", "Storage", "Internal storage capacity and free space",
                 R.drawable.ic_utilities, () -> openSettings(Settings.ACTION_INTERNAL_STORAGE_SETTINGS)));
-        items.add(new SettingItem("System", "Date & Time", "Time zone and format",
+        items.add(new SettingItem("System", "Date & Time", "Network time sync, 24-hour clock format",
                 R.drawable.ic_av, () -> openSettings(Settings.ACTION_DATE_SETTINGS)));
-        items.add(new SettingItem("System", "Accessibility", "Accessibility settings",
+        items.add(new SettingItem("System", "Accessibility", "Subtitles, high contrast, text-to-speech",
                 R.drawable.ic_info, () -> openSettings(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
 
         // About section
-        String versionName = "1.0.0";
+        String versionName = "2.0";
         try {
             versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException ignored) {}
-        items.add(new SettingItem("About", "Version", versionName + " (Premium Cinematic)",
+        items.add(new SettingItem("About", "Version", versionName + " (Cinematic Glass Edition)",
                 R.drawable.ic_info, null));
-        items.add(new SettingItem("About", "Open Source Licenses", "View licenses",
-                R.drawable.ic_info, () -> showLicenses()));
-        items.add(new SettingItem("About", "Privacy Policy", "View privacy policy",
-                R.drawable.ic_info, () -> showPrivacyPolicy()));
+        items.add(new SettingItem("About", "Device Hardware", android.os.Build.MODEL + " (" + android.os.Build.DEVICE + ")",
+                R.drawable.ic_info, null));
+        items.add(new SettingItem("About", "Operating System", "Fire OS 7 (Android " + android.os.Build.VERSION.RELEASE + ", API " + android.os.Build.VERSION.SDK_INT + ")",
+                R.drawable.ic_info, null));
+        items.add(new SettingItem("About", "Open Source Licenses", "View licenses and attributions",
+                R.drawable.ic_info, this::showLicenses));
+        items.add(new SettingItem("About", "Privacy Policy", "View local privacy commitments",
+                R.drawable.ic_info, this::showPrivacyPolicy));
 
         adapter = new SettingsAdapter(this, items);
         settingsList.setAdapter(adapter);
     }
 
     private void openScreensaverSettings() {
-        Intent intent = new Intent(android.service.dreams.DreamService.SERVICE_INTERFACE);
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
         try {
+            Intent intent = new Intent(this, PhotoDream.class);
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(this, "Screensaver settings not available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Screensaver preview unavailable", Toast.LENGTH_SHORT).show();
         }
     }
 

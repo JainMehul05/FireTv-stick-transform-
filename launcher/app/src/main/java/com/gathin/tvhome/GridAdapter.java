@@ -222,7 +222,19 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.Holder> {
     }
 
     boolean isDocked(int position) {
-        return position >= 0 && position < items.size();
+        if (position >= 0 && position < items.size()) {
+            return dockedPackages.contains(items.get(position).pkg);
+        }
+        return false;
+    }
+
+    void setDocked(String pkg, boolean docked) {
+        if (docked) {
+            dockedPackages.add(pkg);
+        } else {
+            dockedPackages.remove(pkg);
+        }
+        reload();
     }
 
     int getColumns() {

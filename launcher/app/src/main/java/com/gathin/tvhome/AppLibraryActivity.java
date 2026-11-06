@@ -53,6 +53,8 @@ public class AppLibraryActivity extends Activity {
     private List<LibraryGridAdapter.Entry> filteredApps = new ArrayList<>();
     private String currentCategory = "All";
     private int selectedCategoryPosition = 0;
+    private String searchQuery = "";
+    private android.widget.EditText searchEditText;
 
     // Category data
     private static final String[] CATEGORIES = {"All", "Streaming", "Entertainment", "Music", "Games", "Utilities", "System"};
@@ -98,9 +100,31 @@ public class AppLibraryActivity extends Activity {
         emptyState = findViewById(R.id.emptyState);
         libraryBackground = findViewById(R.id.libraryBackground);
 
-        // Setup top bar buttons
+        // Setup top bar buttons & search
         TextView btnBack = findViewById(R.id.btnLibraryBack);
         TextView btnSearch = findViewById(R.id.btnLibrarySearch);
+        searchEditText = findViewById(R.id.searchEditText);
+
+        if (searchEditText != null) {
+            searchEditText.addTextChangedListener(new android.text.TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override public void onTextChanged(CharSequence s, int start, int count, int after) {
+                    searchQuery = s != null ? s.toString() : "";
+                    filterApps();
+                }
+                @Override public void afterTextChanged(android.text.Editable s) {}
+            });
+            searchEditText.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        categoryTabs.requestFocus();
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
         if (btnBack != null) {
             btnBack.setOnClickListener(v -> finish());
             btnBack.setOnKeyListener((v, keyCode, event) -> {
@@ -113,8 +137,21 @@ public class AppLibraryActivity extends Activity {
                 return false;
             });
         }
+
         if (btnSearch != null) {
-            btnSearch.setOnClickListener(v -> Toast.makeText(this, "Search coming soon", Toast.LENGTH_SHORT).show());
+            btnSearch.setOnClickListener(v -> {
+                if (searchEditText != null) {
+                    if (searchEditText.getVisibility() == View.VISIBLE) {
+                        searchEditText.setVisibility(View.GONE);
+                        searchQuery = "";
+                        searchEditText.setText("");
+                        filterApps();
+                    } else {
+                        searchEditText.setVisibility(View.VISIBLE);
+                        searchEditText.requestFocus();
+                    }
+                }
+            });
         }
 
         // Load background
@@ -255,13 +292,12 @@ public class AppLibraryActivity extends Activity {
 
     private void filterApps() {
         filteredApps.clear();
-        if ("All".equals(currentCategory)) {
-            filteredApps.addAll(allApps);
-        } else {
-            for (LibraryGridAdapter.Entry e : allApps) {
-                if (currentCategory.equals(e.category)) {
-                    filteredApps.add(e);
-                }
+        String q = searchQuery.toLowerCase().trim();
+        for (LibraryGridAdapter.Entry e : allApps) {
+            boolean matchesCategory = "All".equals(currentCategory) || currentCategory.equals(e.category);
+            boolean matchesSearch = q.isEmpty() || (e.label != null && e.label.toLowerCase().contains(q));
+            if (matchesCategory && matchesSearch) {
+                filteredApps.add(e);
             }
         }
         gridAdapter.setItems(filteredApps);

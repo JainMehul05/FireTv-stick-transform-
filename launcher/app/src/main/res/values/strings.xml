@@ -25,9 +25,13 @@
     <string name="redirect_needs_permission">Needs a one-time setup from a computer.</string>
     <string name="see_all">See all</string>
     <string name="featured">Featured</string>
-    <string name="movies">Movies</string>
-    <string name="tv_shows">TV Shows</string>
+    <string name="movies">Recommended Movies</string>
+    <string name="tv_shows">Popular TV Shows</string>
     <string name="continue_watching">Continue Watching</string>
+    <string name="action_thriller">Action &amp; Thriller</string>
+    <string name="recently_added">Recently Added</string>
+    <string name="browse_all">Browse All Apps</string>
+    <string name="quick_settings">Quick Settings</string>
     <string name="apps">Apps</string>
     <string name="pin_to_dock">Pin to Dock</string>
     <string name="unpin_from_dock">Unpin from Dock</string>
