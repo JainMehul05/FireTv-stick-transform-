@@ -80,7 +80,7 @@ public class AppStoreActivity extends Activity {
     private void initStoreCatalogue() {
         allStoreApps.add(new AppStoreItem("Netflix", "com.netflix.ninja", "STREAMING", "Watch popular movies, TV shows and award-winning originals.", R.drawable.ic_streaming));
         allStoreApps.add(new AppStoreItem("Prime Video", "com.amazon.amazonvideo.livingroom", "STREAMING", "Stream Amazon Originals, popular movies and live sports.", R.drawable.ic_streaming));
-        allStoreApps.add(new AppStoreItem("YouTube", "com.google.android.youtube.tv", "STREAMING", "Watch music videos, tutorials, news and trailers on TV.", R.drawable.ic_streaming));
+        allStoreApps.add(new AppStoreItem("YouTube", "com.amazon.firetv.youtube", "STREAMING", "Watch music videos, tutorials, news and trailers on TV.", R.drawable.ic_streaming));
         allStoreApps.add(new AppStoreItem("Disney+ Hotstar", "in.startv.hotstar", "STREAMING", "Blockbuster movies, Indian specials and live cricket.", R.drawable.ic_streaming));
         allStoreApps.add(new AppStoreItem("JioCinema", "com.jio.media.ondemand", "STREAMING", "Movies, TV series, HBO shows and live sports coverage.", R.drawable.ic_streaming));
         allStoreApps.add(new AppStoreItem("Spotify", "com.spotify.tv.android", "ENTERTAINMENT", "Music and podcasts for every mood on the big screen.", R.drawable.ic_music));
@@ -318,6 +318,12 @@ public class AppStoreActivity extends Activity {
                 pm.getPackageInfo(pkg, 0);
                 return true;
             } catch (Exception e) {
+                if ("com.amazon.firetv.youtube".equals(pkg)) {
+                    try {
+                        pm.getPackageInfo("com.google.android.youtube.tv", 0);
+                        return true;
+                    } catch (Exception ignored) {}
+                }
                 return false;
             }
         }

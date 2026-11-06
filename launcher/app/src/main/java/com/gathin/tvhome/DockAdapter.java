@@ -205,15 +205,24 @@ public class DockAdapter extends RecyclerView.Adapter<DockAdapter.Holder> {
     }
 
     private void launch(Entry e) {
-        Intent i = new Intent(Intent.ACTION_MAIN)
-                .addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER)
-                .setComponent(e.component)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        try {
-            ctx.startActivity(i);
-        } catch (Exception ex) {
-            Toast.makeText(ctx, "Can't open " + e.label, Toast.LENGTH_SHORT).show();
+        PackageManager pm = ctx.getPackageManager();
+        Intent i = pm.getLeanbackLaunchIntentForPackage(e.pkg);
+        if (i == null) {
+            i = pm.getLaunchIntentForPackage(e.pkg);
         }
+        if (i == null && e.component != null) {
+            i = new Intent(Intent.ACTION_MAIN).setComponent(e.component);
+        }
+        if (i != null) {
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            try {
+                ctx.startActivity(i);
+                return;
+            } catch (Exception ex) {
+                // fallback
+            }
+        }
+        Toast.makeText(ctx, "Can't open " + e.label, Toast.LENGTH_SHORT).show();
     }
 
     @Override

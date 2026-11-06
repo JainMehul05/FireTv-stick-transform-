@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium Installed Application Tile for Your Apps Row -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/appTileRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:clickable="true">
+
+    <!-- Squircle Icon Box -->
+    <FrameLayout
+        android:id="@+id/appTileIconBox"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_app_tile"
+        android:clipToOutline="true">
+
+        <ImageView
+            android:id="@+id/appTileIcon"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:contentDescription="@null" />
+    </FrameLayout>
+
+    <!-- App Label -->
+    <TextView
+        android:id="@+id/appTileLabel"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="11sp"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="@font/open_sans" />
+
+</LinearLayout>

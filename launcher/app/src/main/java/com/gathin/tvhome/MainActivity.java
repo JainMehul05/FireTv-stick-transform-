@@ -51,8 +51,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gathin.tvhome.data.model.AppEntry;
 import com.gathin.tvhome.data.model.MediaItem;
+import com.gathin.tvhome.data.repository.AppRepository;
 import com.gathin.tvhome.data.repository.ContentRepository;
+import com.gathin.tvhome.data.repository.ViewingHistoryRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,6 +107,7 @@ public class MainActivity extends Activity
     private TextView greeting;
     private View btnSearch;
     private View btnStore;
+    private View btnAmbient;
     private TextView btnInputs;
     private TextView btnWifi;
     private TextView btnSettings;
@@ -118,6 +122,7 @@ public class MainActivity extends Activity
     private MainContentAdapter mainContentAdapter;
     private DockAdapter dockAdapter;
     private GridAdapter gridAdapter;
+    private InstalledAppsAdapter installedAppsAdapter;
     private List<DockAdapter.Entry> allApps = new ArrayList<>();
 
     // 5 Content Rows
@@ -204,6 +209,7 @@ public class MainActivity extends Activity
         greeting = findViewById(R.id.greeting);
         btnSearch = findViewById(R.id.btnSearch);
         btnStore = findViewById(R.id.btnStore);
+        btnAmbient = findViewById(R.id.btnAmbient);
         btnInputs = findViewById(R.id.btnInputs);
         btnWifi = findViewById(R.id.btnWifi);
         btnSettings = findViewById(R.id.btnSettings);
@@ -234,10 +240,16 @@ public class MainActivity extends Activity
             s.setSpring(new SpringForce().setStiffness(260f).setDampingRatio(0.58f));
         }
 
-        // 6. Load apps and content rows
+        // Initialize dockAdapter and gridAdapter synchronously
+        Set<String> hidden = new HashSet<>(Arrays.asList(getResources().getStringArray(R.array.hidden_apps)));
+        dockAdapter = new DockAdapter(this, this, columns);
+        gridAdapter = new GridAdapter(this, this, hidden, new HashSet<>(), columns);
+        grid.setAdapter(gridAdapter);
+
+        // 6. Setup adapters and content rows
+        setupMainContentAdapter();
         loadAllApps();
         setupContentRows();
-        setupMainContentAdapter();
     }
 
     /**
@@ -270,6 +282,25 @@ public class MainActivity extends Activity
                     if (btnSearch != null) btnSearch.requestFocus();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    if (btnAmbient != null) btnAmbient.requestFocus();
+                    else if (btnInputs != null) btnInputs.requestFocus();
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        if (btnAmbient != null) {
+            btnAmbient.setOnClickListener(v -> startActivity(new Intent(this, AmbientActivity.class)));
+            btnAmbient.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    focusHeroActions();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                    if (btnStore != null) btnStore.requestFocus();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
                     if (btnInputs != null) btnInputs.requestFocus();
                     return true;
                 }
@@ -285,7 +316,8 @@ public class MainActivity extends Activity
                     focusHeroActions();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                    if (btnStore != null) btnStore.requestFocus();
+                    if (btnAmbient != null) btnAmbient.requestFocus();
+                    else if (btnStore != null) btnStore.requestFocus();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
                     if (btnWifi != null) btnWifi.requestFocus();
@@ -348,41 +380,44 @@ public class MainActivity extends Activity
     }
 
     private void loadAllApps() {
-        PackageManager pm = getPackageManager();
-        Intent probe = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
-        List<ResolveInfo> found = pm.queryIntentActivities(probe, 0);
-        List<DockAdapter.Entry> fresh = new ArrayList<>();
-        Set<String> seen = new HashSet<>();
-        Set<String> hidden = new HashSet<>(Arrays.asList(getResources().getStringArray(R.array.hidden_apps)));
+        AppRepository repo = AppRepository.getInstance(this);
+        repo.loadApps((allDiscovered, pinnedDiscovered) -> {
+            List<DockAdapter.Entry> fresh = new ArrayList<>();
+            for (AppEntry ae : allDiscovered) {
+                String squareName = DockAdapter.DOCK_ICONS.get(ae.packageName);
+                int square = squareName == null ? 0
+                        : getResources().getIdentifier(squareName, "drawable", getPackageName());
+                fresh.add(new DockAdapter.Entry(
+                        ae.label,
+                        ae.getComponentName(),
+                        square != 0 ? getDrawable(square) : null,
+                        ae.icon
+                ));
+            }
+            allApps = fresh;
 
-        for (ResolveInfo ri : found) {
-            if (ri.activityInfo == null) continue;
-            String pkg = ri.activityInfo.packageName;
-            if (pkg.equals(getPackageName()) || hidden.contains(pkg)) continue;
-            Intent main = pm.getLeanbackLaunchIntentForPackage(pkg);
-            ComponentName mainComponent = main != null ? main.getComponent() : null;
-            if (mainComponent != null && !mainComponent.getClassName().equals(ri.activityInfo.name)) continue;
-            if (!seen.add(pkg)) continue;
-            Drawable icon = ri.loadIcon(pm);
-            String label = String.valueOf(ri.loadLabel(pm));
-            String squareName = DockAdapter.DOCK_ICONS.get(pkg);
-            int square = squareName == null ? 0
-                    : getResources().getIdentifier(squareName, "drawable", getPackageName());
-            fresh.add(new DockAdapter.Entry(label, new ComponentName(pkg, ri.activityInfo.name),
-                    square != 0 ? getDrawable(square) : null, icon));
-        }
-        Collections.sort(fresh, (a, b) -> a.label.compareToIgnoreCase(b.label));
-        allApps = fresh;
+            if (installedAppsAdapter != null) {
+                installedAppsAdapter.setApps(allDiscovered);
+            }
 
-        // Initialize dock & grid adapters
-        final int columns = getResources().getInteger(R.integer.columns);
-        Set<String> dockedPackages = new HashSet<>();
-        dockAdapter = new DockAdapter(this, this, columns);
-        dockAdapter.reload(allApps);
-        for (DockAdapter.Entry e : dockAdapter.getItems()) dockedPackages.add(e.pkg);
+            final int columns = getResources().getInteger(R.integer.columns);
+            Set<String> dockedPackages = new HashSet<>();
+            if (dockAdapter == null) {
+                dockAdapter = new DockAdapter(this, this, columns);
+            }
+            dockAdapter.reload(allApps);
+            for (DockAdapter.Entry e : dockAdapter.getItems()) dockedPackages.add(e.pkg);
 
-        gridAdapter = new GridAdapter(this, this, hidden, dockedPackages, columns);
-        gridAdapter.reload();
+            Set<String> hidden = new HashSet<>(Arrays.asList(getResources().getStringArray(R.array.hidden_apps)));
+            if (gridAdapter == null) {
+                gridAdapter = new GridAdapter(this, this, hidden, dockedPackages, columns);
+            }
+            gridAdapter.reload();
+
+            if (mainContentAdapter != null) {
+                mainContentAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     /**
@@ -394,12 +429,15 @@ public class MainActivity extends Activity
             List<MainContentAdapter.ContentRow> adapterRows = new ArrayList<>();
             for (int i = 0; i < rows.size(); i++) {
                 ContentRepository.CategoryRow catRow = rows.get(i);
-                ContentAdapter adapter = new ContentAdapter(this, null);
+                boolean isPortrait = "popular_movies".equals(catRow.id) || "popular_tv".equals(catRow.id) || "top_rated".equals(catRow.id);
+                ContentAdapter adapter = new ContentAdapter(this, null, isPortrait);
                 adapter.setMediaItems(catRow.items);
                 int iconRes = getRowIcon(catRow.id);
                 adapterRows.add(new MainContentAdapter.ContentRow(catRow.title, iconRes, adapter, i));
             }
-            mainContentAdapter.setContentRows(adapterRows);
+            if (mainContentAdapter != null) {
+                mainContentAdapter.setContentRows(adapterRows);
+            }
 
             if (!rows.isEmpty() && !rows.get(0).items.isEmpty()) {
                 currentFeaturedItem = rows.get(0).items.get(0);
@@ -422,7 +460,36 @@ public class MainActivity extends Activity
      * Configure MainContentAdapter with the Hero section, Apple TV Dock, and Content Discovery Rows.
      */
     private void setupMainContentAdapter() {
+        installedAppsAdapter = new InstalledAppsAdapter(this, new InstalledAppsAdapter.AppClickListener() {
+            @Override
+            public void onAppClick(AppEntry app) {
+                AppRepository.launchApp(MainActivity.this, app);
+            }
+
+            @Override
+            public void onAppMenu(AppEntry app, View v) {
+                showAppContextMenu(app, v);
+            }
+
+            @Override
+            public boolean onAppKey(int position, int keyCode) {
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                    focusDockItem(lastDockFocused);
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    focusFirstContentRow();
+                    return true;
+                }
+                return false;
+            }
+        });
+        List<AppEntry> cachedApps = AppRepository.getInstance(this).getCachedAllApps();
+        if (!cachedApps.isEmpty()) {
+            installedAppsAdapter.setApps(cachedApps);
+        }
+
         mainContentAdapter = new MainContentAdapter(this, this, dockAdapter);
+        mainContentAdapter.setInstalledAppsAdapter(installedAppsAdapter);
         mainContentAdapter.setAppsRowCallback(() -> startActivity(new Intent(this, AppLibraryActivity.class)));
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
@@ -462,8 +529,8 @@ public class MainActivity extends Activity
         glass.setAlpha(0f);
         ambientGlow.setAlpha(0f);
 
-        dockAdapter.reload(allApps);
-        gridAdapter.reload();
+        if (dockAdapter != null) dockAdapter.reload(allApps);
+        if (gridAdapter != null) gridAdapter.reload();
 
         updateGreeting();
         updateBackground();
@@ -522,7 +589,11 @@ public class MainActivity extends Activity
             focusHeroActions();
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-            focusFirstContentRow();
+            if (installedAppsAdapter != null && installedAppsAdapter.getItemCount() > 0) {
+                focusInstalledAppsRow(0);
+            } else {
+                focusFirstContentRow();
+            }
             return true;
         }
         return false;
@@ -621,8 +692,12 @@ public class MainActivity extends Activity
     public boolean onContentItemKey(int rowIndex, int position, int keyCode) {
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
             if (rowIndex == 0) {
-                // Up from first content row goes to dock
-                focusDockItem(lastDockFocused);
+                // Up from first content row goes to installed apps row or dock
+                if (installedAppsAdapter != null && installedAppsAdapter.getItemCount() > 0) {
+                    focusInstalledAppsRow(0);
+                } else {
+                    focusDockItem(lastDockFocused);
+                }
                 return true;
             } else {
                 focusContentItem(rowIndex - 1, position);
@@ -737,7 +812,8 @@ public class MainActivity extends Activity
     }
 
     private void focusContentItem(int rowIndex, int position) {
-        int adapterPosition = rowIndex + 2; // Hero(0) + Dock(1) + rows
+        int offset = (installedAppsAdapter != null) ? 3 : 2; // Hero(0) + Dock(1) + (YourApps(2)) + rows
+        int adapterPosition = rowIndex + offset;
         mainContentRecyclerView.smoothScrollToPosition(adapterPosition);
         mainContentRecyclerView.postDelayed(() -> {
             RecyclerView.ViewHolder vh = mainContentRecyclerView.findViewHolderForAdapterPosition(adapterPosition);
@@ -763,6 +839,64 @@ public class MainActivity extends Activity
                 }
             }
         }, 80);
+    }
+
+    private void focusInstalledAppsRow(int position) {
+        int targetPos = 2; // Position in mainContentRecyclerView
+        mainContentRecyclerView.smoothScrollToPosition(targetPos);
+        mainContentRecyclerView.postDelayed(() -> {
+            RecyclerView.ViewHolder vh = mainContentRecyclerView.findViewHolderForAdapterPosition(targetPos);
+            if (vh instanceof MainContentAdapter.YourAppsRowHolder) {
+                MainContentAdapter.YourAppsRowHolder appsHolder = (MainContentAdapter.YourAppsRowHolder) vh;
+                RecyclerView appsRv = appsHolder.appsRecyclerView;
+                if (appsRv != null && appsRv.getAdapter() != null) {
+                    int count = appsRv.getAdapter().getItemCount();
+                    if (count > 0) {
+                        int pos = Math.max(0, Math.min(position, count - 1));
+                        appsRv.scrollToPosition(pos);
+                        appsRv.post(() -> {
+                            RecyclerView.ViewHolder itemVh = appsRv.findViewHolderForAdapterPosition(pos);
+                            if (itemVh != null) {
+                                View root = itemVh.itemView.findViewById(R.id.appTileRoot);
+                                if (root != null) root.requestFocus();
+                                else itemVh.itemView.requestFocus();
+                            } else if (appsRv.getChildCount() > 0) {
+                                View root = appsRv.getChildAt(0).findViewById(R.id.appTileRoot);
+                                if (root != null) root.requestFocus();
+                                else appsRv.getChildAt(0).requestFocus();
+                            }
+                        });
+                    }
+                }
+            }
+        }, 80);
+    }
+
+    private void showAppContextMenu(AppEntry app, View card) {
+        if (app == null || app.packageName == null) return;
+        View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
+        LinearLayout rows = panel.findViewById(R.id.rows);
+        final PopupWindow popup = new PopupWindow(panel, (int) (220 * density), ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popup.setOutsideTouchable(true);
+
+        addInputRow(rows, popup, R.drawable.ic_play, "Open " + app.label, -1, () -> {
+            AppRepository.launchApp(this, app);
+        });
+
+        boolean isPinned = AppRepository.getInstance(this).isPinned(app.packageName);
+        int pinIcon = isPinned ? R.drawable.ic_unpin : R.drawable.ic_pin;
+        String pinLabel = isPinned ? getString(R.string.unpin_from_dock) : getString(R.string.pin_to_dock);
+
+        addInputRow(rows, popup, pinIcon, pinLabel, -1, () -> {
+            AppRepository.getInstance(this).togglePinned(app.packageName);
+            loadAllApps();
+        });
+
+        addInputRow(rows, popup, R.drawable.ic_info, getString(R.string.app_info), -1, () -> openAppInfo(app.packageName));
+
+        popup.showAsDropDown(card, 0, (int) (-120 * density), Gravity.CENTER_HORIZONTAL);
+        rows.getChildAt(0).requestFocus();
     }
 
     private RecyclerView findDockRecyclerView() {

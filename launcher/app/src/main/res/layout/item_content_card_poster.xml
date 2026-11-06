@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium Portrait Movie/TV Poster Layout (2:3 Aspect Ratio) -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:padding="@dimen/space_2">
+
+    <!-- Main card with artwork -->
+    <FrameLayout
+        android:id="@+id/card"
+        android:layout_width="130dp"
+        android:layout_height="195dp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/bg_content_card"
+        android:focusable="true"
+        android:clickable="true"
+        android:clipToOutline="true">
+
+        <!-- Artwork (cinematic 2:3 vertical poster) -->
+        <ImageView
+            android:id="@+id/artwork"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
+            android:clipToOutline="true" />
+
+        <!-- Gradient overlay for text readability -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_content_card_overlay" />
+
+        <!-- Content info at bottom -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="8dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.TvHome.Title.Small"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <!-- Subtitle/Metadata -->
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textAppearance="@style/TextAppearance.TvHome.Caption"
+                android:textSize="10sp"
+                android:textColor="@color/text_tertiary"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Progress bar for continue watching -->
+        <ProgressBar
+            android:id="@+id/cardProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_gravity="bottom"
+            android:progressTint="@color/accent_electric_blue"
+            android:progressBackgroundTint="#40FFFFFF"
+            android:visibility="gone"
+            android:max="100" />
+    </FrameLayout>
+</FrameLayout>

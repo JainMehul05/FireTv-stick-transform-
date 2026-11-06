@@ -170,6 +170,17 @@
                 android:clickable="true"
                 android:nextFocusDown="@+id/mainContentRecyclerView" />
 
+            <!-- Ambient Standby button -->
+            <TextView
+                android:id="@+id/btnAmbient"
+                style="@style/TvHomeWidgetTopIconButton"
+                android:layout_marginStart="10dp"
+                android:contentDescription="Ambient Mode"
+                android:drawableStart="@drawable/ic_wallpaper"
+                android:focusable="true"
+                android:clickable="true"
+                android:nextFocusDown="@+id/mainContentRecyclerView" />
+
             <!-- Inputs button -->
             <TextView
                 android:id="@+id/btnInputs"

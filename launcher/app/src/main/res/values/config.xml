@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Launcher configuration. Edit this file, then run launcher/build-and-install.sh.
-  Package names: on the TV run `pm list packages` (tools/tv.py 'pm list packages').
+  Launcher configuration.
+  Package names: on the TV run `pm list packages`.
 -->
 <resources>
 
-    <!-- Starting dock, in this order. After that the dock is edited on the TV (hold OK or press Menu on an app)
-         and saved on the device. Missing apps are skipped. -->
+    <!-- Starting dock, in this order. Pinned apps with Spotify, YouTube, Netflix, Hotstar, Prime Video -->
     <string-array name="dock_apps">
         <item>com.amazon.firetv.youtube</item>
         <item>com.netflix.ninja</item>
+        <item>com.spotify.tv.android</item>
+        <item>in.startv.hotstar</item>
+        <item>com.amazon.amazonvideo.livingroom</item>
         <item>com.amazon.firebat</item>
         <item>com.apple.airplay.amazon.airplay</item>
     </string-array>
@@ -17,15 +19,16 @@
     <!-- Apps never shown as tiles (e.g. the Live TV app, which the Inputs menu already covers). -->
     <string-array name="hidden_apps">
         <item>com.amazon.tv.livetv</item>
-        <item>com.mediatek.opapp</item>      <!-- 16 European satellite-provider shortcuts -->
-        <item>com.amazon.smarthomemapviewapp</item>  <!-- Alexa Smart Home -->
-        <item>com.amazon.spiderpork</item>   <!-- Luna -->
+        <item>com.mediatek.opapp</item>
+        <item>com.amazon.smarthomemapviewapp</item>
+        <item>com.amazon.spiderpork</item>
         <item>com.amazon.bueller.music</item>
+        <item>com.amazon.spotify.mediabrowserservice</item>
     </string-array>
 
     <!-- The TV's Live TV / tuner app, offered at the end of the Inputs menu. Leave empty to omit. -->
     <string name="live_tv_package" translatable="false">com.amazon.tv.livetv</string>
 
-    <!-- Tiles per row in the grid, and the most apps the dock can hold. -->
-    <integer name="columns">4</integer>
+    <!-- Tiles per row in the grid, and max apps the dock can hold. -->
+    <integer name="columns">6</integer>
 </resources>

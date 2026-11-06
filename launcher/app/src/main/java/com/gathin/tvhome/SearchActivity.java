@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gathin.tvhome.data.api.TmdbApiClient;
+import com.gathin.tvhome.data.model.AppEntry;
 import com.gathin.tvhome.data.model.MediaItem;
+import com.gathin.tvhome.data.repository.AppRepository;
 import com.gathin.tvhome.data.repository.ContentRepository;
 
 import java.util.ArrayList;
@@ -65,6 +67,17 @@ public class SearchActivity extends Activity {
             public void onContentClick(int position, View card) {
                 MediaItem item = searchAdapter.getItemAt(position);
                 if (item != null) {
+                    if ("app".equals(item.mediaType)) {
+                        String pkg = item.overview.replace("Installed Application • ", "").trim();
+                        PackageManager pm = getPackageManager();
+                        Intent launch = pm.getLeanbackLaunchIntentForPackage(pkg);
+                        if (launch == null) launch = pm.getLaunchIntentForPackage(pkg);
+                        if (launch != null) {
+                            launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                            startActivity(launch);
+                            return;
+                        }
+                    }
                     Intent intent = new Intent(SearchActivity.this, MediaDetailsActivity.class);
                     intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA_ITEM, item);
                     startActivity(intent);
@@ -144,24 +157,22 @@ public class SearchActivity extends Activity {
             }
         }
 
-        // Search installed apps and wrap as MediaItem
-        PackageManager pm = getPackageManager();
-        Intent probe = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
-        List<ResolveInfo> apps = pm.queryIntentActivities(probe, 0);
-        for (ResolveInfo ri : apps) {
-            String label = String.valueOf(ri.loadLabel(pm));
-            if (label.toLowerCase(Locale.ROOT).contains(qLower)) {
+        // Search installed apps via AppRepository (universal TV + Android discovery)
+        for (AppEntry ae : AppRepository.getInstance(this).getCachedAllApps()) {
+            if (ae.label.toLowerCase(Locale.ROOT).contains(qLower)
+                    || ae.packageName.toLowerCase(Locale.ROOT).contains(qLower)
+                    || ae.category.toLowerCase(Locale.ROOT).contains(qLower)) {
                 matches.add(new MediaItem(
-                        -1,
-                        label,
-                        "Installed Application • " + ri.activityInfo.packageName,
+                        ae.packageName.hashCode(),
+                        ae.label,
+                        "Installed Application • " + ae.packageName,
                         "",
                         "",
                         "App",
                         0.0,
                         0,
                         "app",
-                        "Installed Application",
+                        ae.category,
                         "",
                         "",
                         new ArrayList<>()

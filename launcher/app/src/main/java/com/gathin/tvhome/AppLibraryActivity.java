@@ -26,6 +26,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gathin.tvhome.data.model.AppEntry;
+import com.gathin.tvhome.data.repository.AppRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -265,29 +268,20 @@ public class AppLibraryActivity extends Activity {
     }
 
     private void loadApps() {
-        PackageManager pm = getPackageManager();
-        Intent probe = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
-        List<ResolveInfo> found = pm.queryIntentActivities(probe, 0);
-        Set<String> hidden = new HashSet<>(Arrays.asList(getResources().getStringArray(R.array.hidden_apps)));
-        Set<String> seen = new HashSet<>();
-
-        for (ResolveInfo ri : found) {
-            if (ri.activityInfo == null) continue;
-            String pkg = ri.activityInfo.packageName;
-            if (pkg.equals(getPackageName()) || hidden.contains(pkg)) continue;
-            Intent main = pm.getLeanbackLaunchIntentForPackage(pkg);
-            ComponentName mainComponent = main != null ? main.getComponent() : null;
-            if (mainComponent != null && !mainComponent.getClassName().equals(ri.activityInfo.name)) continue;
-            if (!seen.add(pkg)) continue;
-
-            Drawable icon = ri.loadIcon(pm);
-            String label = String.valueOf(ri.loadLabel(pm));
-            String category = CATEGORY_MAP.getOrDefault(pkg, "Entertainment");
-            allApps.add(new LibraryGridAdapter.Entry(label, pkg, mainComponent, icon, category));
-        }
-
-        Collections.sort(allApps, (a, b) -> a.label.compareToIgnoreCase(b.label));
-        filterApps();
+        AppRepository repo = AppRepository.getInstance(this);
+        repo.loadApps((all, pinned) -> {
+            allApps.clear();
+            for (AppEntry ae : all) {
+                allApps.add(new LibraryGridAdapter.Entry(
+                        ae.label,
+                        ae.packageName,
+                        ae.getComponentName(),
+                        ae.icon,
+                        ae.category
+                ));
+            }
+            filterApps();
+        });
     }
 
     private void filterApps() {
@@ -388,6 +382,7 @@ public class AppLibraryActivity extends Activity {
                 if (focused) {
                     v.setSelected(true);
                     v.setBackgroundResource(R.drawable.bg_category_tab_selected);
+                    if (listener != null) listener.onCategoryClick(position);
                 } else if (position != selectedPosition) {
                     v.setSelected(false);
                     v.setBackgroundResource(R.drawable.bg_category_tab);
@@ -504,15 +499,24 @@ public class AppLibraryActivity extends Activity {
         }
 
         private void launch(Entry e) {
-            Intent i = new Intent(Intent.ACTION_MAIN)
-                    .addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER)
-                    .setComponent(e.component)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-            try {
-                ctx.startActivity(i);
-            } catch (Exception ex) {
-                Toast.makeText(ctx, "Can't open " + e.label, Toast.LENGTH_SHORT).show();
+            PackageManager pm = ctx.getPackageManager();
+            Intent i = pm.getLeanbackLaunchIntentForPackage(e.pkg);
+            if (i == null) {
+                i = pm.getLaunchIntentForPackage(e.pkg);
             }
+            if (i == null && e.component != null) {
+                i = new Intent(Intent.ACTION_MAIN).setComponent(e.component);
+            }
+            if (i != null) {
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                try {
+                    ctx.startActivity(i);
+                    return;
+                } catch (Exception ex) {
+                    // fallback
+                }
+            }
+            Toast.makeText(ctx, "Can't open " + e.label, Toast.LENGTH_SHORT).show();
         }
 
         @Override

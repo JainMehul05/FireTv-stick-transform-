@@ -81,6 +81,9 @@ public class ContentRepository {
                 loadFromAssetCache();
             }
 
+            // Sync verified continue watching row (only if verified or user-managed history exists)
+            updateContinueWatchingRow();
+
             // Always update watchlist row
             updateWatchlistCategoryRow();
 
@@ -91,6 +94,38 @@ public class ContentRepository {
             if (tmdbClient.hasApiKey()) {
                 refreshLiveContent(callback);
             }
+        });
+    }
+
+    private void updateContinueWatchingRow() {
+        ViewingHistoryRepository historyRepo = ViewingHistoryRepository.getInstance(context);
+        historyRepo.loadViewingHistory(items -> {
+            if (items == null || items.isEmpty()) {
+                cachedRows.remove("continue_watching");
+                return;
+            }
+            List<MediaItem> mediaList = new ArrayList<>();
+            for (com.gathin.tvhome.data.model.ViewingHistoryItem vhi : items) {
+                MediaItem mi = vhi.toMediaItem();
+                mi.progress = vhi.progressPercentage;
+                if (vhi.duration > 0 && vhi.playbackPosition > 0) {
+                    long remainingMs = vhi.duration - vhi.playbackPosition;
+                    long remMin = remainingMs / 60000;
+                    mi.resumeText = remMin > 0 ? (remMin + "m left") : "Resume";
+                } else {
+                    mi.resumeText = "Resume";
+                }
+                mediaList.add(mi);
+            }
+            Map<String, CategoryRow> reordered = new LinkedHashMap<>();
+            reordered.put("continue_watching", new CategoryRow("continue_watching", "Continue Watching", "ic_streaming", mediaList));
+            for (Map.Entry<String, CategoryRow> entry : cachedRows.entrySet()) {
+                if (!"continue_watching".equals(entry.getKey())) {
+                    reordered.put(entry.getKey(), entry.getValue());
+                }
+            }
+            cachedRows.clear();
+            cachedRows.putAll(reordered);
         });
     }
 

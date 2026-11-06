@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Premium content card background (movie/show posters) -->
+<!-- Premium content card background (Apple TV / Google TV subtle glass styling) -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Focused: scaled, lifted, with accent glow -->
+    <!-- Focused: subtle glow, refined light border, 12dp rounded corners -->
     <item android:state_focused="true">
         <layer-list>
-            <!-- Outer glow -->
+            <!-- Soft ambient shadow / glow -->
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/focus_glow_strong" />
-                    <corners android:radius="@dimen/radius_squircle_large" />
-                    <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp" />
+                    <solid android:color="#2000D4FF" />
+                    <corners android:radius="14dp" />
+                    <padding android:left="3dp" android:top="3dp" android:right="3dp" android:bottom="3dp" />
                 </shape>
             </item>
-            <!-- Main card -->
-            <item android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp">
+            <!-- Main card background -->
+            <item android:left="3dp" android:top="3dp" android:right="3dp" android:bottom="3dp">
                 <shape android:shape="rectangle">
                     <gradient
                         android:angle="270"
-                        android:startColor="@color/card_gradient_focused_start"
-                        android:centerColor="#1E1A2A"
-                        android:endColor="@color/card_gradient_focused_end" />
-                    <stroke android:width="2dp" android:color="@color/focus_primary" />
-                    <corners android:radius="@dimen/radius_squircle_large" />
+                        android:startColor="#2516243A"
+                        android:endColor="#350E182A" />
+                    <stroke android:width="1.8dp" android:color="#E6FFFFFF" />
+                    <corners android:radius="12dp" />
                 </shape>
             </item>
-            <!-- Inner highlight (~40% height) -->
-            <item android:left="10dp" android:top="10dp" android:right="10dp" android:bottom="120dp">
+            <!-- Subtle top specular highlight -->
+            <item android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="70dp">
                 <shape android:shape="rectangle">
                     <gradient
                         android:angle="270"
-                        android:startColor="#1AFFFFFF"
+                        android:startColor="#1EFFFFFF"
                         android:endColor="#00FFFFFF" />
                     <corners
-                        android:topLeftRadius="@dimen/radius_squircle_large"
-                        android:topRightRadius="@dimen/radius_squircle_large"
+                        android:topLeftRadius="11dp"
+                        android:topRightRadius="11dp"
                         android:bottomLeftRadius="0dp"
                         android:bottomRightRadius="0dp" />
                 </shape>
@@ -43,66 +42,32 @@
 
     <!-- Pressed -->
     <item android:state_pressed="true">
-        <layer-list>
-            <item>
-                <shape android:shape="rectangle">
-                    <gradient
-                        android:angle="270"
-                        android:startColor="@color/bg_card_pressed"
-                        android:endColor="#1A1422" />
-                    <stroke android:width="1.5dp" android:color="@color/border_default" />
-                    <corners android:radius="@dimen/radius_squircle_large" />
-                </shape>
-            </item>
-            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="10dp">
-                <shape android:shape="rectangle">
-                    <gradient
-                        android:angle="270"
-                        android:startColor="#10FFFFFF"
-                        android:endColor="#00FFFFFF" />
-                    <corners
-                        android:topLeftRadius="@dimen/radius_squircle_large"
-                        android:topRightRadius="@dimen/radius_squircle_large"
-                        android:bottomLeftRadius="0dp"
-                        android:bottomRightRadius="0dp" />
-                </shape>
-            </item>
-        </layer-list>
+        <shape android:shape="rectangle">
+            <solid android:color="#2A16243A" />
+            <stroke android:width="1.2dp" android:color="#80FFFFFF" />
+            <corners android:radius="12dp" />
+        </shape>
     </item>
 
-    <!-- Default: elegant card with subtle depth -->
+    <!-- Default: dark translucent glass surface with subtle border -->
     <item>
         <layer-list>
-            <!-- Subtle drop shadow -->
-            <item android:top="3dp">
+            <!-- Subtle bottom shadow -->
+            <item android:top="2dp">
                 <shape android:shape="rectangle">
-                    <solid android:color="#26000000" />
-                    <corners android:radius="@dimen/radius_squircle_large" />
+                    <solid android:color="#20000000" />
+                    <corners android:radius="12dp" />
                 </shape>
             </item>
-            <!-- Main card -->
-            <item android:bottom="3dp">
+            <!-- Main card surface -->
+            <item android:bottom="2dp">
                 <shape android:shape="rectangle">
                     <gradient
                         android:angle="270"
-                        android:startColor="@color/card_gradient_start"
-                        android:endColor="@color/card_gradient_end" />
-                    <stroke android:width="1dp" android:color="@color/border_subtle" />
-                    <corners android:radius="@dimen/radius_squircle_large" />
-                </shape>
-            </item>
-            <!-- Inner highlight (~40% height) -->
-            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="120dp">
-                <shape android:shape="rectangle">
-                    <gradient
-                        android:angle="270"
-                        android:startColor="#0AFFFFFF"
-                        android:endColor="#00FFFFFF" />
-                    <corners
-                        android:topLeftRadius="@dimen/radius_squircle_large"
-                        android:topRightRadius="@dimen/radius_squircle_large"
-                        android:bottomLeftRadius="0dp"
-                        android:bottomRightRadius="0dp" />
+                        android:startColor="#1A121A26"
+                        android:endColor="#280C121E" />
+                    <stroke android:width="1dp" android:color="#18FFFFFF" />
+                    <corners android:radius="12dp" />
                 </shape>
             </item>
         </layer-list>

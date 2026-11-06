@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.gathin.tvhome.data.model.MediaItem;
 import com.gathin.tvhome.data.model.ProviderInfo;
 import com.gathin.tvhome.data.repository.ContentRepository;
+import com.gathin.tvhome.data.repository.ViewingHistoryRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -131,6 +132,11 @@ public class MediaDetailsActivity extends Activity {
             return;
         }
 
+        // Record legitimate user watch engagement
+        ViewingHistoryRepository.getInstance(this).recordPlaybackInitiated(
+                item, "YouTube", "com.amazon.firetv.youtube"
+        );
+
         // Try launching YouTube app intent first
         Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + item.trailerYoutubeId));
         PackageManager pm = getPackageManager();
@@ -156,6 +162,12 @@ public class MediaDetailsActivity extends Activity {
 
         ProviderInfo primary = item.providers.get(0);
         String pkg = PROVIDER_PACKAGES.get(primary.name);
+
+        // Record legitimate user watch engagement
+        ViewingHistoryRepository.getInstance(this).recordPlaybackInitiated(
+                item, primary.name, pkg != null ? pkg : ""
+        );
+
         if (pkg != null) {
             PackageManager pm = getPackageManager();
             Intent launchIntent = pm.getLeanbackLaunchIntentForPackage(pkg);

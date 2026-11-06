@@ -42,14 +42,16 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final int TYPE_HERO = 0;
     private static final int TYPE_DOCK = 1;
-    private static final int TYPE_CONTENT_ROW = 2;
-    private static final int TYPE_APPS_ROW = 3;
+    private static final int TYPE_YOUR_APPS = 2;
+    private static final int TYPE_CONTENT_ROW = 3;
+    private static final int TYPE_APPS_ROW = 4;
 
     private final Context ctx;
     private final MainContentListener listener;
     private final DockAdapter dockAdapter;
     private final List<ContentRow> contentRows = new ArrayList<>();
     private AppsRowCallback appsRowCallback;
+    private InstalledAppsAdapter installedAppsAdapter;
 
     private HeroHolder activeHeroHolder;
     private DockHolder activeDockHolder;
@@ -78,6 +80,11 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.dockAdapter = dockAdapter;
     }
 
+    void setInstalledAppsAdapter(InstalledAppsAdapter adapter) {
+        this.installedAppsAdapter = adapter;
+        notifyDataSetChanged();
+    }
+
     void setContentRows(List<ContentRow> rows) {
         contentRows.clear();
         contentRows.addAll(rows);
@@ -86,7 +93,7 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     void addContentRow(ContentRow row) {
         contentRows.add(row);
-        notifyItemInserted(2 + contentRows.size() - 1);
+        notifyDataSetChanged();
     }
 
     void setAppsRowCallback(AppsRowCallback callback) {
@@ -120,6 +127,11 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemViewType(int position) {
         if (position == 0) return TYPE_HERO;
         if (position == 1) return TYPE_DOCK;
+        int offset = 2;
+        if (installedAppsAdapter != null) {
+            if (position == offset) return TYPE_YOUR_APPS;
+            offset++;
+        }
         if (position == getItemCount() - 1) return TYPE_APPS_ROW;
         return TYPE_CONTENT_ROW;
     }
@@ -133,6 +145,8 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 return new HeroHolder(inflater.inflate(R.layout.item_hero_section, parent, false));
             case TYPE_DOCK:
                 return new DockHolder(inflater.inflate(R.layout.item_dock_section, parent, false));
+            case TYPE_YOUR_APPS:
+                return new YourAppsRowHolder(inflater.inflate(R.layout.item_content_row, parent, false));
             case TYPE_CONTENT_ROW:
                 return new ContentRowHolder(inflater.inflate(R.layout.item_content_row, parent, false));
             case TYPE_APPS_ROW:
@@ -151,10 +165,17 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else if (type == TYPE_DOCK) {
             activeDockHolder = (DockHolder) holder;
             activeDockHolder.bind(dockAdapter, ctx);
+        } else if (type == TYPE_YOUR_APPS) {
+            YourAppsRowHolder h = (YourAppsRowHolder) holder;
+            h.bind(installedAppsAdapter);
         } else if (type == TYPE_CONTENT_ROW) {
             ContentRowHolder h = (ContentRowHolder) holder;
-            ContentRow row = contentRows.get(position - 2);
-            h.bind(row, position - 2, contentRows.size());
+            int offset = installedAppsAdapter != null ? 3 : 2;
+            int rowIndex = position - offset;
+            if (rowIndex >= 0 && rowIndex < contentRows.size()) {
+                ContentRow row = contentRows.get(rowIndex);
+                h.bind(row, rowIndex, contentRows.size());
+            }
         } else if (type == TYPE_APPS_ROW) {
             AppsRowHolder h = (AppsRowHolder) holder;
             h.bind();
@@ -163,7 +184,11 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return 2 + contentRows.size() + 1; // hero + dock + content rows + apps row
+        int count = 2; // hero + dock
+        if (installedAppsAdapter != null) count++; // your apps
+        count += contentRows.size(); // content rows
+        count += 1; // apps row banner
+        return count;
     }
 
     // ===== VIEW HOLDERS =====
@@ -308,6 +333,35 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     return false;
                 }
             });
+        }
+    }
+
+    class YourAppsRowHolder extends RecyclerView.ViewHolder {
+        final TextView title;
+        final ImageView icon;
+        final RecyclerView appsRecyclerView;
+
+        YourAppsRowHolder(View v) {
+            super(v);
+            title = v.findViewById(R.id.categoryTitle);
+            icon = v.findViewById(R.id.categoryIcon);
+            appsRecyclerView = v.findViewById(R.id.contentRecyclerView);
+
+            if (appsRecyclerView != null) {
+                LinearLayoutManager lm = new LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false);
+                appsRecyclerView.setLayoutManager(lm);
+                appsRecyclerView.setHasFixedSize(true);
+                appsRecyclerView.setItemAnimator(null);
+                appsRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            }
+        }
+
+        void bind(InstalledAppsAdapter adapter) {
+            if (title != null) title.setText("Your Applications");
+            if (icon != null) icon.setImageResource(R.drawable.ic_system);
+            if (appsRecyclerView != null && adapter != null) {
+                appsRecyclerView.setAdapter(adapter);
+            }
         }
     }
 

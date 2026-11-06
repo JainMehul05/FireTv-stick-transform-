@@ -76,16 +76,5 @@
             android:progressBackgroundTint="#40FFFFFF"
             android:visibility="gone"
             android:max="100" />
-
-        <!-- Focus indicator badge (top-right) -->
-        <ImageView
-            android:id="@+id/focusBadge"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_gravity="top|end"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_focus_badge"
-            android:visibility="gone"
-            android:importantForAccessibility="no" />
     </FrameLayout>
 </FrameLayout>

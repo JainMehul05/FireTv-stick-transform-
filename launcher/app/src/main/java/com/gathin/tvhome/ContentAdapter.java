@@ -1,13 +1,12 @@
 package com.gathin.tvhome;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
-import android.view.animation.OvershootInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,7 +21,7 @@ import java.util.List;
 
 /**
  * Adapter for horizontal entertainment content rows (movies, TV shows, continue watching).
- * Each row is a horizontal RecyclerView with focusable cinematic 16:9 cards.
+ * Supports both landscape (16:9) and portrait (2:3) posters with refined glass focus styling.
  */
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> {
 
@@ -32,20 +31,30 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         boolean onContentKey(int position, int keyCode);
     }
 
-    static final float FOCUS_SCALE = 1.08f;
-    static final float CORNER_RATIO = 0.12f;
+    static final float FOCUS_SCALE = 1.05f;
+    static final float CORNER_RATIO = 0.08f;
 
     private final Context ctx;
     private ContentListener listener;
     private final List<MediaItem> items = new ArrayList<>();
+    private boolean isPortrait = false;
 
     ContentAdapter(Context ctx, ContentListener listener) {
+        this(ctx, listener, false);
+    }
+
+    ContentAdapter(Context ctx, ContentListener listener, boolean isPortrait) {
         this.ctx = ctx;
         this.listener = listener;
+        this.isPortrait = isPortrait;
     }
 
     void setListener(ContentListener listener) {
         this.listener = listener;
+    }
+
+    void setPortrait(boolean portrait) {
+        this.isPortrait = portrait;
     }
 
     void setMediaItems(List<MediaItem> newItems) {
@@ -59,7 +68,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_content_card, parent, false);
+        int layoutRes = isPortrait ? R.layout.item_content_card_poster : R.layout.item_content_card;
+        View v = LayoutInflater.from(parent.getContext()).inflate(layoutRes, parent, false);
         return new Holder(v, listener, this);
     }
 
@@ -78,16 +88,24 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         h.subtitle.setText(subtitleText);
 
         // Load real TMDB artwork asynchronously with LRU cache and downsampling
-        if (item.backdropUrl != null && item.backdropUrl.startsWith("http")) {
-            ImageLoader.getInstance().loadUrl(item.backdropUrl, h.artwork, 360, 220, R.drawable.bg_night);
-        } else if (item.posterUrl != null && item.posterUrl.startsWith("http")) {
-            ImageLoader.getInstance().loadUrl(item.posterUrl, h.artwork, 360, 220, R.drawable.bg_night);
+        if (isPortrait) {
+            String primaryUrl = (item.posterUrl != null && !item.posterUrl.isEmpty()) ? item.posterUrl : item.backdropUrl;
+            if (primaryUrl != null && primaryUrl.startsWith("http")) {
+                ImageLoader.getInstance().loadUrl(primaryUrl, h.artwork, 260, 390, R.drawable.bg_night);
+            } else {
+                h.artwork.setImageResource(R.drawable.bg_night);
+            }
         } else {
-            h.artwork.setImageResource(R.drawable.bg_night);
+            String primaryUrl = (item.backdropUrl != null && !item.backdropUrl.isEmpty()) ? item.backdropUrl : item.posterUrl;
+            if (primaryUrl != null && primaryUrl.startsWith("http")) {
+                ImageLoader.getInstance().loadUrl(primaryUrl, h.artwork, 360, 220, R.drawable.bg_night);
+            } else {
+                h.artwork.setImageResource(R.drawable.bg_night);
+            }
         }
 
         if (h.progressBar != null) {
-            if (item.progress >= 0) {
+            if (item.progress > 0) {
                 h.progressBar.setVisibility(View.VISIBLE);
                 h.progressBar.setProgress(item.progress);
             } else {
@@ -117,7 +135,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         final ImageView artwork;
         final TextView title;
         final TextView subtitle;
-        final ImageView focusBadge;
         final ProgressBar progressBar;
 
         Holder(View v, ContentListener listener, ContentAdapter owner) {
@@ -126,15 +143,13 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
             artwork = v.findViewById(R.id.artwork);
             title = v.findViewById(R.id.title);
             subtitle = v.findViewById(R.id.subtitle);
-            focusBadge = v.findViewById(R.id.focusBadge);
             progressBar = v.findViewById(R.id.cardProgress);
 
             final float density = v.getResources().getDisplayMetrics().density;
             card.setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, android.graphics.Outline outline) {
-                    float radius = Math.min(view.getWidth(), view.getHeight()) * CORNER_RATIO;
-                    outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), radius);
+                    outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 12f * density);
                 }
             });
             card.setClipToOutline(true);
@@ -151,14 +166,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
 
             card.setOnFocusChangeListener((view, focused) -> {
                 float s = focused ? FOCUS_SCALE : 1.0f;
-                float lift = focused ? 6f * density : 0f;
-                view.animate().scaleX(s).scaleY(s).translationY(-lift)
-                        .setDuration(focused ? 200 : 150)
-                        .setInterpolator(new OvershootInterpolator(focused ? 1.2f : 0f))
+                float lift = focused ? -4f * density : 0f;
+                view.animate().scaleX(s).scaleY(s).translationY(lift)
+                        .setDuration(focused ? 180 : 120)
+                        .setInterpolator(new DecelerateInterpolator())
                         .start();
-                if (focusBadge != null) {
-                    focusBadge.setVisibility(focused ? View.VISIBLE : View.GONE);
-                }
+
                 int pos = getBindingAdapterPosition();
                 if (focused && listener != null && pos != RecyclerView.NO_POSITION) {
                     listener.onContentFocused(pos, view);
