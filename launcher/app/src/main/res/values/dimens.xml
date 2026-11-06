@@ -122,9 +122,11 @@
     <dimen name="text_size_body">@dimen/text_size_md</dimen>        <!-- 14sp -->
     <dimen name="text_size_caption">@dimen/text_size_sm</dimen>     <!-- 12sp -->
     <dimen name="text_size_overline">@dimen/text_size_xs</dimen>    <!-- 11sp -->
-    <dimen name="text_size_clock">@dimen/text_size_9xl</dimen>      <!-- 64sp -->
-    <dimen name="text_size_greeting">@dimen/text_size_sm</dimen>    <!-- 12sp -->
-    <dimen name="text_size_date">@dimen/text_size_md</dimen>        <!-- 14sp -->
+    <dimen name="text_size_clock">26sp</dimen>
+    <dimen name="text_size_clock_ampm">11sp</dimen>
+    <dimen name="text_size_greeting">11sp</dimen>
+    <dimen name="text_size_date">13sp</dimen>
+    <dimen name="top_bar_height">64dp</dimen>
     <dimen name="text_size_dock_label">@dimen/text_size_sm</dimen>  <!-- 12sp -->
     <dimen name="text_size_card_label">@dimen/text_size_md</dimen>  <!-- 14sp -->
 

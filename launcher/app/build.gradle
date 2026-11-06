@@ -11,8 +11,14 @@ android {
     def localFile = rootProject.file('local.properties')
     if (localFile.exists()) localFile.withInputStream { localProps.load(it) }
 
+    buildFeatures {
+        buildConfig true
+    }
+
     defaultConfig {
         resValue 'string', 'user_name', localProps.getProperty('tvhome.userName', '')
+        buildConfigField 'String', 'TMDB_API_KEY', "\"${localProps.getProperty('tmdb.apiKey', '')}\""
+        buildConfigField 'String', 'YOUTUBE_API_KEY', "\"${localProps.getProperty('youtube.apiKey', '')}\""
         applicationId 'com.gathin.tvhome'
         minSdk 26
         targetSdk 29

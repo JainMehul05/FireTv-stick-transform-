@@ -6,23 +6,35 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.LruCache;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
- * Memory-efficient image loader with LRU caching and inSampleSize downsampling.
- * Optimized for Fire TV Stick Lite (1GB RAM) - keeps memory usage under 48MB for bitmaps.
+ * Memory-efficient image loader with LRU caching, inSampleSize downsampling,
+ * and asynchronous network/resource loading.
+ * Optimized for Fire TV Stick Lite (1GB RAM) - keeps memory usage under 36MB for bitmaps.
  */
 public final class ImageLoader {
 
-    private static final int MAX_BITMAP_MEMORY_MB = 48; // 48MB max for bitmap cache
+    private static final int MAX_BITMAP_MEMORY_MB = 36;
     private static final int DEFAULT_IN_SAMPLE_SIZE = 1;
 
     private final LruCache<String, Bitmap> bitmapCache;
     private final Resources resources;
     private final long maxCacheSize;
+    private final ExecutorService executor = Executors.newFixedThreadPool(2);
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private ImageLoader(Context context) {
         int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024 / 1024);
@@ -45,33 +57,18 @@ public final class ImageLoader {
         return Holder.INSTANCE;
     }
 
-    /**
-     * Initialize the ImageLoader with application context.
-     * Must be called once during application startup.
-     */
     public static void init(Context context) {
-        // Force initialization of singleton
         Holder.INSTANCE.getClass();
     }
 
-    /**
-     * Load a drawable resource as a Bitmap with downsampling.
-     * @param resId Resource ID of the drawable
-     * @param reqWidth Target width in pixels (0 for no constraint)
-     * @param reqHeight Target height in pixels (0 for no constraint)
-     * @return Bitmap or null if failed
-     */
     @Nullable
     public Bitmap loadBitmap(int resId, int reqWidth, int reqHeight) {
         String key = "res:" + resId + "@" + reqWidth + "x" + reqHeight;
-        
-        // Check cache first
         Bitmap cached = bitmapCache.get(key);
         if (cached != null && !cached.isRecycled()) {
             return cached;
         }
 
-        // Decode with inSampleSize for memory efficiency
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(resources, resId, options);
@@ -81,7 +78,7 @@ public final class ImageLoader {
         }
 
         options.inJustDecodeBounds = false;
-        options.inPreferredConfig = Bitmap.Config.RGB_565; // 50% memory vs ARGB_8888
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inMutable = true;
 
         try {
@@ -91,7 +88,6 @@ public final class ImageLoader {
                 return bitmap;
             }
         } catch (OutOfMemoryError e) {
-            // Fallback: try with larger inSampleSize
             options.inSampleSize *= 2;
             try {
                 Bitmap bitmap = BitmapFactory.decodeResource(resources, resId, options);
@@ -105,22 +101,87 @@ public final class ImageLoader {
         return null;
     }
 
-    /**
-     * Load a drawable resource as a Drawable with downsampling.
-     */
     @Nullable
     public Drawable loadDrawable(int resId, int reqWidth, int reqHeight) {
         Bitmap bitmap = loadBitmap(resId, reqWidth, reqHeight);
         if (bitmap != null) {
             return new BitmapDrawable(resources, bitmap);
         }
-        // Fallback to direct resource drawable
         return resources.getDrawable(resId, null);
     }
 
     /**
-     * Calculate optimal inSampleSize for downsampling.
+     * Asynchronously loads an image from a URL into an ImageView.
      */
+    public void loadUrl(String url, ImageView targetView, int reqWidth, int reqHeight, int placeholderResId) {
+        if (targetView == null) return;
+        if (url == null || url.trim().isEmpty()) {
+            if (placeholderResId != 0) targetView.setImageResource(placeholderResId);
+            return;
+        }
+
+        final String cacheKey = "url:" + url + "@" + reqWidth + "x" + reqHeight;
+        Bitmap cached = bitmapCache.get(cacheKey);
+        if (cached != null && !cached.isRecycled()) {
+            targetView.setImageBitmap(cached);
+            return;
+        }
+
+        if (placeholderResId != 0) {
+            targetView.setImageResource(placeholderResId);
+        }
+        targetView.setTag(url);
+
+        executor.execute(() -> {
+            HttpURLConnection conn = null;
+            try {
+                URL u = new URL(url);
+                conn = (HttpURLConnection) u.openConnection();
+                conn.setConnectTimeout(6000);
+                conn.setReadTimeout(6000);
+                conn.setDoInput(true);
+                conn.connect();
+
+                if (conn.getResponseCode() == 200) {
+                    InputStream input = conn.getInputStream();
+                    byte[] bytes = readAllBytes(input);
+                    input.close();
+
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    opts.inJustDecodeBounds = true;
+                    BitmapFactory.decodeByteArray(bytes, 0, bytes.length, opts);
+
+                    opts.inSampleSize = calculateInSampleSize(opts, reqWidth, reqHeight);
+                    opts.inJustDecodeBounds = false;
+                    opts.inPreferredConfig = Bitmap.Config.RGB_565;
+
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, opts);
+                    if (bmp != null) {
+                        bitmapCache.put(cacheKey, bmp);
+                        mainHandler.post(() -> {
+                            if (url.equals(targetView.getTag())) {
+                                targetView.setImageBitmap(bmp);
+                            }
+                        });
+                    }
+                }
+            } catch (Exception ignored) {
+            } finally {
+                if (conn != null) conn.disconnect();
+            }
+        });
+    }
+
+    private static byte[] readAllBytes(InputStream in) throws Exception {
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        byte[] buffer = new byte[8192];
+        int r;
+        while ((r = in.read(buffer)) != -1) {
+            out.write(buffer, 0, r);
+        }
+        return out.toByteArray();
+    }
+
     private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         if (reqWidth == 0 || reqHeight == 0) return DEFAULT_IN_SAMPLE_SIZE;
 
@@ -136,23 +197,14 @@ public final class ImageLoader {
         return inSampleSize;
     }
 
-    /**
-     * Clear the bitmap cache.
-     */
     public void clearCache() {
         bitmapCache.evictAll();
     }
 
-    /**
-     * Get current cache size in bytes.
-     */
     public long getCacheSize() {
         return bitmapCache.size();
     }
 
-    /**
-     * Get max cache size in bytes.
-     */
     public long getMaxCacheSize() {
         return maxCacheSize;
     }

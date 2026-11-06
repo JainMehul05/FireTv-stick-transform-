@@ -22,6 +22,7 @@
     <!-- ===== ACCENT COLORS ===== -->
     <color name="accent_electric_blue">#00D4FF</color>
     <color name="accent_electric_blue_dim">#8000D4FF</color>
+    <color name="accent_cyan">#00D4FF</color>
     <color name="accent_violet">#7C4DFF</color>
     <color name="accent_violet_dim">#807C4DFF</color>
     <color name="accent_purple">#BB86FC</color>

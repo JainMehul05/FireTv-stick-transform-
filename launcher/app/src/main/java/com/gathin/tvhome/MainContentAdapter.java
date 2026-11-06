@@ -109,6 +109,13 @@ public class MainContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return contentRows.size();
     }
 
+    public ContentRow getContentRow(int rowIndex) {
+        if (rowIndex >= 0 && rowIndex < contentRows.size()) {
+            return contentRows.get(rowIndex);
+        }
+        return null;
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (position == 0) return TYPE_HERO;

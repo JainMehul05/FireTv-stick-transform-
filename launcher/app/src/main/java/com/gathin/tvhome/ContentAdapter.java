@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.view.animation.OvershootInterpolator;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,12 +15,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gathin.tvhome.data.model.MediaItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Adapter for horizontal content rows (movies, TV shows, continue watching).
- * Each row is a horizontal RecyclerView with focusable cinematic cards.
+ * Adapter for horizontal entertainment content rows (movies, TV shows, continue watching).
+ * Each row is a horizontal RecyclerView with focusable cinematic 16:9 cards.
  */
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> {
 
@@ -31,32 +32,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         boolean onContentKey(int position, int keyCode);
     }
 
-    static final class ContentItem {
-        final String title;
-        final String subtitle;
-        final Drawable artwork;
-        final int position;
-        final int progress;
-
-        ContentItem(String title, String subtitle, Drawable artwork, int position) {
-            this(title, subtitle, artwork, position, -1);
-        }
-
-        ContentItem(String title, String subtitle, Drawable artwork, int position, int progress) {
-            this.title = title;
-            this.subtitle = subtitle;
-            this.artwork = artwork;
-            this.position = position;
-            this.progress = progress;
-        }
-    }
-
     static final float FOCUS_SCALE = 1.08f;
     static final float CORNER_RATIO = 0.12f;
 
     private final Context ctx;
     private ContentListener listener;
-    private final List<ContentItem> items = new ArrayList<>();
+    private final List<MediaItem> items = new ArrayList<>();
 
     ContentAdapter(Context ctx, ContentListener listener) {
         this.ctx = ctx;
@@ -67,16 +48,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         this.listener = listener;
     }
 
-    void setItems(List<ContentItem> newItems) {
+    void setMediaItems(List<MediaItem> newItems) {
         items.clear();
-        items.addAll(newItems);
+        if (newItems != null) {
+            items.addAll(newItems);
+        }
         notifyDataSetChanged();
-    }
-
-    void appendItems(List<ContentItem> newItems) {
-        int start = items.size();
-        items.addAll(newItems);
-        notifyItemRangeInserted(start, newItems.size());
     }
 
     @NonNull
@@ -88,10 +65,26 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
 
     @Override
     public void onBindViewHolder(@NonNull Holder h, int position) {
-        ContentItem item = items.get(position);
+        MediaItem item = items.get(position);
         h.title.setText(item.title);
-        h.subtitle.setText(item.subtitle);
-        h.artwork.setImageDrawable(item.artwork);
+
+        String subtitleText = item.releaseYear;
+        if (!item.genres.isEmpty()) {
+            subtitleText = subtitleText.isEmpty() ? item.genres : subtitleText + " • " + item.genres;
+        }
+        if (item.voteAverage > 0) {
+            subtitleText += " • " + item.getFormattedRating();
+        }
+        h.subtitle.setText(subtitleText);
+
+        // Load real TMDB artwork asynchronously with LRU cache and downsampling
+        if (item.backdropUrl != null && item.backdropUrl.startsWith("http")) {
+            ImageLoader.getInstance().loadUrl(item.backdropUrl, h.artwork, 360, 220, R.drawable.bg_night);
+        } else if (item.posterUrl != null && item.posterUrl.startsWith("http")) {
+            ImageLoader.getInstance().loadUrl(item.posterUrl, h.artwork, 360, 220, R.drawable.bg_night);
+        } else {
+            h.artwork.setImageResource(R.drawable.bg_night);
+        }
 
         if (h.progressBar != null) {
             if (item.progress >= 0) {
@@ -112,7 +105,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
         return items.size();
     }
 
-    public ContentItem getItemAt(int position) {
+    public MediaItem getItemAt(int position) {
         if (position >= 0 && position < items.size()) {
             return items.get(position);
         }
@@ -150,11 +143,10 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.Holder> 
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
                 int pos = getBindingAdapterPosition();
                 if (listener == null || pos == RecyclerView.NO_POSITION) return false;
-                // Allow custom vertical navigation to pass through to row holder
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
                     return listener.onContentKey(pos, keyCode);
                 }
-                return false; // Horizontal D-pad is handled naturally by the RecyclerView
+                return false;
             });
 
             card.setOnFocusChangeListener((view, focused) -> {

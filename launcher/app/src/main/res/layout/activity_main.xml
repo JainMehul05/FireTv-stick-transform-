@@ -44,7 +44,7 @@
         android:id="@+id/mainContentRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="76dp"
+        android:paddingTop="72dp"
         android:paddingBottom="48dp"
         android:clipToPadding="false"
         android:clipChildren="false"
@@ -56,17 +56,18 @@
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/top_bar_height"
         android:layout_gravity="top"
+        android:background="@drawable/bg_top_bar_glass"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/padding_screen_edge_lg"
         android:paddingEnd="@dimen/padding_screen_edge_lg"
-        android:paddingTop="16dp"
+        android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:clipToPadding="false"
         android:clipChildren="false"
-        android:elevation="12dp">
+        android:elevation="16dp">
 
         <!-- Left block: Greeting + Live Clock + Date -->
         <LinearLayout
@@ -81,16 +82,18 @@
                 android:id="@+id/greeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.TvHome.Caption"
+                android:textSize="@dimen/text_size_greeting"
                 android:textColor="@color/text_tertiary"
-                android:letterSpacing="0.08" />
+                android:fontFamily="@font/open_sans"
+                android:letterSpacing="0.08"
+                android:textAllCaps="true" />
 
             <!-- Clock & Date Row -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:baselineAligned="true"
+                android:gravity="center_vertical"
                 android:layout_marginTop="2dp">
 
                 <!-- Main clock -->
@@ -108,40 +111,37 @@
                     android:id="@+id/ampm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginStart="4dp"
                     android:format12Hour="a"
                     android:format24Hour=""
                     android:textAppearance="@style/TextAppearance.TvHome.Clock.AmPm"
                     android:includeFontPadding="false" />
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="18dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginEnd="14dp"
-                    android:layout_marginBottom="2dp"
-                    android:background="@color/border_subtle" />
+                <!-- Divider dot -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="•"
+                    android:textColor="@color/border_subtle"
+                    android:textSize="12sp" />
 
                 <!-- Date -->
                 <TextClock
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="2dp"
                     android:format12Hour="EEEE, MMMM d"
                     android:format24Hour="EEEE, MMMM d"
-                    android:textAppearance="@style/TextAppearance.TvHome.Body"
+                    android:textSize="@dimen/text_size_date"
                     android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/open_sans"
                     android:includeFontPadding="false" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Right block: Top Utility Buttons (Inputs, Wi-Fi, Settings) -->
+        <!-- Right block: Top Utility & Discovery Buttons (Search, Store, Inputs, Wi-Fi, Settings) -->
         <LinearLayout
             android:id="@+id/topButtons"
             android:layout_width="wrap_content"
@@ -149,10 +149,32 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
+            <!-- Search button -->
+            <TextView
+                android:id="@+id/btnSearch"
+                style="@style/TvHomeWidgetTopIconButton"
+                android:contentDescription="@string/search"
+                android:drawableStart="@drawable/ic_search"
+                android:focusable="true"
+                android:clickable="true"
+                android:nextFocusDown="@+id/mainContentRecyclerView" />
+
+            <!-- App Store button -->
+            <TextView
+                android:id="@+id/btnStore"
+                style="@style/TvHomeWidgetTopIconButton"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/app_store"
+                android:drawableStart="@drawable/ic_store"
+                android:focusable="true"
+                android:clickable="true"
+                android:nextFocusDown="@+id/mainContentRecyclerView" />
+
             <!-- Inputs button -->
             <TextView
                 android:id="@+id/btnInputs"
                 style="@style/TvHomeWidgetTopIconButton"
+                android:layout_marginStart="10dp"
                 android:contentDescription="@string/inputs"
                 android:drawableStart="@drawable/ic_input"
                 android:focusable="true"

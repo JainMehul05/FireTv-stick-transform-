@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium Cinematic Media Details Screen -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detailsRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_deep_navy">
+
+    <!-- Fullscreen backdrop -->
+    <ImageView
+        android:id="@+id/detailsBackdrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:importantForAccessibility="no" />
+
+    <!-- Cinematic dark scrim for contrast and legibility -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_hero_scrim" />
+
+    <View
+        android:layout_width="800dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/bg_hero_side_vignette" />
+
+    <!-- Main Content Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingStart="64dp"
+        android:paddingEnd="64dp"
+        android:paddingTop="56dp"
+        android:paddingBottom="56dp"
+        android:gravity="center_vertical">
+
+        <!-- Poster Card (Left) -->
+        <FrameLayout
+            android:id="@+id/posterCard"
+            android:layout_width="220dp"
+            android:layout_height="330dp"
+            android:background="@drawable/bg_content_card">
+
+            <ImageView
+                android:id="@+id/detailsPoster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:importantForAccessibility="no" />
+        </FrameLayout>
+
+        <!-- Details Info (Right) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="48dp">
+
+            <!-- Category / Type badge -->
+            <TextView
+                android:id="@+id/detailsCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FEATURED MOVIE"
+                android:textSize="11sp"
+                android:textColor="@color/accent_electric_blue"
+                android:fontFamily="@font/open_sans"
+                android:letterSpacing="0.08"
+                android:textAllCaps="true" />
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/detailsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dune: Part Two"
+                android:textSize="38sp"
+                android:textColor="@color/text_primary"
+                android:fontFamily="@font/outfit"
+                android:fontWeight="400"
+                android:includeFontPadding="false"
+                android:layout_marginTop="4dp" />
+
+            <!-- Metadata Row (Rating, Year, Duration, 4K HDR) -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+
+                <!-- Rating -->
+                <TextView
+                    android:id="@+id/detailsRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="★ 8.2"
+                    android:textSize="13sp"
+                    android:textColor="#FFD700"
+                    android:fontFamily="@font/open_sans" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="•"
+                    android:textColor="@color/border_subtle" />
+
+                <!-- Year -->
+                <TextView
+                    android:id="@+id/detailsYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2024"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/open_sans" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="•"
+                    android:textColor="@color/border_subtle" />
+
+                <!-- Genres -->
+                <TextView
+                    android:id="@+id/detailsGenres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sci-Fi / Adventure"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/open_sans" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="•"
+                    android:textColor="@color/border_subtle" />
+
+                <!-- Duration -->
+                <TextView
+                    android:id="@+id/detailsDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2h 46m"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="@font/open_sans" />
+
+                <!-- 4K HDR Badge -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="4K HDR"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_primary"
+                    android:background="@drawable/bg_badge_4k"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp" />
+            </LinearLayout>
+
+            <!-- Overview Synopsis -->
+            <TextView
+                android:id="@+id/detailsOverview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Overview description goes here..."
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:lineSpacingMultiplier="1.3"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:layout_marginTop="14dp" />
+
+            <!-- Streaming Provider Availability Row -->
+            <LinearLayout
+                android:id="@+id/providerSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Available on:"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_tertiary"
+                    android:fontFamily="@font/open_sans" />
+
+                <TextView
+                    android:id="@+id/detailsProviderName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="JioCinema, Prime Video"
+                    android:textSize="12sp"
+                    android:textColor="@color/accent_cyan"
+                    android:fontFamily="@font/open_sans"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Action Buttons Row -->
+            <LinearLayout
+                android:id="@+id/detailsActions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="22dp">
+
+                <!-- Play / Watch on Provider -->
+                <Button
+                    android:id="@+id/btnWatchNow"
+                    style="@style/TvHomeWidgetGlassButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="@string/watch_now"
+                    android:drawableStart="@drawable/ic_play"
+                    android:drawablePadding="8dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:textSize="13sp"
+                    android:focusable="true"
+                    android:clickable="true" />
+
+                <!-- Watch Trailer -->
+                <Button
+                    android:id="@+id/btnWatchTrailer"
+                    style="@style/TvHomeWidgetGlassButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/watch_trailer"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textSize="13sp"
+                    android:focusable="true"
+                    android:clickable="true" />
+
+                <!-- Add to Watchlist -->
+                <Button
+                    android:id="@+id/btnWatchlist"
+                    style="@style/TvHomeWidgetGlassButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/add_to_watchlist"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textSize="13sp"
+                    android:focusable="true"
+                    android:clickable="true" />
+
+                <!-- Back button -->
+                <Button
+                    android:id="@+id/btnBack"
+                    style="@style/TvHomeWidgetGlassButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/back"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textSize="13sp"
+                    android:focusable="true"
+                    android:clickable="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

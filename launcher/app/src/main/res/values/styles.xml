@@ -119,21 +119,19 @@
         <item name="android:letterSpacing">@dimen/letter_spacing_overline</item>
     </style>
 
-    <!-- Clock (special large display) -->
+    <!-- Clock (refined Apple TV / Google TV style) -->
     <style name="TextAppearance.TvHome.Clock" parent="android:TextAppearance">
         <item name="android:textSize">@dimen/text_size_clock</item>
         <item name="android:fontFamily">@font/outfit</item>
-        <item name="android:fontWeight">300</item>
-        <item name="android:letterSpacing">@dimen/letter_spacing_display</item>
+        <item name="android:fontWeight">400</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="TextAppearance.TvHome.Clock.AmPm" parent="TextAppearance.TvHome.Clock">
-        <item name="android:textSize">@dimen/text_size_3xl</item>
-        <item name="android:fontWeight">500</item>
-        <item name="android:letterSpacing">@dimen/letter_spacing_wide</item>
-        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_size_clock_ampm</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:textColor">@color/text_tertiary</item>
         <item name="android:textAllCaps">true</item>
     </style>
 

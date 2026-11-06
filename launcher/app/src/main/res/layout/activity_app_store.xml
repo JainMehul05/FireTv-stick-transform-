@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium TV App Store Screen -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/appStoreRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_deep_navy"
+    android:paddingStart="48dp"
+    android:paddingEnd="48dp"
+    android:paddingTop="28dp"
+    android:paddingBottom="28dp">
+
+    <!-- Header Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Title & Subtitle -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_store"
+                android:textSize="28sp"
+                android:textColor="@color/text_primary"
+                android:fontFamily="@font/outfit"
+                android:fontWeight="400"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discover, install and manage applications for Fire TV"
+                android:textSize="12sp"
+                android:textColor="@color/text_tertiary"
+                android:fontFamily="@font/open_sans"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- Sideload APK action button -->
+        <Button
+            android:id="@+id/btnSideloadApk"
+            style="@style/TvHomeWidgetGlassButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/sideload_apk"
+            android:textSize="12sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginEnd="12dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:nextFocusDown="@+id/tabAll" />
+
+        <!-- Amazon Appstore launcher -->
+        <Button
+            android:id="@+id/btnOpenAmazonAppstore"
+            style="@style/TvHomeWidgetGlassButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/amazon_appstore"
+            android:textSize="12sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginEnd="12dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:nextFocusDown="@+id/tabStreaming" />
+
+        <!-- Back button -->
+        <TextView
+            android:id="@+id/btnStoreBack"
+            style="@style/TvHomeWidgetTopIconButton"
+            android:contentDescription="@string/back"
+            android:drawableStart="@drawable/ic_left"
+            android:focusable="true"
+            android:clickable="true"
+            android:nextFocusDown="@+id/tabUtilities" />
+    </LinearLayout>
+
+    <!-- Category Tabs -->
+    <LinearLayout
+        android:id="@+id/storeCategoryTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/tabAll"
+            style="@style/TvHomeWidgetTopPillButton"
+            android:text="ALL"
+            android:layout_marginEnd="8dp"
+            android:nextFocusDown="@+id/storeAppsGrid"
+            android:nextFocusUp="@+id/btnSideloadApk" />
+
+        <TextView
+            android:id="@+id/tabStreaming"
+            style="@style/TvHomeWidgetTopPillButton"
+            android:text="STREAMING"
+            android:layout_marginEnd="8dp"
+            android:nextFocusDown="@+id/storeAppsGrid"
+            android:nextFocusUp="@+id/btnSideloadApk" />
+
+        <TextView
+            android:id="@+id/tabEntertainment"
+            style="@style/TvHomeWidgetTopPillButton"
+            android:text="ENTERTAINMENT"
+            android:layout_marginEnd="8dp"
+            android:nextFocusDown="@+id/storeAppsGrid"
+            android:nextFocusUp="@+id/btnOpenAmazonAppstore" />
+
+        <TextView
+            android:id="@+id/tabUtilities"
+            style="@style/TvHomeWidgetTopPillButton"
+            android:text="UTILITIES &amp; TOOLS"
+            android:layout_marginEnd="8dp"
+            android:nextFocusDown="@+id/storeAppsGrid"
+            android:nextFocusUp="@+id/btnStoreBack" />
+    </LinearLayout>
+
+    <!-- Apps Grid -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/storeAppsGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
+
+</LinearLayout>

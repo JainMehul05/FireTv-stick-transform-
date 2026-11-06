@@ -78,11 +78,11 @@ public final class QuickSettingsActivity extends Activity {
 
         // Quick settings items
         QuickTile[] tiles = new QuickTile[] {
-            new QuickTile("Display &amp; Sound", "Picture mode, audio output", R.drawable.ic_av,
+            new QuickTile("Display & Sound", "Picture mode, audio output", R.drawable.ic_av,
                     () -> openSetting(Settings.ACTION_DISPLAY_SETTINGS)),
-            new QuickTile("Network &amp; Wi-Fi", "Internet connection", R.drawable.ic_wifi,
+            new QuickTile("Network & Wi-Fi", "Internet connection", R.drawable.ic_wifi,
                     () -> openSetting(Settings.ACTION_WIFI_SETTINGS)),
-            new QuickTile("Bluetooth &amp; Remotes", "Pair remotes and game controllers", R.drawable.ic_settings,
+            new QuickTile("Bluetooth & Remotes", "Pair remotes and game controllers", R.drawable.ic_settings,
                     () -> openSetting(Settings.ACTION_BLUETOOTH_SETTINGS)),
             new QuickTile("Wallpaper Gallery", "Change home cinematic backdrop", R.drawable.ic_wallpaper,
                     () -> startActivity(new Intent(this, WallpaperPickerActivity.class))),

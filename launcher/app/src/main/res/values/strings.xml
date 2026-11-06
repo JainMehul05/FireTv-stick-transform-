@@ -45,4 +45,25 @@
     <string name="wallpaper">Wallpaper</string>
     <string name="play">Play</string>
     <string name="more_info">More Info</string>
+    <string name="app_store">App Store</string>
+    <string name="trending">Trending Now</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="popular_tv">Popular TV Shows</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="sci_fi">Sci-Fi &amp; Adventure</string>
+    <string name="new_releases">New Releases</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="youtube_trailers">Trailers &amp; Clips</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="watch_now">Watch Now</string>
+    <string name="add_to_watchlist">Add to Watchlist</string>
+    <string name="in_watchlist">In Watchlist</string>
+    <string name="install">Install</string>
+    <string name="open">Open</string>
+    <string name="sideload_apk">Install from APK</string>
+    <string name="amazon_appstore">Amazon Appstore</string>
+    <string name="sideload_title">Install APK Package</string>
+    <string name="sideload_warning">Ensure you trust the developer of this application before installing.</string>
+    <string name="no_apps_found">No applications found</string>
+    <string name="search_hint">Search movies, shows, apps…</string>
 </resources>

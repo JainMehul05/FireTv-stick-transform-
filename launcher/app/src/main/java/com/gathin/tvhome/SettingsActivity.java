@@ -92,6 +92,14 @@ public class SettingsActivity extends Activity {
         items.add(new SettingItem("Personalization", "Home screen redirect", "Make this the default home screen",
                 R.drawable.ic_settings, this::toggleHomeRedirect));
 
+        // Content & API Integrations
+        String tmdbKey = com.gathin.tvhome.data.repository.ContentRepository.getInstance(this).getTmdbClient().getApiKey();
+        String tmdbStatus = tmdbKey.isEmpty() ? "Offline TMDB Catalog (Click to add API key)" : "Active (" + maskKey(tmdbKey) + ")";
+        items.add(new SettingItem("Content & APIs", "The Movie Database (TMDB)", tmdbStatus,
+                R.drawable.ic_streaming, this::configureTmdbKey));
+        items.add(new SettingItem("Content & APIs", "Clear Image Cache", "Free memory used by cached backdrops and posters",
+                R.drawable.ic_utilities, this::clearImageCache));
+
         // System shortcuts section
         items.add(new SettingItem("System", "Wi-Fi & Network", "Manage wireless and ethernet connections",
                 R.drawable.ic_wifi, () -> openSettings(Settings.ACTION_WIFI_SETTINGS)));
@@ -126,6 +134,39 @@ public class SettingsActivity extends Activity {
 
         adapter = new SettingsAdapter(this, items);
         settingsList.setAdapter(adapter);
+    }
+
+    private void configureTmdbKey() {
+        android.widget.EditText input = new android.widget.EditText(this);
+        String current = com.gathin.tvhome.data.repository.ContentRepository.getInstance(this).getTmdbClient().getApiKey();
+        input.setText(current);
+        input.setTextColor(android.graphics.Color.WHITE);
+        input.setHint("Enter TMDB API Key v3");
+        input.setHintTextColor(android.graphics.Color.GRAY);
+        input.setPadding(40, 30, 40, 30);
+
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("TMDB API Key")
+                .setMessage("Enter your TMDB API Key for live trending movies and TV discovery.\n\nLeave empty to use the built-in authentic offline catalog.")
+                .setView(input)
+                .setPositiveButton("Save", (d, w) -> {
+                    String val = input.getText().toString().trim();
+                    com.gathin.tvhome.data.repository.ContentRepository.getInstance(this).getTmdbClient().setApiKey(val);
+                    Toast.makeText(this, "TMDB Key saved", Toast.LENGTH_SHORT).show();
+                    setupSettingsList();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void clearImageCache() {
+        ImageLoader.getInstance().clearCache();
+        Toast.makeText(this, "Image memory cache cleared", Toast.LENGTH_SHORT).show();
+    }
+
+    private String maskKey(String key) {
+        if (key == null || key.length() < 8) return "••••";
+        return key.substring(0, 4) + "••••" + key.substring(key.length() - 4);
     }
 
     private void openScreensaverSettings() {

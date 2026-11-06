@@ -51,12 +51,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gathin.tvhome.data.model.MediaItem;
+import com.gathin.tvhome.data.repository.ContentRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -98,9 +102,12 @@ public class MainActivity extends Activity
     // Fixed Top Navigation Bar
     private LinearLayout topBar;
     private TextView greeting;
+    private View btnSearch;
+    private View btnStore;
     private TextView btnInputs;
     private TextView btnWifi;
     private TextView btnSettings;
+    private MediaItem currentFeaturedItem;
 
     // App Library Sheet & Glass Highlights
     private RecyclerView grid;
@@ -195,6 +202,8 @@ public class MainActivity extends Activity
         // 2. Fixed Top Bar views
         topBar = findViewById(R.id.topBar);
         greeting = findViewById(R.id.greeting);
+        btnSearch = findViewById(R.id.btnSearch);
+        btnStore = findViewById(R.id.btnStore);
         btnInputs = findViewById(R.id.btnInputs);
         btnWifi = findViewById(R.id.btnWifi);
         btnSettings = findViewById(R.id.btnSettings);
@@ -232,15 +241,51 @@ public class MainActivity extends Activity
     }
 
     /**
-     * Wire up Top Bar utility buttons and their remote D-pad focus graph.
+     * Wire up Top Bar utility and hub buttons and their remote D-pad focus graph.
      */
     private void setupTopBar() {
+        if (btnSearch != null) {
+            btnSearch.setOnClickListener(v -> startActivity(new Intent(this, SearchActivity.class)));
+            btnSearch.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    focusHeroActions();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    if (btnStore != null) btnStore.requestFocus();
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        if (btnStore != null) {
+            btnStore.setOnClickListener(v -> startActivity(new Intent(this, AppStoreActivity.class)));
+            btnStore.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    focusHeroActions();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                    if (btnSearch != null) btnSearch.requestFocus();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    if (btnInputs != null) btnInputs.requestFocus();
+                    return true;
+                }
+                return false;
+            });
+        }
+
         if (btnInputs != null) {
             btnInputs.setOnClickListener(v -> showInputs());
             btnInputs.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
                 if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
                     focusHeroActions();
+                    return true;
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                    if (btnStore != null) btnStore.requestFocus();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
                     if (btnWifi != null) btnWifi.requestFocus();
@@ -341,86 +386,43 @@ public class MainActivity extends Activity
     }
 
     /**
-     * Set up all 5 Content Discovery Rows with artwork, subtitles, and progress data.
+     * Set up Entertainment Content Discovery Rows via ContentRepository (TMDB & Offline Cache).
      */
     private void setupContentRows() {
-        // 1. Continue Watching
-        continueWatchingAdapter = new ContentAdapter(this, null);
-        List<ContentAdapter.ContentItem> cw = new ArrayList<>();
-        String[] cwTitles = getResources().getStringArray(R.array.continue_watching_titles);
-        String[] cwSubs = getResources().getStringArray(R.array.continue_watching_subtitles);
-        TypedArray cwArt = getResources().obtainTypedArray(R.array.continue_watching_artwork);
-        int[] cwProgress = {65, 40, 85, 20, 50};
-        for (int i = 0; i < cwTitles.length; i++) {
-            cw.add(new ContentAdapter.ContentItem(cwTitles[i], cwSubs[i], cwArt.getDrawable(i), i,
-                    i < cwProgress.length ? cwProgress[i] : 50));
-        }
-        cwArt.recycle();
-        continueWatchingAdapter.setItems(cw);
+        ContentRepository repo = ContentRepository.getInstance(this);
+        repo.loadContent(rows -> {
+            List<MainContentAdapter.ContentRow> adapterRows = new ArrayList<>();
+            for (int i = 0; i < rows.size(); i++) {
+                ContentRepository.CategoryRow catRow = rows.get(i);
+                ContentAdapter adapter = new ContentAdapter(this, null);
+                adapter.setMediaItems(catRow.items);
+                int iconRes = getRowIcon(catRow.id);
+                adapterRows.add(new MainContentAdapter.ContentRow(catRow.title, iconRes, adapter, i));
+            }
+            mainContentAdapter.setContentRows(adapterRows);
 
-        // 2. Recommended Movies
-        featuredMoviesAdapter = new ContentAdapter(this, null);
-        List<ContentAdapter.ContentItem> movies = new ArrayList<>();
-        String[] movieTitles = getResources().getStringArray(R.array.featured_movie_titles);
-        String[] movieSubs = getResources().getStringArray(R.array.featured_movie_subtitles);
-        TypedArray movieArt = getResources().obtainTypedArray(R.array.featured_movie_artwork);
-        for (int i = 0; i < movieTitles.length; i++) {
-            movies.add(new ContentAdapter.ContentItem(movieTitles[i], movieSubs[i], movieArt.getDrawable(i), i));
-        }
-        movieArt.recycle();
-        featuredMoviesAdapter.setItems(movies);
+            if (!rows.isEmpty() && !rows.get(0).items.isEmpty()) {
+                currentFeaturedItem = rows.get(0).items.get(0);
+                updateHeroWithMediaItem("FEATURED", currentFeaturedItem);
+            }
+        });
+    }
 
-        // 3. Popular TV Shows
-        featuredTvAdapter = new ContentAdapter(this, null);
-        List<ContentAdapter.ContentItem> tvShows = new ArrayList<>();
-        String[] tvTitles = getResources().getStringArray(R.array.featured_tv_titles);
-        String[] tvSubs = getResources().getStringArray(R.array.featured_tv_subtitles);
-        TypedArray tvArt = getResources().obtainTypedArray(R.array.featured_tv_artwork);
-        for (int i = 0; i < tvTitles.length; i++) {
-            tvShows.add(new ContentAdapter.ContentItem(tvTitles[i], tvSubs[i], tvArt.getDrawable(i), i));
-        }
-        tvArt.recycle();
-        featuredTvAdapter.setItems(tvShows);
-
-        // 4. Action & Thriller
-        actionThrillerAdapter = new ContentAdapter(this, null);
-        List<ContentAdapter.ContentItem> action = new ArrayList<>();
-        String[] actionTitles = getResources().getStringArray(R.array.action_thriller_titles);
-        String[] actionSubs = getResources().getStringArray(R.array.action_thriller_subtitles);
-        TypedArray actionArt = getResources().obtainTypedArray(R.array.action_thriller_artwork);
-        for (int i = 0; i < actionTitles.length; i++) {
-            action.add(new ContentAdapter.ContentItem(actionTitles[i], actionSubs[i], actionArt.getDrawable(i), i));
-        }
-        actionArt.recycle();
-        actionThrillerAdapter.setItems(action);
-
-        // 5. Recently Added
-        recentlyAddedAdapter = new ContentAdapter(this, null);
-        List<ContentAdapter.ContentItem> recent = new ArrayList<>();
-        String[] recentTitles = getResources().getStringArray(R.array.recently_added_titles);
-        String[] recentSubs = getResources().getStringArray(R.array.recently_added_subtitles);
-        TypedArray recentArt = getResources().obtainTypedArray(R.array.recently_added_artwork);
-        for (int i = 0; i < recentTitles.length; i++) {
-            recent.add(new ContentAdapter.ContentItem(recentTitles[i], recentSubs[i], recentArt.getDrawable(i), i));
-        }
-        recentArt.recycle();
-        recentlyAddedAdapter.setItems(recent);
+    private int getRowIcon(String rowId) {
+        if ("continue_watching".equals(rowId)) return R.drawable.ic_streaming;
+        if ("trending".equals(rowId)) return R.drawable.ic_entertainment;
+        if ("popular_movies".equals(rowId)) return R.drawable.ic_streaming;
+        if ("popular_tv".equals(rowId)) return R.drawable.ic_entertainment;
+        if ("action_thriller".equals(rowId)) return R.drawable.ic_play;
+        if ("watchlist".equals(rowId)) return R.drawable.ic_pin;
+        return R.drawable.ic_info;
     }
 
     /**
-     * Configure MainContentAdapter with the Hero section, Apple TV Dock, and all 5 Content Rows.
+     * Configure MainContentAdapter with the Hero section, Apple TV Dock, and Content Discovery Rows.
      */
     private void setupMainContentAdapter() {
         mainContentAdapter = new MainContentAdapter(this, this, dockAdapter);
-
-        List<MainContentAdapter.ContentRow> rows = new ArrayList<>();
-        rows.add(new MainContentAdapter.ContentRow(getString(R.string.continue_watching), R.drawable.ic_streaming, continueWatchingAdapter, 0));
-        rows.add(new MainContentAdapter.ContentRow(getString(R.string.movies), R.drawable.ic_streaming, featuredMoviesAdapter, 1));
-        rows.add(new MainContentAdapter.ContentRow(getString(R.string.tv_shows), R.drawable.ic_entertainment, featuredTvAdapter, 2));
-        rows.add(new MainContentAdapter.ContentRow(getString(R.string.action_thriller), R.drawable.ic_play, actionThrillerAdapter, 3));
-        rows.add(new MainContentAdapter.ContentRow(getString(R.string.recently_added), R.drawable.ic_info, recentlyAddedAdapter, 4));
-        mainContentAdapter.setContentRows(rows);
-
         mainContentAdapter.setAppsRowCallback(() -> startActivity(new Intent(this, AppLibraryActivity.class)));
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
@@ -429,6 +431,28 @@ public class MainActivity extends Activity
         mainContentRecyclerView.setItemAnimator(null);
         mainContentRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mainContentRecyclerView.setAdapter(mainContentAdapter);
+
+        // Smooth top bar collapse on scroll to prevent any text overlap with content rows
+        mainContentRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            private int totalDy = 0;
+            private boolean isCollapsed = false;
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                totalDy += dy;
+                if (totalDy > 60 && !isCollapsed) {
+                    isCollapsed = true;
+                    if (topBar != null) {
+                        topBar.animate().translationY(-topBar.getHeight()).alpha(0f).setDuration(220).start();
+                    }
+                } else if (totalDy <= 30 && isCollapsed) {
+                    isCollapsed = false;
+                    if (topBar != null) {
+                        topBar.animate().translationY(0f).alpha(1f).setDuration(220).start();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -526,10 +550,13 @@ public class MainActivity extends Activity
 
     @Override
     public void onHeroUpKey() {
-        if (btnSettings != null) {
+        if (topBar != null) {
+            topBar.animate().translationY(0f).alpha(1f).setDuration(150).start();
+        }
+        if (btnSearch != null) {
+            btnSearch.requestFocus();
+        } else if (btnSettings != null) {
             btnSettings.requestFocus();
-        } else if (btnWifi != null) {
-            btnWifi.requestFocus();
         }
     }
 
@@ -540,12 +567,24 @@ public class MainActivity extends Activity
 
     @Override
     public void onHeroPlayClick() {
-        Toast.makeText(this, "Playing: " + currentHeroTitle, Toast.LENGTH_SHORT).show();
+        if (currentFeaturedItem != null) {
+            Intent intent = new Intent(this, MediaDetailsActivity.class);
+            intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA_ITEM, currentFeaturedItem);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Playing: " + currentHeroTitle, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onHeroInfoClick() {
-        Toast.makeText(this, currentHeroTitle + " • " + currentHeroSubtitle, Toast.LENGTH_SHORT).show();
+        if (currentFeaturedItem != null) {
+            Intent intent = new Intent(this, MediaDetailsActivity.class);
+            intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA_ITEM, currentFeaturedItem);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, currentHeroTitle + " • " + currentHeroSubtitle, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -555,32 +594,25 @@ public class MainActivity extends Activity
         magnifyDock(-1);
         hideHeroTooltip();
 
-        ContentAdapter adapter = getContentAdapter(rowIndex);
-        if (adapter == null) return;
-        ContentAdapter.ContentItem item = adapter.getItemAt(position);
+        MainContentAdapter.ContentRow row = mainContentAdapter.getContentRow(rowIndex);
+        if (row == null || row.adapter == null) return;
+        MediaItem item = row.adapter.getItemAt(position);
         if (item == null) return;
 
-        String category;
-        switch (rowIndex) {
-            case 0: category = "CONTINUE WATCHING"; break;
-            case 1: category = "RECOMMENDED MOVIES"; break;
-            case 2: category = "POPULAR TV SHOWS"; break;
-            case 3: category = "ACTION & THRILLER"; break;
-            case 4: category = "RECENTLY ADDED"; break;
-            default: category = "FEATURED"; break;
-        }
-
-        updateHero(category, item.title, item.subtitle, item.artwork);
+        currentFeaturedItem = item;
+        updateHeroWithMediaItem(row.title, item);
         updateAmbientGlow(0xFF2A3858);
     }
 
     @Override
     public void onContentItemClick(int rowIndex, int position, View card) {
-        ContentAdapter adapter = getContentAdapter(rowIndex);
-        if (adapter != null) {
-            ContentAdapter.ContentItem item = adapter.getItemAt(position);
+        MainContentAdapter.ContentRow row = mainContentAdapter.getContentRow(rowIndex);
+        if (row != null && row.adapter != null) {
+            MediaItem item = row.adapter.getItemAt(position);
             if (item != null) {
-                Toast.makeText(this, "Opening " + item.title, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, MediaDetailsActivity.class);
+                intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA_ITEM, item);
+                startActivity(intent);
             }
         }
     }
@@ -621,37 +653,37 @@ public class MainActivity extends Activity
 
     // ===== HERO DYNAMIC UPDATE =====
 
-    private void updateHero(String category, String title, String subtitle, Drawable artwork) {
-        currentHeroTitle = title;
-        currentHeroSubtitle = subtitle;
+    private void updateHeroWithMediaItem(String category, MediaItem item) {
+        if (item == null) return;
+        currentHeroTitle = item.title;
+        currentHeroSubtitle = item.genres;
 
-        if (heroBackground != null && artwork != null) {
-            heroBackground.animate().alpha(0.65f).setDuration(120).withEndAction(() -> {
-                heroBackground.setImageDrawable(artwork);
-                heroBackground.animate().alpha(1.0f).setDuration(180).start();
-            }).start();
+        if (heroBackground != null && item.backdropUrl != null && !item.backdropUrl.isEmpty()) {
+            ImageLoader.getInstance().loadUrl(item.backdropUrl, heroBackground, 1920, 1080, R.drawable.bg_night);
         }
 
         MainContentAdapter.HeroHolder h = mainContentAdapter.getHeroHolder();
         if (h != null) {
-            if (h.heroCategory != null) h.heroCategory.setText(category != null ? category : "FEATURED");
-            if (h.heroTitle != null) h.heroTitle.setText(title);
-
-            if (subtitle != null && subtitle.contains(" • ")) {
-                String[] parts = subtitle.split(" • ");
-                if (parts.length >= 3) {
-                    if (h.heroYear != null) h.heroYear.setText(parts[0]);
-                    if (h.heroGenre != null) h.heroGenre.setText(parts[1]);
-                    if (h.heroDuration != null) h.heroDuration.setText(parts[2]);
-                } else if (parts.length == 2) {
-                    if (h.heroYear != null) h.heroYear.setText(parts[0]);
-                    if (h.heroGenre != null) h.heroGenre.setText(parts[1]);
-                    if (h.heroDuration != null) h.heroDuration.setText("");
+            if (h.heroCategory != null) {
+                h.heroCategory.setText(category != null ? category.toUpperCase(Locale.ROOT) : "FEATURED");
+            }
+            if (h.heroTitle != null) {
+                h.heroTitle.setText(item.title);
+            }
+            if (h.heroYear != null) {
+                h.heroYear.setText(!item.releaseYear.isEmpty() ? item.releaseYear : "2024");
+            }
+            if (h.heroGenre != null) {
+                h.heroGenre.setText(!item.genres.isEmpty() ? item.genres : "Entertainment");
+            }
+            if (h.heroDuration != null) {
+                if (item.voteAverage > 0) {
+                    h.heroDuration.setText(item.getFormattedRating());
+                } else if (!item.duration.isEmpty()) {
+                    h.heroDuration.setText(item.duration);
+                } else {
+                    h.heroDuration.setText("Feature");
                 }
-            } else if (subtitle != null) {
-                if (h.heroYear != null) h.heroYear.setText("");
-                if (h.heroGenre != null) h.heroGenre.setText(subtitle);
-                if (h.heroDuration != null) h.heroDuration.setText("");
             }
         }
     }

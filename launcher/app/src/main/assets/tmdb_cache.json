@@ -1,0 +1,358 @@
+{
+  "categories": [
+    {
+      "id": "continue_watching",
+      "title": "Continue Watching",
+      "icon": "ic_entertainment",
+      "items": [
+        {
+          "id": 693134,
+          "title": "Dune: Part Two",
+          "overview": "Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
+          "releaseYear": "2024",
+          "voteAverage": 8.2,
+          "voteCount": 4900,
+          "mediaType": "movie",
+          "genres": "Sci-Fi / Adventure",
+          "duration": "2h 46m",
+          "trailerYoutubeId": "Way9Dexny3w",
+          "progress": 68,
+          "resumeText": "1h 14m left",
+          "providers": [
+            { "name": "JioCinema", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/4G8G4r64977477.png" },
+            { "name": "Amazon Prime Video", "type": "rent", "logoUrl": "https://image.tmdb.org/t/p/w154/pvsKG4z2ypq7qj4.png" }
+          ]
+        },
+        {
+          "id": 66732,
+          "title": "Stranger Things",
+          "overview": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/56v2KjBlU4XaOv9rVYEQypROD7P.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+          "releaseYear": "2022",
+          "voteAverage": 8.6,
+          "voteCount": 16500,
+          "mediaType": "tv",
+          "genres": "Sci-Fi / Horror",
+          "duration": "S4:E7",
+          "trailerYoutubeId": "b9EkMc79ZSU",
+          "progress": 45,
+          "resumeText": "28m left",
+          "providers": [
+            { "name": "Netflix", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg" }
+          ]
+        },
+        {
+          "id": 65494,
+          "title": "The Crown",
+          "overview": "Follows the political rivalries and romance of Queen Elizabeth II's reign and the events that shaped the second half of the twentieth century.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/r0Q6vdPb4Xb4u06y6QY4v4.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/1v589u1851212.jpg",
+          "releaseYear": "2023",
+          "voteAverage": 8.2,
+          "voteCount": 1800,
+          "mediaType": "tv",
+          "genres": "Drama / History",
+          "duration": "S5:E3",
+          "trailerYoutubeId": "JWtnJnl6gDQ",
+          "progress": 82,
+          "resumeText": "42m left",
+          "providers": [
+            { "name": "Netflix", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg" }
+          ]
+        },
+        {
+          "id": 83867,
+          "title": "Andor",
+          "overview": "The story of the rebel spy Cassian Andor's formative years of the Rebellion and his difficult missions for the cause.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/ajztm40q6VqPmu40.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/59SVangoDY859212.jpg",
+          "releaseYear": "2022",
+          "voteAverage": 8.2,
+          "voteCount": 1200,
+          "mediaType": "tv",
+          "genres": "Sci-Fi / Thriller",
+          "duration": "S1:E8",
+          "trailerYoutubeId": "cKOegEuCcfw",
+          "progress": 30,
+          "resumeText": "15m left",
+          "providers": [
+            { "name": "Disney+ Hotstar", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/7747747.png" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trending",
+      "title": "Trending Now",
+      "icon": "ic_entertainment",
+      "items": [
+        {
+          "id": 872585,
+          "title": "Oppenheimer",
+          "overview": "The story of J. Robert Oppenheimer’s role in the development of the atomic bomb during World War II.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/fm6KqXpk3M2HVveHwCrBSSBaO0V.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+          "releaseYear": "2023",
+          "voteAverage": 8.1,
+          "voteCount": 8500,
+          "mediaType": "movie",
+          "genres": "Drama / History",
+          "duration": "3h 00m",
+          "trailerYoutubeId": "uYPbbksJxIg",
+          "providers": [
+            { "name": "JioCinema", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/4G8G4r64977477.png" },
+            { "name": "Amazon Prime Video", "type": "rent", "logoUrl": "https://image.tmdb.org/t/p/w154/pvsKG4z2ypq7qj4.png" }
+          ]
+        },
+        {
+          "id": 126308,
+          "title": "Shōgun",
+          "overview": "When a mysterious European ship is found marooned in a nearby fishing village, Lord Yoshii Toranaga discovers secrets that could tip the scales of power.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/7O4iVfL9X9X9.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/7O4iVfL9X9X9.jpg",
+          "releaseYear": "2024",
+          "voteAverage": 8.5,
+          "voteCount": 1100,
+          "mediaType": "tv",
+          "genres": "Drama / War",
+          "duration": "1 Season",
+          "trailerYoutubeId": "yDfXmS9yP8E",
+          "providers": [
+            { "name": "Disney+ Hotstar", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/7747747.png" }
+          ]
+        },
+        {
+          "id": 106379,
+          "title": "Fallout",
+          "overview": "In a future, post-apocalyptic Los Angeles brought about by nuclear decimation, citizens must live in underground bunkers to protect themselves from radiation, mutants and bandits.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/k3r5912497.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/k3r5912497.jpg",
+          "releaseYear": "2024",
+          "voteAverage": 8.3,
+          "voteCount": 2100,
+          "mediaType": "tv",
+          "genres": "Sci-Fi / Action",
+          "duration": "1 Season",
+          "trailerYoutubeId": "V-mugKDQDlg",
+          "providers": [
+            { "name": "Amazon Prime Video", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/pvsKG4z2ypq7qj4.png" }
+          ]
+        },
+        {
+          "id": 929590,
+          "title": "Civil War",
+          "overview": "In the near future, a team of journalists travel across the United States during a rapidly escalating nationwide civil war.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/cI3nL09292.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/cI3nL09292.jpg",
+          "releaseYear": "2024",
+          "voteAverage": 7.0,
+          "voteCount": 2400,
+          "mediaType": "movie",
+          "genres": "Action / Drama",
+          "duration": "1h 49m",
+          "trailerYoutubeId": "aDyQxtg0V2w",
+          "providers": [
+            { "name": "Amazon Prime Video", "type": "rent", "logoUrl": "https://image.tmdb.org/t/p/w154/pvsKG4z2ypq7qj4.png" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "popular_movies",
+      "title": "Popular Movies",
+      "icon": "ic_entertainment",
+      "items": [
+        {
+          "id": 157336,
+          "title": "Interstellar",
+          "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/xJHokMbljvjADYdit5fK5VQsXEG.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+          "releaseYear": "2014",
+          "voteAverage": 8.4,
+          "voteCount": 34000,
+          "mediaType": "movie",
+          "genres": "Sci-Fi / Drama",
+          "duration": "2h 49m",
+          "trailerYoutubeId": "zSWdZKt30A8",
+          "providers": [
+            { "name": "Amazon Prime Video", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/pvsKG4z2ypq7qj4.png" },
+            { "name": "JioCinema", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/4G8G4r64977477.png" }
+          ]
+        },
+        {
+          "id": 335984,
+          "title": "Blade Runner 2049",
+          "overview": "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/sAtoMqDVhNDQBc3QJL3RF6hlxGq.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
+          "releaseYear": "2017",
+          "voteAverage": 7.6,
+          "voteCount": 13000,
+          "mediaType": "movie",
+          "genres": "Sci-Fi / Mystery",
+          "duration": "2h 44m",
+          "trailerYoutubeId": "gCcx85zbxz4",
+          "providers": [
+            { "name": "SonyLIV", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/sonyliv.png" },
+            { "name": "Amazon Prime Video", "type": "rent", "logoUrl": "https://image.tmdb.org/t/p/w154/pvsKG4z2ypq7qj4.png" }
+          ]
+        },
+        {
+          "id": 27205,
+          "title": "Inception",
+          "overview": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/8ZTVqvKDQ8emSGUEMjsS4yHAwrp.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
+          "releaseYear": "2010",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "mediaType": "movie",
+          "genres": "Action / Sci-Fi",
+          "duration": "2h 28m",
+          "trailerYoutubeId": "YoHD9XEInc0",
+          "providers": [
+            { "name": "Netflix", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg" }
+          ]
+        },
+        {
+          "id": 792307,
+          "title": "Poor Things",
+          "overview": "The incredible tale and fantastical evolution of Bella Baxter, a young woman brought back to life by the brilliant and unorthodox scientist Dr. Godwin Baxter.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/bQS43q8238.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/bQS43q8238.jpg",
+          "releaseYear": "2023",
+          "voteAverage": 7.8,
+          "voteCount": 3800,
+          "mediaType": "movie",
+          "genres": "Comedy / Sci-Fi",
+          "duration": "2h 21m",
+          "trailerYoutubeId": "RlbR5N6veqw",
+          "providers": [
+            { "name": "Disney+ Hotstar", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/7747747.png" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "popular_tv",
+      "title": "Popular TV Shows",
+      "icon": "ic_entertainment",
+      "items": [
+        {
+          "id": 97546,
+          "title": "Severance",
+          "overview": "Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/7k2a29482.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/7k2a29482.jpg",
+          "releaseYear": "2022",
+          "voteAverage": 8.4,
+          "voteCount": 1400,
+          "mediaType": "tv",
+          "genres": "Sci-Fi / Mystery",
+          "duration": "1 Season",
+          "trailerYoutubeId": "xEQP4VVuyrY",
+          "providers": [
+            { "name": "Apple TV+", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/appletv.png" }
+          ]
+        },
+        {
+          "id": 100088,
+          "title": "The Last of Us",
+          "overview": "Twenty years after a fungal outbreak ravages the planet, survivors Joel and Ellie traverse a devastated United States.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/uDgy6ubCNa5Y7W4umfnZsQiBvg5.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2V7JMrHG.jpg",
+          "releaseYear": "2023",
+          "voteAverage": 8.6,
+          "voteCount": 5100,
+          "mediaType": "tv",
+          "genres": "Drama / Sci-Fi",
+          "duration": "1 Season",
+          "trailerYoutubeId": "uLtkt8BonwM",
+          "providers": [
+            { "name": "JioCinema", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/4G8G4r64977477.png" }
+          ]
+        },
+        {
+          "id": 76331,
+          "title": "Succession",
+          "overview": "The Roy family is known for controlling the biggest media and entertainment company in the world. However, their world changes when their aging father steps down.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/7492147.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/7492147.jpg",
+          "releaseYear": "2023",
+          "voteAverage": 8.5,
+          "voteCount": 3200,
+          "mediaType": "tv",
+          "genres": "Drama",
+          "duration": "4 Seasons",
+          "trailerYoutubeId": "OzYxJV_rmE8",
+          "providers": [
+            { "name": "JioCinema", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/4G8G4r64977477.png" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "action_thriller",
+      "title": "Action & Thriller",
+      "icon": "ic_entertainment",
+      "items": [
+        {
+          "id": 414906,
+          "title": "The Batman",
+          "overview": "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
+          "releaseYear": "2022",
+          "voteAverage": 7.7,
+          "voteCount": 9400,
+          "mediaType": "movie",
+          "genres": "Action / Crime",
+          "duration": "2h 56m",
+          "trailerYoutubeId": "mqqft2x_Aa4",
+          "providers": [
+            { "name": "JioCinema", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/4G8G4r64977477.png" },
+            { "name": "Netflix", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg" }
+          ]
+        },
+        {
+          "id": 361743,
+          "title": "Top Gun: Maverick",
+          "overview": "After thirty years, Maverick is still pushing the envelope as a top naval aviator, but must confront ghosts of his past when he leads TOP GUN's elite graduates.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+          "releaseYear": "2022",
+          "voteAverage": 8.2,
+          "voteCount": 8600,
+          "mediaType": "movie",
+          "genres": "Action / Drama",
+          "duration": "2h 11m",
+          "trailerYoutubeId": "giXco2JAZ_4",
+          "providers": [
+            { "name": "Amazon Prime Video", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/pvsKG4z2ypq7qj4.png" }
+          ]
+        },
+        {
+          "id": 603692,
+          "title": "John Wick: Chapter 4",
+          "overview": "With the price on his head ever increasing, John Wick uncovers a path to defeating The High Table.",
+          "backdropUrl": "https://image.tmdb.org/t/p/w780/h8gHn0OzBoaefW0D197.jpg",
+          "posterUrl": "https://image.tmdb.org/t/p/w500/vZloFAK7NKnMGKEHvYGREtNuBu.jpg",
+          "releaseYear": "2023",
+          "voteAverage": 7.7,
+          "voteCount": 6100,
+          "mediaType": "movie",
+          "genres": "Action / Thriller",
+          "duration": "2h 49m",
+          "trailerYoutubeId": "qEVUtrk8_B4",
+          "providers": [
+            { "name": "Amazon Prime Video", "type": "flatrate", "logoUrl": "https://image.tmdb.org/t/p/w154/pvsKG4z2ypq7qj4.png" }
+          ]
+        }
+      ]
+    }
+  ]
+}
