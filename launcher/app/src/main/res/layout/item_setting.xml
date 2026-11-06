@@ -8,7 +8,7 @@
     android:padding="@dimen/space_4"
     android:focusable="true"
     android:clickable="true"
-    android:background="@drawable/bg_glass_button">
+    android:background="@drawable/bg_settings_item">
 
     <ImageView
         android:id="@+id/settingIcon"

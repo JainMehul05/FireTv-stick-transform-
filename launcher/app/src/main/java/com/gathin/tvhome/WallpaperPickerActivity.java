@@ -65,6 +65,21 @@ public class WallpaperPickerActivity extends Activity {
         applyButton = findViewById(R.id.btnApplyWallpaper);
         previewBackground = findViewById(R.id.previewBackground);
 
+        // Setup back button
+        TextView btnBack = findViewById(R.id.btnWallpaperBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+            btnBack.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        wallpaperGrid.requestFocus();
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
         // Load current wallpaper preference
         SharedPreferences prefs = getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         currentWallpaper = prefs.getInt(PREF_WALLPAPER, 0);
@@ -94,6 +109,7 @@ public class WallpaperPickerActivity extends Activity {
             }
         });
         wallpaperGrid.setAdapter(adapter);
+        adapter.setSelectedPosition(currentWallpaper);
 
         // Apply button
         applyButton.setOnClickListener(v -> {
@@ -101,9 +117,6 @@ public class WallpaperPickerActivity extends Activity {
             Toast.makeText(this, "Wallpaper applied", Toast.LENGTH_SHORT).show();
             finish();
         });
-
-        // Back button
-        findViewById(R.id.btnWallpaperBack).setOnClickListener(v -> finish());
     }
 
     @Override

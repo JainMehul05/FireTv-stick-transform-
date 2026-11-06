@@ -40,6 +40,21 @@ public class SettingsActivity extends Activity {
         settingsList = findViewById(R.id.settingsList);
         settingsBackground = findViewById(R.id.settingsBackground);
 
+        // Setup back button
+        TextView btnBack = findViewById(R.id.btnSettingsBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+            btnBack.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        settingsList.requestFocus();
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
         // Load background
         loadBackground();
 
@@ -94,7 +109,11 @@ public class SettingsActivity extends Activity {
                 R.drawable.ic_info, () -> openSettings(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
 
         // About section
-        items.add(new SettingItem("About", "Version", "1.0.0 (Premium Cinematic)",
+        String versionName = "1.0.0";
+        try {
+            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException ignored) {}
+        items.add(new SettingItem("About", "Version", versionName + " (Premium Cinematic)",
                 R.drawable.ic_info, null));
         items.add(new SettingItem("About", "Open Source Licenses", "View licenses",
                 R.drawable.ic_info, () -> showLicenses()));
@@ -153,7 +172,10 @@ public class SettingsActivity extends Activity {
 
     // ===== SETTINGS ADAPTER =====
 
-    static class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Holder> {
+    static class SettingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        private static final int TYPE_HEADER = 0;
+        private static final int TYPE_ITEM = 1;
 
         private final Context ctx;
         private final List<SettingItem> items;
@@ -163,25 +185,55 @@ public class SettingsActivity extends Activity {
             this.items = items;
         }
 
+        @Override
+        public int getItemViewType(int position) {
+            SettingItem item = items.get(position);
+            boolean isHeader = position == 0 || !item.section.equals(items.get(position - 1).section);
+            return isHeader ? TYPE_HEADER : TYPE_ITEM;
+        }
+
         @NonNull
         @Override
-        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(ctx).inflate(R.layout.item_setting, parent, false);
-            return new Holder(v);
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(ctx);
+            if (viewType == TYPE_HEADER) {
+                View v = inflater.inflate(R.layout.item_setting_header, parent, false);
+                return new HeaderHolder(v);
+            } else {
+                View v = inflater.inflate(R.layout.item_setting, parent, false);
+                return new ItemHolder(v);
+            }
         }
 
         @Override
-        public void onBindViewHolder(@NonNull Holder h, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             SettingItem item = items.get(position);
-            h.icon.setImageResource(item.iconRes);
-            h.title.setText(item.title);
-            h.summary.setText(item.summary);
-            if (item.section != null && (position == 0 || !item.section.equals(items.get(position - 1).section))) {
-                // Could add section header here
+            if (holder instanceof HeaderHolder) {
+                HeaderHolder h = (HeaderHolder) holder;
+                boolean isHeader = position == 0 || !item.section.equals(items.get(position - 1).section);
+                if (isHeader) {
+                    h.title.setText(item.section);
+                    h.itemView.setVisibility(View.VISIBLE);
+                } else {
+                    h.itemView.setVisibility(View.GONE);
+                    h.itemView.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                }
+            } else if (holder instanceof ItemHolder) {
+                ItemHolder h = (ItemHolder) holder;
+                h.icon.setImageResource(item.iconRes);
+                h.title.setText(item.title);
+                h.summary.setText(item.summary);
+                h.itemView.setOnClickListener(v -> {
+                    if (item.action != null) item.action.run();
+                });
+                h.itemView.setOnFocusChangeListener((v, focused) -> {
+                    if (focused) {
+                        v.setBackgroundResource(R.drawable.bg_settings_item_focused);
+                    } else {
+                        v.setBackgroundResource(R.drawable.bg_settings_item);
+                    }
+                });
             }
-            h.itemView.setOnClickListener(v -> {
-                if (item.action != null) item.action.run();
-            });
         }
 
         @Override
@@ -189,12 +241,19 @@ public class SettingsActivity extends Activity {
             return items.size();
         }
 
-        static class Holder extends RecyclerView.ViewHolder {
+        static class HeaderHolder extends RecyclerView.ViewHolder {
+            final TextView title;
+            HeaderHolder(View v) {
+                super(v);
+                title = v.findViewById(R.id.sectionTitle);
+            }
+        }
+
+        static class ItemHolder extends RecyclerView.ViewHolder {
             final ImageView icon;
             final TextView title;
             final TextView summary;
-
-            Holder(View v) {
+            ItemHolder(View v) {
                 super(v);
                 icon = v.findViewById(R.id.settingIcon);
                 title = v.findViewById(R.id.settingTitle);

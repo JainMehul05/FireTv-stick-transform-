@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings Section Header Layout -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sectionTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/padding_screen_edge"
+    android:layout_marginEnd="@dimen/padding_screen_edge"
+    android:layout_marginTop="@dimen/space_4"
+    android:layout_marginBottom="@dimen/space_2"
+    android:textAppearance="@style/TextAppearance.TvHome.Overline"
+    android:textColor="@color/text_tertiary"
+    android:letterSpacing="0.1" />

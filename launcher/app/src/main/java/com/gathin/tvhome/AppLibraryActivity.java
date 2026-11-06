@@ -157,6 +157,14 @@ public class AppLibraryActivity extends Activity {
             filterApps();
         });
         categoryTabs.setAdapter(categoryAdapter);
+        
+        // Set grid reference after grid is created (will be done in setupGrid)
+    }
+    
+    private void linkCategoryTabsToGrid() {
+        if (categoryAdapter != null) {
+            categoryAdapter.setGridRef(libraryGrid);
+        }
     }
 
     private void setupGrid() {
@@ -214,6 +222,9 @@ public class AppLibraryActivity extends Activity {
         });
         gridAdapter.setColumns(columns);
         libraryGrid.setAdapter(gridAdapter);
+        
+        // Link category tabs to grid for navigation
+        linkCategoryTabsToGrid();
     }
 
     private void loadApps() {
