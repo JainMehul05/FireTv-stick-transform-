@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Premium Cinematic Dimension System
+  Base unit: 4dp. All dimensions scale from this.
+  Optimized for 1920x1080 TV viewing distance.
+-->
+<resources>
+    <!-- ===== BASE SPACING SCALE (4dp base unit) ===== -->
+    <dimen name="space_0">0dp</dimen>
+    <dimen name="space_1">4dp</dimen>
+    <dimen name="space_2">8dp</dimen>
+    <dimen name="space_3">12dp</dimen>
+    <dimen name="space_4">16dp</dimen>
+    <dimen name="space_5">20dp</dimen>
+    <dimen name="space_6">24dp</dimen>
+    <dimen name="space_7">28dp</dimen>
+    <dimen name="space_8">32dp</dimen>
+    <dimen name="space_10">40dp</dimen>
+    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_14">56dp</dimen>
+    <dimen name="space_16">64dp</dimen>
+    <dimen name="space_20">80dp</dimen>
+    <dimen name="space_24">96dp</dimen>
+    <dimen name="space_32">128dp</dimen>
+    <dimen name="space_40">160dp</dimen>
+    <dimen name="space_48">192dp</dimen>
+
+    <!-- ===== SEMANTIC SPACING ===== -->
+    <dimen name="spacing_xxs">@dimen/space_1</dimen>   <!-- 4dp -->
+    <dimen name="spacing_xs">@dimen/space_2</dimen>    <!-- 8dp -->
+    <dimen name="spacing_sm">@dimen/space_3</dimen>    <!-- 12dp -->
+    <dimen name="spacing_md">@dimen/space_4</dimen>    <!-- 16dp -->
+    <dimen name="spacing_lg">@dimen/space_6</dimen>    <!-- 24dp -->
+    <dimen name="spacing_xl">@dimen/space_8</dimen>    <!-- 32dp -->
+    <dimen name="spacing_2xl">@dimen/space_12</dimen>  <!-- 48dp -->
+    <dimen name="spacing_3xl">@dimen/space_16</dimen>  <!-- 64dp -->
+    <dimen name="spacing_4xl">@dimen/space_24</dimen>  <!-- 96dp -->
+
+    <!-- ===== COMPONENT SPACING ===== -->
+    <dimen name="padding_screen_edge">@dimen/space_6</dimen>      <!-- 24dp -->
+    <dimen name="padding_screen_edge_lg">@dimen/space_8</dimen>   <!-- 32dp -->
+    <dimen name="padding_card">@dimen/space_4</dimen>             <!-- 16dp -->
+    <dimen name="padding_card_sm">@dimen/space_3</dimen>          <!-- 12dp -->
+    <dimen name="padding_pill_h">@dimen/space_4</dimen>           <!-- 16dp -->
+    <dimen name="padding_pill_v">@dimen/space_2</dimen>           <!-- 8dp -->
+    <dimen name="gap_small">@dimen/space_2</dimen>                <!-- 8dp -->
+    <dimen name="gap_medium">@dimen/space_3</dimen>               <!-- 12dp -->
+    <dimen name="gap_large">@dimen/space_5</dimen>                <!-- 20dp -->
+    <dimen name="gap_xlarge">@dimen/space_8</dimen>               <!-- 32dp -->
+    <dimen name="gap_xxlarge">@dimen/space_12</dimen>             <!-- 48dp -->
+    <dimen name="margin_top_bar">@dimen/space_6</dimen>           <!-- 24dp -->
+    <dimen name="margin_hero_bottom">@dimen/space_10</dimen>      <!-- 40dp -->
+    <dimen name="margin_dock_bottom">@dimen/space_8</dimen>       <!-- 32dp -->
+    <dimen name="margin_dock_side">@dimen/space_6</dimen>         <!-- 24dp -->
+
+    <!-- ===== CORNER RADII ===== -->
+    <dimen name="radius_none">0dp</dimen>
+    <dimen name="radius_xs">4dp</dimen>
+    <dimen name="radius_sm">8dp</dimen>
+    <dimen name="radius_md">12dp</dimen>
+    <dimen name="radius_lg">16dp</dimen>
+    <dimen name="radius_xl">24dp</dimen>
+    <dimen name="radius_2xl">32dp</dimen>
+    <dimen name="radius_3xl">40dp</dimen>
+    <dimen name="radius_pill">9999dp</dimen>
+    <dimen name="radius_squircle_small">@dimen/radius_lg</dimen>    <!-- 16dp for small items -->
+    <dimen name="radius_squircle_medium">@dimen/radius_xl</dimen>   <!-- 24dp for dock items -->
+    <dimen name="radius_squircle_large">@dimen/radius_2xl</dimen>   <!-- 32dp for hero cards -->
+    <dimen name="radius_card">@dimen/radius_md</dimen>              <!-- 12dp for grid cards -->
+    <dimen name="radius_dock_item">@dimen/radius_squircle_medium</dimen>
+    <dimen name="radius_glass">@dimen/radius_squircle_medium</dimen>
+    <dimen name="radius_popup">@dimen/radius_xl</dimen>
+
+    <!-- ===== ELEVATION / SHADOWS ===== -->
+    <dimen name="elevation_none">0dp</dimen>
+    <dimen name="elevation_card">4dp</dimen>
+    <dimen name="elevation_dock">8dp</dimen>
+    <dimen name="elevation_popup">16dp</dimen>
+    <dimen name="elevation_modal">24dp</dimen>
+    <dimen name="elevation_hero">12dp</dimen>
+    <dimen name="shadow_blur_card">8dp</dimen>
+    <dimen name="shadow_blur_dock">16dp</dimen>
+    <dimen name="shadow_blur_popup">24dp</dimen>
+    <dimen name="shadow_offset_y_card">4dp</dimen>
+    <dimen name="shadow_offset_y_dock">8dp</dimen>
+    <dimen name="shadow_offset_y_popup">12dp</dimen>
+
+    <!-- ===== ICON SIZES ===== -->
+    <dimen name="icon_xxs">16dp</dimen>
+    <dimen name="icon_xs">20dp</dimen>
+    <dimen name="icon_sm">24dp</dimen>
+    <dimen name="icon_md">28dp</dimen>
+    <dimen name="icon_lg">32dp</dimen>
+    <dimen name="icon_xl">40dp</dimen>
+    <dimen name="icon_2xl">48dp</dimen>
+    <dimen name="icon_3xl">56dp</dimen>
+    <dimen name="icon_4xl">64dp</dimen>
+    <dimen name="icon_dock">72dp</dimen>
+    <dimen name="icon_dock_focused">90dp</dimen>
+    <dimen name="icon_grid">48dp</dimen>
+    <dimen name="icon_grid_focused">54dp</dimen>
+    <dimen name="icon_top_bar">22dp</dimen>
+
+    <!-- ===== TYPOGRAPHY SIZES ===== -->
+    <dimen name="text_size_xxs">10sp</dimen>
+    <dimen name="text_size_xs">11sp</dimen>
+    <dimen name="text_size_sm">12sp</dimen>
+    <dimen name="text_size_md">14sp</dimen>
+    <dimen name="text_size_lg">15sp</dimen>
+    <dimen name="text_size_xl">16sp</dimen>
+    <dimen name="text_size_2xl">18sp</dimen>
+    <dimen name="text_size_3xl">20sp</dimen>
+    <dimen name="text_size_4xl">24sp</dimen>
+    <dimen name="text_size_5xl">32sp</dimen>
+    <dimen name="text_size_6xl">40sp</dimen>
+    <dimen name="text_size_7xl">48sp</dimen>
+    <dimen name="text_size_8xl">56sp</dimen>
+    <dimen name="text_size_9xl">64sp</dimen>
+    <dimen name="text_size_display">@dimen/text_size_8xl</dimen>     <!-- 56sp -->
+    <dimen name="text_size_headline">@dimen/text_size_5xl</dimen>   <!-- 32sp -->
+    <dimen name="text_size_title">@dimen/text_size_3xl</dimen>      <!-- 20sp -->
+    <dimen name="text_size_body">@dimen/text_size_md</dimen>        <!-- 14sp -->
+    <dimen name="text_size_caption">@dimen/text_size_sm</dimen>     <!-- 12sp -->
+    <dimen name="text_size_overline">@dimen/text_size_xs</dimen>    <!-- 11sp -->
+    <dimen name="text_size_clock">@dimen/text_size_9xl</dimen>      <!-- 64sp -->
+    <dimen name="text_size_greeting">@dimen/text_size_sm</dimen>    <!-- 12sp -->
+    <dimen name="text_size_date">@dimen/text_size_md</dimen>        <!-- 14sp -->
+    <dimen name="text_size_dock_label">@dimen/text_size_sm</dimen>  <!-- 12sp -->
+    <dimen name="text_size_card_label">@dimen/text_size_md</dimen>  <!-- 14sp -->
+
+    <!-- ===== LINE HEIGHTS ===== -->
+    <dimen name="line_height_tight">1.2</dimen>
+    <dimen name="line_height_normal">1.4</dimen>
+    <dimen name="line_height_relaxed">1.6</dimen>
+
+    <!-- ===== LETTER SPACING ===== -->
+    <dimen name="letter_spacing_tight">-0.02</dimen>
+    <dimen name="letter_spacing_normal">0</dimen>
+    <dimen name="letter_spacing_wide">0.04</dimen>
+    <dimen name="letter_spacing_wider">0.08</dimen>
+    <dimen name="letter_spacing_widest">0.12</dimen>
+    <dimen name="letter_spacing_display">-0.04</dimen>
+    <dimen name="letter_spacing_headline">-0.02</dimen>
+    <dimen name="letter_spacing_caption">0.1</dimen>
+    <dimen name="letter_spacing_overline">0.2</dimen>
+
+    <!-- ===== DOCK ANIMATION ===== -->
+    <dimen name="dock_magnify_scale">1.25</dimen>
+    <dimen name="dock_neighbour_scale">1.10</dimen>
+    <dimen name="dock_lift">12dp</dimen>
+    <dimen name="dock_neighbour_lift">5dp</dimen>
+    <dimen name="dock_focus_duration">220</dimen>
+    <dimen name="dock_unfocus_duration">180</dimen>
+
+    <!-- ===== GRID ANIMATION ===== -->
+    <dimen name="grid_focus_scale">1.08</dimen>
+    <dimen name="grid_focus_duration">260</dimen>
+    <dimen name="grid_unfocus_duration">180</dimen>
+    <dimen name="grid_item_height">180dp</dimen>
+    <dimen name="grid_item_width">130dp</dimen>
+    <dimen name="grid_horizontal_spacing">@dimen/space_4</dimen>
+    <dimen name="grid_vertical_spacing">@dimen/space_4</dimen>
+    <dimen name="grid_columns">4</dimen>
+
+    <!-- ===== HERO SECTION ===== -->
+    <dimen name="hero_height">520dp</dimen>
+    <dimen name="hero_height_compact">400dp</dimen>
+    <dimen name="hero_title_max_width">900dp</dimen>
+    <dimen name="hero_padding_start">@dimen/space_8</dimen>
+    <dimen name="hero_padding_end">@dimen/space_8</dimen>
+    <dimen name="hero_padding_bottom">@dimen/space_10</dimen>
+
+    <!-- ===== CONTENT CARDS ===== -->
+    <dimen name="content_card_width">200dp</dimen>
+    <dimen name="content_card_height">300dp</dimen>
+    <dimen name="content_card_width_landscape">320dp</dimen>
+    <dimen name="content_card_height_landscape">180dp</dimen>
+    <dimen name="content_card_focus_scale">1.12</dimen>
+    <dimen name="content_card_focus_lift">8dp</dimen>
+    <dimen name="content_row_spacing">@dimen/space_4</dimen>
+    <dimen name="content_row_gap">@dimen/space_3</dimen>
+
+    <!-- ===== POPUPS & PANELS ===== -->
+    <dimen name="popup_width_small">240dp</dimen>
+    <dimen name="popup_width_medium">320dp</dimen>
+    <dimen name="popup_width_large">480dp</dimen>
+    <dimen name="popup_item_height">48dp</dimen>
+    <dimen name="panel_width">360dp</dimen>
+
+    <!-- ===== SCREENSAVER ===== -->
+    <dimen name="screensaver_clock_size">36sp</dimen>
+    <dimen name="screensaver_clock_margin">@dimen/space_8</dimen>
+    <dimen name="screensaver_transition_duration">2500</dimen>
+    <dimen name="screensaver_slide_duration">20000</dimen>
+    <dimen name="screensaver_zoom_factor">1.08</dimen>
+
+    <!-- ===== ANIMATION DURATIONS ===== -->
+    <integer name="anim_duration_instant">0</integer>
+    <integer name="anim_duration_fast">120</integer>
+    <integer name="anim_duration_normal">220</integer>
+    <integer name="anim_duration_medium">300</integer>
+    <integer name="anim_duration_slow">450</integer>
+    <integer name="anim_duration_slower">600</integer>
+    <integer name="anim_duration_crossfade">800</integer>
+    <integer name="anim_duration_hero_transition">1000</integer>
+    <integer name="anim_duration_screen_transition">350</integer>
+
+    <!-- ===== SPRING PHYSICS ===== -->
+    <dimen name="spring_stiffness_high">320</dimen>
+    <dimen name="spring_stiffness_medium">260</dimen>
+    <dimen name="spring_stiffness_low">180</dimen>
+    <dimen name="spring_damping_high">0.75</dimen>
+    <dimen name="spring_damping_medium">0.58</dimen>
+    <dimen name="spring_damping_low">0.45</dimen>
+
+    <!-- ===== Z-INDEX LAYERS ===== -->
+    <integer name="z_background">0</integer>
+    <integer name="z_scrim">1</integer>
+    <integer name="z_ambient">2</integer>
+    <integer name="z_content">10</integer>
+    <integer name="z_hero">20</integer>
+    <integer name="z_dock">30</integer>
+    <integer name="z_glass_highlight">40</integer>
+    <integer name="z_top_bar">50</integer>
+    <integer name="z_popup">100</integer>
+    <integer name="z_modal">200</integer>
+    <integer name="z_toast">300</integer>
+
+    <!-- ===== LEGACY COMPATIBILITY ===== -->
+    <dimen name="legacy_grid_padding_start">264dp</dimen>
+    <dimen name="legacy_grid_padding_end">264dp</dimen>
+    <dimen name="legacy_dock_item_size">56dp</dimen>
+    <dimen name="legacy_dock_shadow_size">120dp</dimen>
+    <dimen name="legacy_dock_shadow_offset">-26dp</dimen>
+    <dimen name="legacy_card_corner">8dp</dimen>
+    <dimen name="legacy_dock_corner_ratio">0.225</dimen>
+    <dimen name="legacy_focus_scale">1.10</dimen>
+</resources>

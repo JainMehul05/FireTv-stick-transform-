@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium Content Card Layout (Movies/TV Shows) -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:padding="@dimen/space_2">
+
+    <!-- Main card with artwork -->
+    <FrameLayout
+        android:id="@+id/card"
+        android:layout_width="@dimen/content_card_width"
+        android:layout_height="@dimen/content_card_height"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/bg_content_card"
+        android:focusable="true"
+        android:clickable="true"
+        android:clipToOutline="true">
+
+        <!-- Artwork (poster) -->
+        <ImageView
+            android:id="@+id/artwork"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
+            android:clipToOutline="true" />
+
+        <!-- Gradient overlay for text readability -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_content_card_overlay" />
+
+        <!-- Content info at bottom -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="@dimen/space_3">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.TvHome.Title.Small"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <!-- Subtitle/Metadata -->
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_1"
+                android:textAppearance="@style/TextAppearance.TvHome.Caption"
+                android:textColor="@color/text_tertiary"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Focus indicator badge (top-right) -->
+        <ImageView
+            android:id="@+id/focusBadge"
+            android:layout_width="@dimen/icon_xs"
+            android:layout_height="@dimen/icon_xs"
+            android:layout_gravity="top|end"
+            android:layout_margin="@dimen/space_2"
+            android:src="@drawable/ic_focus_badge"
+            android:visibility="gone"
+            android:importantForAccessibility="no" />
+    </FrameLayout>
+</FrameLayout>

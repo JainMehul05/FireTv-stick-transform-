@@ -32,6 +32,30 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".AppLibraryActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|uiMode"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.TvHome" />
+
+        <activity
+            android:name=".WallpaperPickerActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|uiMode"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.TvHome" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|uiMode"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.TvHome" />
+
         <!-- Screensaver: the Manhattan photos with a slow zoom and a clock. Selected over adb, see the class. -->
         <service
             android:name=".PhotoDream"

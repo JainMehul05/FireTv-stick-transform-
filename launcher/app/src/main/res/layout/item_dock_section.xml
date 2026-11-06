@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dock Section Item Layout -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin_dock_bottom">
+
+    <!-- Floating Dock RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dockRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginStart="@dimen/margin_dock_side"
+        android:layout_marginEnd="@dimen/margin_dock_side"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:paddingTop="@dimen/space_4"
+        android:paddingBottom="@dimen/space_4"
+        android:descendantFocusability="afterDescendants" />
+
+    <!-- Dock focus indicator dot (positioned programmatically) -->
+    <View
+        android:id="@+id/dockDot"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/space_10"
+        android:alpha="0"
+        android:background="@drawable/bg_dock_dot"
+        android:importantForAccessibility="no" />
+
+    <!-- Hero name tooltip above focused dock icon (positioned programmatically) -->
+    <TextView
+        android:id="@+id/heroName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/space_20"
+        android:alpha="0"
+        android:background="@drawable/bg_dock_label"
+        android:paddingStart="@dimen/space_4"
+        android:paddingEnd="@dimen/space_4"
+        android:paddingTop="@dimen/space_2"
+        android:paddingBottom="@dimen/space_2"
+        android:textAppearance="@style/TextAppearance.TvHome.DockLabel"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxWidth="200dp"
+        android:importantForAccessibility="no" />
+</FrameLayout>

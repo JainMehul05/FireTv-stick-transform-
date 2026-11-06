@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium grid item background (app library, etc.) -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused: scaled with accent glow -->
+    <item android:state_focused="true">
+        <layer-list>
+            <!-- Outer glow -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/focus_glow" />
+                    <corners android:radius="@dimen/radius_card" />
+                    <padding android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="4dp" />
+                </shape>
+            </item>
+            <!-- Main grid item -->
+            <item android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="4dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#1EFFFFFF"
+                        android:centerColor="#141A1A2E"
+                        android:endColor="#0D0D0D1A" />
+                    <stroke android:width="1.5dp" android:color="@color/focus_primary" />
+                    <corners android:radius="@dimen/radius_card" />
+                </shape>
+            </item>
+            <!-- Inner highlight (~45% height) -->
+            <item android:left="6dp" android:top="6dp" android:right="6dp" android:bottom="80dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#14FFFFFF"
+                        android:endColor="#00FFFFFF" />
+                    <corners
+                        android:topLeftRadius="@dimen/radius_card"
+                        android:topRightRadius="@dimen/radius_card"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="0dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Pressed -->
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#14FFFFFF"
+                        android:centerColor="#0D1A1A2E"
+                        android:endColor="#080D0D1A" />
+                    <stroke android:width="1dp" android:color="@color/border_default" />
+                    <corners android:radius="@dimen/radius_card" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="10dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#06FFFFFF"
+                        android:endColor="#00FFFFFF" />
+                    <corners
+                        android:topLeftRadius="@dimen/radius_card"
+                        android:topRightRadius="@dimen/radius_card"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="0dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Default: subtle card -->
+    <item>
+        <layer-list>
+            <!-- Subtle shadow -->
+            <item android:top="2dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#1A000000" />
+                    <corners android:radius="@dimen/radius_card" />
+                </shape>
+            </item>
+            <!-- Main card -->
+            <item android:bottom="2dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/bg_card" />
+                    <stroke android:width="0.5dp" android:color="@color/border_subtle" />
+                    <corners android:radius="@dimen/radius_card" />
+                </shape>
+            </item>
+            <!-- Inner highlight (~45% height) -->
+            <item android:left="1dp" android:top="1dp" android:right="1dp" android:bottom="80dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#06FFFFFF"
+                        android:endColor="#00FFFFFF" />
+                    <corners
+                        android:topLeftRadius="@dimen/radius_card"
+                        android:topRightRadius="@dimen/radius_card"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="0dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

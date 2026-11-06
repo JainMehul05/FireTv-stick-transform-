@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium dock label tooltip - liquid glass capsule -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:startColor="#CC2A2A3E"
+        android:centerColor="#CC1E1E30"
+        android:endColor="#CC141424" />
+    <stroke android:width="1dp" android:color="@color/border_default" />
+    <corners android:radius="@dimen/radius_pill" />
+</shape>

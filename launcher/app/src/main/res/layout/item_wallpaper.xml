@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Wallpaper Grid Item Layout -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:padding="@dimen/space_2">
+
+    <FrameLayout
+        android:id="@+id/card"
+        android:layout_width="280dp"
+        android:layout_height="158dp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/bg_wallpaper_item"
+        android:focusable="true"
+        android:clickable="true"
+        android:clipToOutline="true">
+
+        <ImageView
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
+            android:clipToOutline="true" />
+
+        <!-- Selection overlay -->
+        <View
+            android:id="@+id/selectionOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_wallpaper_selection"
+            android:visibility="gone"
+            android:clipToOutline="true" />
+
+        <!-- Checkmark -->
+        <ImageView
+            android:id="@+id/checkmark"
+            android:layout_width="@dimen/icon_xl"
+            android:layout_height="@dimen/icon_xl"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_checkmark"
+            android:visibility="gone"
+            android:importantForAccessibility="no" />
+
+        <!-- Label -->
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:padding="@dimen/space_3"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.TvHome.CardLabel"
+            android:background="#80000000" />
+    </FrameLayout>
+</FrameLayout>

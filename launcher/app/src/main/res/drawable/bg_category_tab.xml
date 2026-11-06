@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Category tab default state -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/focus_glow_strong" />
+                    <corners android:radius="@dimen/radius_md" />
+                    <padding android:left="3dp" android:top="3dp" android:right="3dp" android:bottom="3dp" />
+                </shape>
+            </item>
+            <item android:left="3dp" android:top="3dp" android:right="3dp" android:bottom="3dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#33FFFFFF"
+                        android:centerColor="#221E1E30"
+                        android:endColor="#1A141424" />
+                    <stroke android:width="2dp" android:color="@color/focus_primary" />
+                    <corners android:radius="@dimen/radius_md" />
+                </shape>
+            </item>
+            <item android:left="5dp" android:top="5dp" android:right="5dp" android:bottom="15dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#26FFFFFF"
+                        android:endColor="#00FFFFFF" />
+                    <corners
+                        android:topLeftRadius="@dimen/radius_md"
+                        android:topRightRadius="@dimen/radius_md"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="0dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_selected="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#3300D4FF" />
+                    <corners android:radius="@dimen/radius_md" />
+                </shape>
+            </item>
+            <item android:left="1dp" android:top="1dp" android:right="1dp" android:bottom="1dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#2200D4FF"
+                        android:centerColor="#121A1A3E"
+                        android:endColor="#0C0D0D1A" />
+                    <stroke android:width="1.5dp" android:color="@color/focus_primary" />
+                    <corners android:radius="@dimen/radius_md" />
+                </shape>
+            </item>
+            <item android:left="3dp" android:top="3dp" android:right="3dp" android:bottom="15dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#1A00D4FF"
+                        android:endColor="#0000D4FF" />
+                    <corners
+                        android:topLeftRadius="@dimen/radius_md"
+                        android:topRightRadius="@dimen/radius_md"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="0dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" />
+            <corners android:radius="@dimen/radius_md" />
+        </shape>
+    </item>
+</selector>

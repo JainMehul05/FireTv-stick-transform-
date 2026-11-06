@@ -1,21 +1,360 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Premium Cinematic Theme System
+  Complete visual language for the Fire TV Launcher
+-->
 <resources>
+    <!-- ===== BASE THEME ===== -->
     <style name="Theme.TvHome" parent="android:Theme.Material.NoActionBar.Fullscreen">
-        <item name="android:windowBackground">@android:color/black</item>
-        <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:windowBackground">@color/bg_deep_navy</item>
+        <item name="android:colorBackground">@color/bg_deep_navy</item>
         <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorTertiary">@color/text_tertiary</item>
     </style>
 
-    <!-- Frosted pill, tvOS style. -->
-    <!-- Round icon-only variant: 42dp circle, 22dp icon centred by equal padding. -->
-    <style name="TopIconButton" parent="TopButton">
+    <!-- ===== TEXT APPEARANCES ===== -->
+    <!-- Display / Hero -->
+    <style name="TextAppearance.TvHome.Display" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_display</item>
+        <item name="android:fontFamily">@font/outfit</item>
+        <item name="android:fontWeight">300</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_display</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineHeight">@dimen/text_size_9xl</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Display.Medium" parent="TextAppearance.TvHome.Display">
+        <item name="android:textSize">@dimen/text_size_7xl</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Display.Small" parent="TextAppearance.TvHome.Display">
+        <item name="android:textSize">@dimen/text_size_6xl</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+
+    <!-- Headline -->
+    <style name="TextAppearance.TvHome.Headline" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_headline</item>
+        <item name="android:fontFamily">@font/outfit</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_headline</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineHeight">@dimen/text_size_6xl</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Headline.Medium" parent="TextAppearance.TvHome.Headline">
+        <item name="android:textSize">@dimen/text_size_5xl</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Headline.Small" parent="TextAppearance.TvHome.Headline">
+        <item name="android:textSize">@dimen/text_size_4xl</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+
+    <!-- Title -->
+    <style name="TextAppearance.TvHome.Title" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_normal</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:lineHeight">@dimen/text_size_3xl</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Title.Medium" parent="TextAppearance.TvHome.Title">
+        <item name="android:textSize">@dimen/text_size_3xl</item>
+        <item name="android:fontWeight">600</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Title.Small" parent="TextAppearance.TvHome.Title">
+        <item name="android:textSize">@dimen/text_size_2xl</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+
+    <!-- Body -->
+    <style name="TextAppearance.TvHome.Body" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_body</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_normal</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:lineHeight">@dimen/text_size_2xl</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Body.Large" parent="TextAppearance.TvHome.Body">
+        <item name="android:textSize">@dimen/text_size_lg</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Body.Small" parent="TextAppearance.TvHome.Body">
+        <item name="android:textSize">@dimen/text_size_sm</item>
+        <item name="android:textColor">@color/text_tertiary</item>
+    </style>
+
+    <!-- Caption / Overline -->
+    <style name="TextAppearance.TvHome.Caption" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_caption</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_caption</item>
+        <item name="android:textColor">@color/text_tertiary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Overline" parent="TextAppearance.TvHome.Caption">
+        <item name="android:textSize">@dimen/text_size_overline</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_overline</item>
+    </style>
+
+    <!-- Clock (special large display) -->
+    <style name="TextAppearance.TvHome.Clock" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_clock</item>
+        <item name="android:fontFamily">@font/outfit</item>
+        <item name="android:fontWeight">300</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_display</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.TvHome.Clock.AmPm" parent="TextAppearance.TvHome.Clock">
+        <item name="android:textSize">@dimen/text_size_3xl</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_wide</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Dock Label -->
+    <style name="TextAppearance.TvHome.DockLabel" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_dock_label</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_normal</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- Card Label -->
+    <style name="TextAppearance.TvHome.CardLabel" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_card_label</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_normal</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- Button Text -->
+    <style name="TextAppearance.TvHome.Button" parent="android:TextAppearance">
+        <item name="android:textSize">@dimen/text_size_lg</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:letterSpacing">@dimen/letter_spacing_normal</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- ===== BUTTON STYLES ===== -->
+    <!-- Top Bar Icon Button (frosted circle) -->
+    <style name="TvHomeWidgetTopIconButton">
+        <item name="android:layout_width">@dimen/icon_xl</item>
+        <item name="android:layout_height">@dimen/icon_xl</item>
+        <item name="android:background">@drawable/bg_top_icon_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">@dimen/space_2</item>
+    </style>
+
+    <!-- Top Bar Pill Button (with text) -->
+    <style name="TvHomeWidgetTopPillButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/icon_xl</item>
+        <item name="android:background">@drawable/bg_top_pill_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:paddingStart">@dimen/padding_pill_h</item>
+        <item name="android:paddingEnd">@dimen/padding_pill_h</item>
+        <item name="android:drawablePadding">@dimen/space_2</item>
+        <item name="android:textAppearance">@style/TextAppearance.TvHome.Button</item>
+    </style>
+
+    <!-- Glass Panel Button (for popups) -->
+    <style name="TvHomeWidgetGlassButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/popup_item_height</item>
+        <item name="android:background">@drawable/bg_glass_button</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:paddingStart">@dimen/space_4</item>
+        <item name="android:paddingEnd">@dimen/space_4</item>
+        <item name="android:textAppearance">@style/TextAppearance.TvHome.Body.Large</item>
+    </style>
+
+    <!-- Content Card (focusable) -->
+    <style name="TvHomeWidgetContentCard">
+        <item name="android:layout_width">@dimen/content_card_width</item>
+        <item name="android:layout_height">@dimen/content_card_height</item>
+        <item name="android:background">@drawable/bg_content_card</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:clipToOutline">true</item>
+    </style>
+
+    <!-- Dock Item -->
+    <style name="TvHomeWidgetDockItem">
+        <item name="android:layout_width">@dimen/icon_dock</item>
+        <item name="android:layout_height">@dimen/icon_dock</item>
+        <item name="android:background">@drawable/bg_dock_item</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:clipToOutline">true</item>
+    </style>
+
+    <!-- Grid Item -->
+    <style name="TvHomeWidgetGridItem">
+        <item name="android:layout_width">@dimen/grid_item_width</item>
+        <item name="android:layout_height">@dimen/grid_item_height</item>
+        <item name="android:background">@drawable/bg_grid_item</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:clipToOutline">true</item>
+    </style>
+
+    <!-- ===== CONTAINER STYLES ===== -->
+    <!-- Hero Section Container -->
+    <style name="TvHomeWidgetHeroContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/hero_height</item>
+        <item name="android:paddingStart">@dimen/hero_padding_start</item>
+        <item name="android:paddingEnd">@dimen/hero_padding_end</item>
+        <item name="android:paddingBottom">@dimen/hero_padding_bottom</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">bottom|start</item>
+    </style>
+
+    <!-- Dock Container -->
+    <style name="TvHomeWidgetDockContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/margin_dock_side</item>
+        <item name="android:paddingEnd">@dimen/margin_dock_side</item>
+        <item name="android:paddingBottom">@dimen/margin_dock_bottom</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+        <item name="android:clipChildren">false</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
+    <!-- Glass Panel (for popups, sheets) -->
+    <style name="TvHomeWidgetGlassPanel">
+        <item name="android:background">@drawable/bg_glass_panel</item>
+        <item name="android:padding">@dimen/space_3</item>
+        <item name="android:elevation">@dimen/elevation_popup</item>
+    </style>
+
+    <!-- ===== DIVIDERS ===== -->
+    <style name="TvHomeWidgetDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/divider</item>
+        <item name="android:layout_marginStart">@dimen/space_4</item>
+        <item name="android:layout_marginEnd">@dimen/space_4</item>
+        <item name="android:layout_marginTop">@dimen/space_2</item>
+        <item name="android:layout_marginBottom">@dimen/space_2</item>
+    </style>
+
+    <style name="TvHomeWidgetDividerVertical">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginTop">@dimen/space_4</item>
+        <item name="android:layout_marginBottom">@dimen/space_4</item>
+    </style>
+
+    <!-- ===== SCROLLBARS ===== -->
+    <style name="TvHomeWidgetScrollbar">
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
+        <item name="android:scrollbarTrackVertical">@android:color/transparent</item>
+        <item name="android:scrollbarSize">4dp</item>
+        <item name="android:scrollbarFadeDuration">300</item>
+        <item name="android:scrollbarDefaultDelayBeforeFade">1000</item>
+    </style>
+
+    <!-- ===== FOCUS INDICATORS ===== -->
+    <style name="TvHomeWidgetFocusRing">
+        <item name="android:background">@drawable/bg_focus_ring</item>
+    </style>
+
+    <!-- ===== ANIMATION STYLES ===== -->
+    <style name="TvHomeAnimationFadeIn">
+        <item name="android:duration">@integer/anim_duration_normal</item>
+        <item name="android:interpolator">@android:interpolator/decelerate_cubic</item>
+    </style>
+
+    <style name="TvHomeAnimationFadeOut">
+        <item name="android:duration">@integer/anim_duration_normal</item>
+        <item name="android:interpolator">@android:interpolator/accelerate_cubic</item>
+    </style>
+
+    <style name="TvHomeAnimationSlideUp">
+        <item name="android:duration">@integer/anim_duration_medium</item>
+        <item name="android:interpolator">@android:interpolator/decelerate_cubic</item>
+    </style>
+
+    <style name="TvHomeAnimationSlideDown">
+        <item name="android:duration">@integer/anim_duration_medium</item>
+        <item name="android:interpolator">@android:interpolator/accelerate_cubic</item>
+    </style>
+
+    <style name="TvHomeAnimationScaleUp">
+        <item name="android:duration">@integer/anim_duration_normal</item>
+        <item name="android:interpolator">@android:interpolator/decelerate_cubic</item>
+    </style>
+
+    <style name="TvHomeAnimationCrossfade">
+        <item name="android:duration">@integer/anim_duration_crossfade</item>
+        <item name="android:interpolator">@android:interpolator/decelerate_quint</item>
+    </style>
+
+    <style name="TvHomeAnimationHeroTransition">
+        <item name="android:duration">@integer/anim_duration_hero_transition</item>
+        <item name="android:interpolator">@android:interpolator/decelerate_quint</item>
+    </style>
+
+    <style name="TvHomeAnimationScreenTransition">
+        <item name="android:duration">@integer/anim_duration_screen_transition</item>
+        <item name="android:interpolator">@android:interpolator/decelerate_quint</item>
+    </style>
+
+    <!-- ===== LEGACY COMPATIBILITY STYLES (keep for gradual migration) ===== -->
+    <style name="TopIconButton" parent="TvHomeWidgetTopIconButton">
         <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
         <item name="android:paddingStart">10dp</item>
         <item name="android:paddingEnd">10dp</item>
         <item name="android:drawablePadding">0dp</item>
     </style>
 
-    <style name="TopButton">
+    <style name="TopButton" parent="TvHomeWidgetTopPillButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">42dp</item>
         <item name="android:layout_marginStart">10dp</item>
@@ -26,11 +365,29 @@
         <item name="android:textColor">@drawable/pill_text</item>
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/open_sans</item>
-        <item name="android:fontVariationSettings">\'wght\' 500</item>
+        <item name="android:fontVariationSettings">\"wght\" 500</item>
         <item name="android:letterSpacing">0.01</item>
         <item name="android:drawablePadding">9dp</item>
         <item name="android:drawableTint">@drawable/pill_text</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
+    </style>
+
+    <!-- ===== WIDGET OVERRIDES ===== -->
+    <style name="TvHomeWidgetRecyclerView">
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:clipChildren">false</item>
+        <item name="android:descendantFocusability">afterDescendants</item>
+    </style>
+
+    <style name="TvHomeWidgetImageViewHero">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
+    <style name="TvHomeWidgetTextClock">
+        <item name="android:textAppearance">@style/TextAppearance.TvHome.Clock</item>
     </style>
 </resources>

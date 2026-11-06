@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Category Tab Item Layout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingStart="@dimen/space_5"
+    android:paddingEnd="@dimen/space_5"
+    android:paddingTop="@dimen/space_3"
+    android:paddingBottom="@dimen/space_3"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="@drawable/bg_category_tab">
+
+    <ImageView
+        android:id="@+id/categoryIcon"
+        android:layout_width="@dimen/icon_lg"
+        android:layout_height="@dimen/icon_lg"
+        android:tint="@color/text_secondary"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/categoryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_2"
+        android:textAppearance="@style/TextAppearance.TvHome.Caption"
+        android:textColor="@color/text_secondary"
+        android:maxLines="1"
+        android:ellipsize="end" />
+</LinearLayout>

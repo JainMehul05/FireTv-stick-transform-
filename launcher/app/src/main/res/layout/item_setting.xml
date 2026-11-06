@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings Item Layout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="@dimen/space_4"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="@drawable/bg_glass_button">
+
+    <ImageView
+        android:id="@+id/settingIcon"
+        android:layout_width="@dimen/icon_lg"
+        android:layout_height="@dimen/icon_lg"
+        android:layout_marginEnd="@dimen/space_4"
+        android:tint="@color/text_secondary"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/settingTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.TvHome.Body.Large"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/settingSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_1"
+            android:textAppearance="@style/TextAppearance.TvHome.Caption"
+            android:textColor="@color/text_tertiary"
+            android:maxLines="2"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/icon_md"
+        android:layout_height="@dimen/icon_md"
+        android:layout_marginStart="@dimen/space_4"
+        android:src="@drawable/ic_right"
+        android:tint="@color/text_quaternary"
+        android:contentDescription="@null" />
+</LinearLayout>

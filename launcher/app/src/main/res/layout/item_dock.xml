@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium Dock Item Layout -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingTop="@dimen/space_2"
+    android:paddingBottom="@dimen/space_2">
+
+    <!-- Drop shadow (positioned behind the card) -->
+    <ImageView
+        android:id="@+id/shadow"
+        android:layout_width="@dimen/icon_dock"
+        android:layout_height="@dimen/icon_dock"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="@dimen/space_3"
+        android:src="@drawable/dock_shadow"
+        android:alpha="0.4"
+        android:visibility="visible"
+        android:importantForAccessibility="no" />
+
+    <!-- Main card with premium glass background -->
+    <FrameLayout
+        android:id="@+id/card"
+        android:layout_width="@dimen/icon_dock"
+        android:layout_height="@dimen/icon_dock"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/bg_dock_item"
+        android:focusable="true"
+        android:clickable="true"
+        android:clipToOutline="true">
+
+        <!-- Square artwork (for apps with custom dock icons) -->
+        <ImageView
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
+            android:clipToOutline="true" />
+
+        <!-- Regular app icon (fallback) -->
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/icon_lg"
+            android:layout_height="@dimen/icon_lg"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:contentDescription="@null" />
+
+        <!-- Label overlay (shown on focus for apps without square art) -->
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:paddingStart="@dimen/space_3"
+            android:paddingEnd="@dimen/space_3"
+            android:paddingBottom="@dimen/space_3"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.TvHome.CardLabel"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <!-- Name tooltip below the dock item (shown on focus) -->
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="@dimen/icon_dock"
+        android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:alpha="0"
+        android:translationY="@dimen/space_2"
+        android:textAppearance="@style/TextAppearance.TvHome.DockLabel" />
+</FrameLayout>

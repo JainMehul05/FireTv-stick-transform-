@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Content Row Layout (Header + Horizontal RecyclerView) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/space_4">
+
+    <!-- Header -->
+    <include
+        android:id="@+id/contentRowHeader"
+        layout="@layout/item_content_row_header" />
+
+    <!-- Horizontal RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/contentRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_6"
+        android:layout_marginEnd="@dimen/space_6"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:paddingTop="@dimen/space_2"
+        android:paddingBottom="@dimen/space_2"
+        android:descendantFocusability="afterDescendants" />
+</LinearLayout>

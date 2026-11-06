@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium dock item background with squircle corners and glass effect -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused: lifted, magnified, with accent glow -->
+    <item android:state_focused="true">
+        <layer-list>
+            <!-- Outer glow (larger for focused state) -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/focus_glow_strong" />
+                    <corners android:radius="@dimen/radius_dock_item" />
+                    <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp" />
+                </shape>
+            </item>
+            <!-- Main dock item -->
+            <item android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#33FFFFFF"
+                        android:centerColor="#221E1E30"
+                        android:endColor="#1A141424" />
+                    <stroke android:width="2.5dp" android:color="@color/focus_primary" />
+                    <corners android:radius="@dimen/radius_dock_item" />
+                </shape>
+            </item>
+            <!-- Inner top highlight (~45% height) -->
+            <item android:left="10dp" android:top="10dp" android:right="10dp" android:bottom="32dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#2EFFFFFF"
+                        android:endColor="#00FFFFFF" />
+                    <corners
+                        android:topLeftRadius="@dimen/radius_dock_item"
+                        android:topRightRadius="@dimen/radius_dock_item"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="0dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Pressed -->
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#1AFFFFFF"
+                        android:centerColor="#0D2A2A3E"
+                        android:endColor="#081A1A2E" />
+                    <stroke android:width="1.5dp" android:color="@color/border_default" />
+                    <corners android:radius="@dimen/radius_dock_item" />
+                </shape>
+            </item>
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="10dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#10FFFFFF"
+                        android:endColor="#00FFFFFF" />
+                    <corners
+                        android:topLeftRadius="@dimen/radius_dock_item"
+                        android:topRightRadius="@dimen/radius_dock_item"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="0dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Default: subtle floating glass -->
+    <item>
+        <layer-list>
+            <!-- Subtle drop shadow -->
+            <item android:top="5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#26000000" />
+                    <corners android:radius="@dimen/radius_dock_item" />
+                </shape>
+            </item>
+            <!-- Main dock item -->
+            <item android:bottom="5dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#1AFFFFFF"
+                        android:centerColor="#0D1A1A2E"
+                        android:endColor="#080D0D1A" />
+                    <stroke android:width="1dp" android:color="@color/border_subtle" />
+                    <corners android:radius="@dimen/radius_dock_item" />
+                </shape>
+            </item>
+            <!-- Inner top highlight (~45% height) -->
+            <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="30dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="270"
+                        android:startColor="#12FFFFFF"
+                        android:endColor="#00FFFFFF" />
+                    <corners
+                        android:topLeftRadius="@dimen/radius_dock_item"
+                        android:topRightRadius="@dimen/radius_dock_item"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="0dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

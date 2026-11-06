@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium frosted glass panel background for popups, sheets, and overlays -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Subtle outer glow -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" />
+            <corners android:radius="@dimen/radius_xl" />
+            <padding android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp" />
+        </shape>
+    </item>
+    <!-- Main glass panel -->
+    <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="@color/bg_glass_panel"
+                android:centerColor="#CC141424"
+                android:endColor="#CC0D0D1A" />
+            <stroke android:width="1dp" android:color="@color/border_default" />
+            <corners android:radius="@dimen/radius_xl" />
+        </shape>
+    </item>
+    <!-- Inner highlight (top specular) - approx 40% height -->
+    <item android:left="3dp" android:top="3dp" android:right="3dp" android:bottom="160dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#1AFFFFFF"
+                android:endColor="#00FFFFFF" />
+            <corners
+                android:topLeftRadius="@dimen/radius_xl"
+                android:topRightRadius="@dimen/radius_xl"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+</layer-list>

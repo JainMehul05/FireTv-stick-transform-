@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Content Row Header Layout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/space_6"
+    android:paddingEnd="@dimen/space_4"
+    android:paddingTop="@dimen/space_2"
+    android:paddingBottom="@dimen/space_2">
+
+    <!-- Category icon -->
+    <ImageView
+        android:id="@+id/categoryIcon"
+        android:layout_width="@dimen/icon_lg"
+        android:layout_height="@dimen/icon_lg"
+        android:layout_marginEnd="@dimen/space_3"
+        android:tint="@color/accent_electric_blue"
+        android:contentDescription="@null" />
+
+    <!-- Category title -->
+    <TextView
+        android:id="@+id/categoryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.TvHome.Headline.Small"
+        android:textColor="@color/text_primary"
+        android:letterSpacing="0.02" />
+
+    <!-- See all indicator (optional) -->
+    <TextView
+        android:id="@+id/seeAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_4"
+        android:text="@string/see_all"
+        android:textAppearance="@style/TextAppearance.TvHome.Caption"
+        android:textColor="@color/accent_electric_blue"
+        android:visibility="gone" />
+</LinearLayout>

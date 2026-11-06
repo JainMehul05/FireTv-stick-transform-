@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Premium Cinematic Color System
+  Inspired by Apple TV, Google TV, and original navy/blue/purple cinematic aesthetic
+-->
+<resources>
+    <!-- ===== CORE BACKGROUNDS ===== -->
+    <color name="bg_deep_navy">#0A0E1A</color>
+    <color name="bg_charcoal">#0D111E</color>
+    <color name="bg_midnight">#141A2E</color>
+    <color name="bg_surface">#1A2030</color>
+    <color name="bg_surface_elevated">#1E263A</color>
+    <color name="bg_card">#1C2235</color>
+    <color name="bg_card_pressed">#242C42</color>
+    <color name="bg_glass">#1AFFFFFF</color>
+    <color name="bg_glass_strong">#26FFFFFF</color>
+    <color name="bg_glass_panel">#CC1A1A2E</color>
+    <color name="bg_scrim_top">#CC000000</color>
+    <color name="bg_scrim_mid">#40000000</color>
+    <color name="bg_scrim_bottom">#80000000</color>
+
+    <!-- ===== ACCENT COLORS ===== -->
+    <color name="accent_electric_blue">#00D4FF</color>
+    <color name="accent_electric_blue_dim">#8000D4FF</color>
+    <color name="accent_violet">#7C4DFF</color>
+    <color name="accent_violet_dim">#807C4DFF</color>
+    <color name="accent_purple">#BB86FC</color>
+    <color name="accent_purple_dim">#80BB86FC</color>
+    <color name="accent_teal">#00E5C7</color>
+    <color name="accent_amber">#FFB340</color>
+    <color name="accent_coral">#FF6B6B</color>
+    <color name="accent_emerald">#34C759</color>
+
+    <!-- ===== TEXT COLORS ===== -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#CCFFFFFF</color>
+    <color name="text_tertiary">#99FFFFFF</color>
+    <color name="text_quaternary">#66FFFFFF</color>
+    <color name="text_on_accent">#FF0A0E1A</color>
+    <color name="text_disabled">#4DFFFFFF</color>
+
+    <!-- ===== FOCUS & SELECTION ===== -->
+    <color name="focus_primary">#00D4FF</color>
+    <color name="focus_secondary">#7C4DFF</color>
+    <color name="focus_glow">#3300D4FF</color>
+    <color name="focus_glow_strong">#6600D4FF</color>
+    <color name="focus_ring">#00D4FF</color>
+    <color name="selection_bg">#3300D4FF</color>
+
+    <!-- ===== BORDERS & DIVIDERS ===== -->
+    <color name="border_subtle">#1AFFFFFF</color>
+    <color name="border_default">#2EFFFFFF</color>
+    <color name="border_strong">#40FFFFFF</color>
+    <color name="divider">#15FFFFFF</color>
+
+    <!-- ===== SEMANTIC COLORS ===== -->
+    <color name="success">#34C759</color>
+    <color name="warning">#FFB340</color>
+    <color name="error">#FF5A52</color>
+    <color name="info">#00D4FF</color>
+
+    <!-- ===== DOCK SPECIFIC ===== -->
+    <color name="dock_bg">#CC0D111E</color>
+    <color name="dock_bg_focused">#E60D111E</color>
+    <color name="dock_shadow">#66000000</color>
+    <color name="dock_label_bg">#CC2A2A3E</color>
+    <color name="dock_dot">#D9FFFFFF</color>
+
+    <!-- ===== HERO SECTION ===== -->
+    <color name="hero_overlay_start">#CC000000</color>
+    <color name="hero_overlay_mid">#40000000</color>
+    <color name="hero_overlay_end">#00000000</color>
+    <color name="hero_accent_gradient_start">#3300D4FF</color>
+    <color name="hero_accent_gradient_end">#337C4DFF</color>
+
+    <!-- ===== CARD GRADIENTS ===== -->
+    <color name="card_gradient_start">#1E263A</color>
+    <color name="card_gradient_end">#141A2E</color>
+    <color name="card_gradient_focused_start">#2A1E3A</color>
+    <color name="card_gradient_focused_end">#1E142E</color>
+
+    <!-- ===== STATE LAYERS ===== -->
+    <color name="state_layer_hover">#0DFFFFFF</color>
+    <color name="state_layer_focus">#1A00D4FF</color>
+    <color name="state_layer_press">#26FFFFFF</color>
+    <color name="state_layer_drag">#1A7C4DFF</color>
+
+    <!-- ===== LEGACY COMPATIBILITY (mapping old colors) ===== -->
+    <color name="legacy_black">#FF000000</color>
+    <color name="legacy_white">#FFFFFFFF</color>
+    <color name="legacy_greeting">#8CFFFFFF</color>
+    <color name="legacy_clock">#FFFFFFFF</color>
+    <color name="legacy_ampm">#B3FFFFFF</color>
+    <color name="legacy_date">#A6FFFFFF</color>
+    <color name="legacy_pill_bg_focused">#F5FFFFFF</color>
+    <color name="legacy_pill_bg_start">#2EFFFFFF</color>
+    <color name="legacy_pill_bg_end">#14FFFFFF</color>
+    <color name="legacy_pill_stroke">#38FFFFFF</color>
+    <color name="legacy_pill_text_focused">#FF111111</color>
+    <color name="legacy_pill_text">#FFFFFFFF</color>
+    <color name="legacy_pill_text_dim_focused">#99111111</color>
+    <color name="legacy_pill_text_dim">#73FFFFFF</color>
+    <color name="legacy_scrim_start">#B3000000</color>
+    <color name="legacy_scrim_center">#33000000</color>
+    <color name="legacy_scrim_end">#66000000</color>
+    <color name="legacy_glass_panel_start">#F22A2A2E</color>
+    <color name="legacy_glass_panel_end">#F5161618</color>
+    <color name="legacy_glass_panel_stroke">#33FFFFFF</color>
+    <color name="legacy_tile_bg">#FF1C1C1E</color>
+    <color name="legacy_dock_tile_start">#FF58585E</color>
+    <color name="legacy_dock_tile_end">#FF28282C</color>
+    <color name="legacy_dock_label_start">#B3545A66</color>
+    <color name="legacy_dock_label_end">#B33A3F49</color>
+    <color name="legacy_dock_label_stroke">#2EFFFFFF</color>
+    <color name="legacy_status_dot">#FF34C759</color>
+    <color name="legacy_input_row_focused">#F5FFFFFF</color>
+    <color name="legacy_wifi_warn">#FFFFB340</color>
+    <color name="legacy_wifi_error">#FFFF5A52</color>
+</resources>

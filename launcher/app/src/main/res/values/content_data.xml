@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sample content data for cinematic content rows -->
+<resources>
+    <!-- Featured Movies -->
+    <string-array name="featured_movie_titles">
+        <item>Dune: Part Two</item>
+        <item>Oppenheimer</item>
+        <item>The Batman</item>
+        <item>Top Gun: Maverick</item>
+        <item>Spider-Man: Across the Spider-Verse</item>
+        <item>Mission: Impossible - Dead Reckoning</item>
+    </string-array>
+
+    <string-array name="featured_movie_subtitles">
+        <item>2024 • Sci-Fi • 2h 46m</item>
+        <item>2023 • Biography • 3h 0m</item>
+        <item>2022 • Action • 2h 56m</item>
+        <item>2022 • Action • 2h 10m</item>
+        <item>2023 • Animation • 2h 20m</item>
+        <item>2023 • Action • 2h 43m</item>
+    </string-array>
+
+    <array name="featured_movie_artwork">
+        <item>@drawable/saver_01</item>
+        <item>@drawable/saver_02</item>
+        <item>@drawable/saver_03</item>
+        <item>@drawable/saver_04</item>
+        <item>@drawable/saver_05</item>
+        <item>@drawable/saver_06</item>
+    </array>
+
+    <!-- Featured TV Shows -->
+    <string-array name="featured_tv_titles">
+        <item>The Last of Us</item>
+        <item>Shogun</item>
+        <item>Fallout</item>
+        <item>House of the Dragon</item>
+        <item>Severance</item>
+        <item>The Bear</item>
+    </string-array>
+
+    <string-array name="featured_tv_subtitles">
+        <item>2023 • Drama • 1 Season</item>
+        <item>2024 • Historical • 1 Season</item>
+        <item>2024 • Sci-Fi • 1 Season</item>
+        <item>2022 • Fantasy • 2 Seasons</item>
+        <item>2022 • Thriller • 2 Seasons</item>
+        <item>2022 • Comedy • 2 Seasons</item>
+    </string-array>
+
+    <array name="featured_tv_artwork">
+        <item>@drawable/saver_07</item>
+        <item>@drawable/saver_08</item>
+        <item>@drawable/saver_09</item>
+        <item>@drawable/saver_10</item>
+        <item>@drawable/saver_11</item>
+        <item>@drawable/saver_12</item>
+    </array>
+
+    <!-- Continue Watching (sample) -->
+    <string-array name="continue_watching_titles">
+        <item>The Crown</item>
+        <item>Stranger Things</item>
+        <item>Wednesday</item>
+        <item>Andor</item>
+    </string-array>
+
+    <string-array name="continue_watching_subtitles">
+        <item>Season 5 • Episode 3</item>
+        <item>Season 4 • Episode 7</item>
+        <item>Season 1 • Episode 5</item>
+        <item>Season 1 • Episode 8</item>
+    </string-array>
+
+    <array name="continue_watching_artwork">
+        <item>@drawable/saver_01</item>
+        <item>@drawable/saver_02</item>
+        <item>@drawable/saver_03</item>
+        <item>@drawable/saver_04</item>
+    </array>
+
+    <!-- Categories for app library -->
+    <string-array name="app_categories">
+        <item>Streaming</item>
+        <item>Entertainment</item>
+        <item>Music</item>
+        <item>Games</item>
+        <item>Utilities</item>
+        <item>System</item>
+    </string-array>
+
+    <array name="app_category_icons">
+        <item>@drawable/ic_streaming</item>
+        <item>@drawable/ic_entertainment</item>
+        <item>@drawable/ic_music</item>
+        <item>@drawable/ic_games</item>
+        <item>@drawable/ic_utilities</item>
+        <item>@drawable/ic_system</item>
+    </array>
+
+    <!-- Hero featured content -->
+    <string name="hero_featured_title">Dune: Part Two</string>
+    <string name="hero_featured_subtitle">2024 • Sci-Fi/Adventure • 2h 46m</string>
+    <string name="hero_featured_category">FEATURED</string>
+</resources>
